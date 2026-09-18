@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+
+<title>Mind Master 🧠</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, #243b72, #0b1020 55%);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+}
+
+.game {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(17, 25, 45, 0.96);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    font-size: 45px;
+}
+
+h1 {
+    font-size: 32px;
+    margin-top: 5px;
+}
+
+.subtitle {
+    color: #aab4ca;
+    margin-top: 6px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 20px 0;
+}
+
+.stat {
+    background: #202b46;
+    border-radius: 14px;
+    padding: 11px 5px;
+    text-align: center;
+}
+
+.stat small {
+    display: block;
+    color: #9aa7c0;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.stat strong {
+    font-size: 17px;
+}
+
+#message {
+    text-align: center;
+    min-height: 28px;
+    margin: 18px 0 10px;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.sequence-box {
+    background: #0c1325;
+    border-radius: 18px;
+    min-height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+#sequence {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 7px;
+    text-align: center;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 11px;
+    max-width: 360px;
+    margin: auto;
+}
+
+.number {
+    height: 72px;
+    border: 0;
+    border-radius: 17px;
+    background: #293653;
+    color: white;
+    font-size: 25px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.12s;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.18);
+}
+
+.number:hover {
+    background: #344464;
+}
+
+.number:active {
+    transform: scale(0.93);
+}
+
+.number:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.number.correct {
+    background: #159f68;
+}
+
+.number.wrong {
+    background: #d63955;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.control {
+    flex: 1;
+    min-height: 48px;
+    border: 0;
+    border-radius: 13px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.start {
+    background: #18b875;
+    color: white;
+}
+
+.reset {
+    background: #303c57;
+    color: white;
+}
+
+.progress {
+    height: 7px;
+    background: #293653;
+    border-radius: 20px;
+    margin-top: 18px;
+    overflow: hidden;
+}
+
+#progressBar {
+    height: 100%;
+    width: 0%;
+    background: #18b875;
+    transition: width 0.2s;
+}
+
+.tip {
+    text-align: center;
+    color: #8996ae;
+    font-size: 12px;
+    margin-top: 14px;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4,7,16,0.88);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 10;
+}
+
+.modal {
+    width: 100%;
+    max-width: 400px;
+    background: #182238;
+    border-radius: 24px;
+    padding: 30px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.modal-icon {
+    font-size: 55px;
+}
+
+.modal h2 {
+    margin: 10px 0;
+    font-size: 28px;
+}
+
+.final-score {
+    font-size: 42px;
+    font-weight: 900;
+    margin: 15px 0;
+}
+
+.modal button {
+    width: 100%;
+    height: 50px;
+    border: 0;
+    border-radius: 13px;
+    background: #18b875;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+@media (max-width: 400px) {
+
+    .game {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+
+    .number {
+        height: 65px;
+    }
+
+    #sequence {
+        font-size: 27px;
+        letter-spacing: 4px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+
+    <div class="header">
+        <div class="logo">🧠</div>
+        <h1>Mind Master</h1>
+        <p class="subtitle">Train your memory. Beat your score.</p>
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <small>LEVEL</small>
+            <strong id="level">1</strong>
+        </div>
+
+        <div class="stat">
+            <small>SCORE</small>
+            <strong id="score">0</strong>
+        </div>
+
+        <div class="stat">
+            <small>LIVES</small>
+            <strong id="lives">❤️❤️❤️</strong>
+        </div>
+
+        <div class="stat">
+            <small>BEST</small>
+            <strong id="best">0</strong>
+        </div>
+
+    </div>
+
+    <div id="message">
+        Press Start to begin your challenge!
+    </div>
+
+    <div class="sequence-box">
+        <div id="sequence">—</div>
+    </div>
+
+    <div class="buttons">
+
+        <button class="number" data-number="1">1</button>
+        <button class="number" data-number="2">2</button>
+        <button class="number" data-number="3">3</button>
+
+        <button class="number" data-number="4">4</button>
+        <button class="number" data-number="5">5</button>
+        <button class="number" data-number="6">6</button>
+
+        <button class="number" data-number="7">7</button>
+        <button class="number" data-number="8">8</button>
+        <button class="number" data-number="9">9</button>
+
+    </div>
+
+    <div class="progress">
+        <div id="progressBar"></div>
+    </div>
+
+    <div class="controls">
+
+        <button class="control start" id="startButton">
+            ▶ Start Game
+        </button>
+
+        <button class="control reset" id="resetButton">
+            ↻ Reset
+        </button>
+
+    </div>
+
+    <p class="tip">
+        Remember the sequence and tap the numbers in the exact same order.
+    </p>
+
+</div>
+
+
+<!-- GAME OVER WINDOW -->
+
+<div class="overlay" id="gameOver">
+
+    <div class="modal">
+
+        <div class="modal-icon">🏆</div>
+
+        <h2>Game Over!</h2>
+
+        <p>Your final score</p>
+
+        <div class="final-score" id="finalScore">
+            0
+        </div>
+
+        <p id="bestMessage"></p>
+
+        <br>
+
+        <button id="playAgain">
+            🔥 Play Again
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   GAME VARIABLES
+========================= */
+
+let level = 1;
+let score = 0;
+let lives = 3;
+
+let sequence = [];
+let playerSequence = [];
+
+let playing = false;
+let acceptingInput = false;
+
+let timer;
+let countdownTimer;
+
+
+/* =========================
+   HTML ELEMENTS
+========================= */
+
+const levelText =
+    document.getElementById("level");
+
+const scoreText =
+    document.getElementById("score");
+
+const livesText =
+    document.getElementById("lives");
+
+const bestText =
+    document.getElementById("best");
+
+const message =
+    document.getElementById("message");
+
+const sequenceText =
+    document.getElementById("sequence");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const startButton =
+    document.getElementById("startButton");
+
+const resetButton =
+    document.getElementById("resetButton");
+
+const gameOver =
+    document.getElementById("gameOver");
+
+const finalScore =
+    document.getElementById("finalScore");
+
+const bestMessage =
+    document.getElementById("bestMessage");
+
+const playAgain =
+    document.getElementById("playAgain");
+
+const numberButtons =
+    document.querySelectorAll(".number");
+
+
+/* =========================
+   HIGH SCORE
+========================= */
+
+let bestScore =
+    Number(localStorage.getItem("mindMasterBest")) || 0;
+
+bestText.textContent = bestScore;
+
+
+/* =========================
+   SOUND SYSTEM
+========================= */
+
+let audioContext = null;
+
+
+function startAudio() {
+
+    if (!audioContext) {
+
+        audioContext =
+            new (window.AudioContext ||
+            window.webkitAudioContext)();
+
+    }
+
+    if (audioContext.state === "suspended") {
+        audioContext.resume();
+    }
+}
+
+
+function sound(frequency, duration = 0.12) {
+
+    try {
+
+        startAudio();
+
+        const oscillator =
+            audioContext.createOscillator();
+
+        const gain =
+            audioContext.createGain();
+
+        oscillator.frequency.value =
+            frequency;
+
+        oscillator.type = "sine";
+
+        gain.gain.setValueAtTime(
+            0.12,
+            audioContext.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + duration
+        );
+
+        oscillator.connect(gain);
+
+        gain.connect(audioContext.destination);
+
+        oscillator.start();
+
+        oscillator.stop(
+            audioContext.currentTime + duration
+        );
+
+    } catch (error) {
+
+        console.log("Sound unavailable");
+
+    }
+
+}
+
+
+/* =========================
+   VIBRATION
+========================= */
+
+function vibrate(pattern) {
+
+    if ("vibrate" in navigator) {
+
+        navigator.vibrate(pattern);
+
+    }
+
+}
+
+
+/* =========================
+   UPDATE SCREEN
+========================= */
+
+function updateStats() {
+
+    levelText.textContent = level;
+
+    scoreText.textContent = score;
+
+    livesText.textContent =
+        "❤️".repeat(lives);
+
+    bestText.textContent =
+        bestScore;
+
+}
+
+
+/* =========================
+   CREATE RANDOM SEQUENCE
+========================= */
+
+function createSequence() {
+
+    sequence = [];
+
+    /*
+       Level 1 = 3 numbers
+       Level 2 = 4 numbers
+       Level 3 = 5 numbers
+       etc.
+    */
+
+    let length = level + 2;
+
+    for (let i = 0; i < length; i++) {
+
+        let number =
+            Math.floor(Math.random() * 9) + 1;
+
+        sequence.push(number);
+
+    }
+
+}
+
+
+/* =========================
+   SHOW SEQUENCE
+========================= */
+
+function showSequence() {
+
+    acceptingInput = false;
+
+    playerSequence = [];
+
+    numberButtons.forEach(button => {
+
+        button.disabled = true;
+
+        button.classList.remove(
+            "correct",
+            "wrong"
+        );
+
+    });
+
+    sequenceText.textContent =
+        sequence.join(" ");
+
+    message.textContent =
+        "👀 Memorize the sequence!";
+
+    let time =
+        Math.max(
+            1400,
+            2800 - level * 100
+        );
+
+    let startTime = Date.now();
+
+    clearInterval(countdownTimer);
+
+    countdownTimer =
+        setInterval(() => {
+
+            let elapsed =
+                Date.now() - startTime;
+
+            let percent =
+                Math.min(
+                    100,
+                    (elapsed / time) * 100
+                );
+
+            progressBar.style.width =
+                percent + "%";
+
+        }, 30);
+
+
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+
+        clearInterval(countdownTimer);
+
+        progressBar.style.width = "0%";
+
+        sequenceText.textContent =
+            "? ".repeat(sequence.length);
+
+        message.textContent =
+            "🎯 Your turn!";
+
+        acceptingInput = true;
+
+        numberButtons.forEach(button => {
+
+            button.disabled = false;
+
+        });
+
+    }, time);
+
+}
+
+
+/* =========================
+   START ROUND
+========================= */
+
+function startRound() {
+
+    createSequence();
+
+    showSequence();
+
+}
+
+
+/* =========================
+   CHECK PLAYER ANSWER
+========================= */
+
+function checkAnswer(number, button) {
+
+    if (!acceptingInput) {
+        return;
+    }
+
+    startAudio();
+
+    playerSequence.push(number);
+
+    let position =
+        playerSequence.length - 1;
+
+
+    /* WRONG ANSWER */
+
+    if (
+        playerSequence[position]
+        !== sequence[position]
+    ) {
+
+        button.classList.add("wrong");
+
+        sound(160, 0.25);
+
+        vibrate([100, 50, 100]);
+
+        lives--;
+
+        updateStats();
+
+        acceptingInput = false;
+
+        numberButtons.forEach(btn => {
+
+            btn.disabled = true;
+
+        });
+
+
+        if (lives <= 0) {
+
+            endGame();
+
+        } else {
+
+            message.textContent =
+                "❌ Wrong! You lost a life.";
+
+            setTimeout(() => {
+
+                startRound();
+
+            }, 1200);
+
+        }
+
+        return;
+    }
+
+
+    /* CORRECT NUMBER */
+
+    button.classList.add("correct");
+
+    sound(
+        500 + playerSequence.length * 40,
+        0.1
+    );
+
+    vibrate(25);
+
+
+    /*
+       COMPLETED SEQUENCE
+    */
+
+    if (
+        playerSequence.length
+        === sequence.length
+    ) {
+
+        acceptingInput = false;
+
+        numberButtons.forEach(btn => {
+
+            btn.disabled = true;
+
+        });
+
+        let points =
+            level * 10;
+
+        score += points;
+
+        sound(800, 0.15);
+
+        setTimeout(() => {
+            sound(1000, 0.2);
+        }, 100);
+
+        vibrate([50, 50, 100]);
+
+        level++;
+
+        updateStats();
+
+        message.textContent =
+            "🔥 Perfect! +" +
+            points +
+            " points!";
+
+        setTimeout(() => {
+
+            startRound();
+
+        }, 1000);
+
+    }
+
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function endGame() {
+
+    playing = false;
+
+    acceptingInput = false;
+
+    clearTimeout(timer);
+
+    clearInterval(countdownTimer);
+
+    numberButtons.forEach(button => {
+
+        button.disabled = true;
+
+    });
+
+    finalScore.textContent =
+        score;
+
+
+    let newRecord = false;
+
+
+    if (score > bestScore) {
+
+        bestScore = score;
+
+        localStorage.setItem(
+            "mindMasterBest",
+            bestScore
+        );
+
+        newRecord = true;
+
+    }
+
+
+    updateStats();
+
+
+    if (newRecord) {
+
+        bestMessage.textContent =
+            "🏆 NEW HIGH SCORE!";
+
+        sound(900, 0.15);
+
+        setTimeout(() => {
+            sound(1100, 0.2);
+        }, 150);
+
+    } else {
+
+        bestMessage.textContent =
+            "Best score: " + bestScore;
+
+    }
+
+
+    gameOver.style.display =
+        "flex";
+
+}
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+    startAudio();
+
+    clearTimeout(timer);
+
+    clearInterval(countdownTimer);
+
+    level = 1;
+
+    score = 0;
+
+    lives = 3;
+
+    playing = true;
+
+    gameOver.style.display =
+        "none";
+
+    startButton.textContent =
+        "↻ Restart";
+
+    updateStats();
+
+    message.textContent =
+        "Get ready... 🧠";
+
+    sequenceText.textContent =
+        "GO!";
+
+    sound(600, 0.15);
+
+    vibrate(40);
+
+
+    setTimeout(() => {
+
+        startRound();
+
+    }, 700);
+
+}
+
+
+/* =========================
+   RESET GAME
+========================= */
+
+function resetGame() {
+
+    clearTimeout(timer);
+
+    clearInterval(countdownTimer);
+
+    level = 1;
+
+    score = 0;
+
+    lives = 3;
+
+    playing = false;
+
+    acceptingInput = false;
+
+    sequence = [];
+
+    playerSequence = [];
+
+    progressBar.style.width =
+        "0%";
+
+    sequenceText.textContent =
+        "—";
+
+    message.textContent =
+        "Press Start to begin your challenge!";
+
+    startButton.textContent =
+        "▶ Start Game";
+
+    gameOver.style.display =
+        "none";
+
+    numberButtons.forEach(button => {
+
+        button.disabled = true;
+
+        button.classList.remove(
+            "correct",
+            "wrong"
+        );
+
+    });
+
+    updateStats();
+
+}
+
+
+/* =========================
+   BUTTON EVENTS
+========================= */
+
+numberButtons.forEach(button => {
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            let number =
+                Number(
+                    button.dataset.number
+                );
+
+            checkAnswer(
+                number,
+                button
+            );
+
+        }
+    );
+
+});
+
+
+startButton.addEventListener(
+    "click",
+    startGame
+);
+
+
+resetButton.addEventListener(
+    "click",
+    resetGame
+);
+
+
+playAgain.addEventListener(
+    "click",
+    startGame
+);
+
+
+/* =========================
+   INITIAL STATE
+========================= */
+
+numberButtons.forEach(button => {
+
+    button.disabled = true;
+
+});
+
+updateStats();
+
+</script>
+
+</body>
+  </html>
