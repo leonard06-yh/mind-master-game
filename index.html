@@ -7,6 +7,7 @@
 <title>Mind Master Pro 🧠</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -27,266 +28,706 @@ body{
     #080d19;
 }
 
-.background{
+/* =========================
+   LANDING PAGE
+========================= */
+
+.landing{
   position:fixed;
   inset:0;
-  overflow:hidden;
+  z-index:100;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:25px;
+
+  background:
+    radial-gradient(circle at 50% 25%, #173f67 0%, transparent 35%),
+    radial-gradient(circle at 20% 80%, #35195d 0%, transparent 35%),
+    #080d19;
+
+  transition:.6s ease;
+}
+
+.landing.hidden{
+  opacity:0;
+  visibility:hidden;
+  transform:scale(1.08);
   pointer-events:none;
+}
+
+.landing-card{
+  width:100%;
+  max-width:430px;
+
+  text-align:center;
+
+  padding:40px 25px;
+
+  background:rgba(20,29,48,.84);
+
+  backdrop-filter:blur(20px);
+
+  border:1px solid rgba(255,255,255,.1);
+
+  border-radius:30px;
+
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.55);
+}
+
+.landing-brain{
+  font-size:90px;
+
+  display:block;
+
+  margin-bottom:15px;
+
+  animation:brainGlow 2s infinite;
+}
+
+@keyframes brainGlow{
+
+  0%,100%{
+    transform:scale(1);
+
+    filter:
+      drop-shadow(0 0 5px #12b76a);
+  }
+
+  50%{
+    transform:scale(1.12);
+
+    filter:
+      drop-shadow(0 0 25px #12b76a);
+  }
+
+}
+
+.landing-title{
+  font-size:42px;
+
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #12b76a,
+      #4cc9f0,
+      #fdb022
+    );
+
+  -webkit-background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+}
+
+.landing-subtitle{
+  margin-top:12px;
+
+  color:#98a2b3;
+
+  font-size:16px;
+
+  line-height:1.5;
+}
+
+.landing-numbers{
+
+  margin:25px auto;
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:8px;
+
+  flex-wrap:wrap;
+
+  max-width:350px;
+}
+
+.landing-numbers span{
+
+  width:42px;
+
+  height:42px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#344054;
+
+  border-radius:12px;
+
+  font-weight:bold;
+
+  font-size:18px;
+
+  animation:numberFloat 2s infinite alternate;
+}
+
+.landing-numbers span:nth-child(2){
+  animation-delay:.2s;
+}
+
+.landing-numbers span:nth-child(3){
+  animation-delay:.4s;
+}
+
+.landing-numbers span:nth-child(4){
+  animation-delay:.6s;
+}
+
+.landing-numbers span:nth-child(5){
+  animation-delay:.8s;
+}
+
+.landing-numbers span:nth-child(6){
+  animation-delay:1s;
+}
+
+.landing-numbers span:nth-child(7){
+  animation-delay:1.2s;
+}
+
+.landing-numbers span:nth-child(8){
+  animation-delay:1.4s;
+}
+
+.landing-numbers span:nth-child(9){
+  animation-delay:1.6s;
+}
+
+@keyframes numberFloat{
+
+  from{
+    transform:translateY(0);
+  }
+
+  to{
+    transform:translateY(-8px);
+  }
+
+}
+
+.play-now{
+
+  width:100%;
+
+  padding:17px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#12b76a;
+
+  color:white;
+
+  font-size:19px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 8px 30px rgba(18,183,106,.35);
+
+  transition:.2s;
+}
+
+.play-now:hover{
+
+  transform:translateY(-3px);
+
+  background:#16c77a;
+}
+
+.landing-info{
+
+  margin-top:15px;
+
+  color:#667085;
+
+  font-size:12px;
+}
+
+
+/* =========================
+   ANIMATED BACKGROUND
+========================= */
+
+.background{
+
+  position:fixed;
+
+  inset:0;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
   z-index:-1;
 }
 
 .float{
+
   position:absolute;
+
   color:rgba(255,255,255,.08);
+
   font-weight:bold;
+
   animation:floatUp linear infinite;
 }
 
 @keyframes floatUp{
+
   0%{
-    transform:translateY(110vh) rotate(0deg);
+
+    transform:
+      translateY(110vh)
+      rotate(0deg);
+
     opacity:0;
   }
-  20%{opacity:1;}
+
+  20%{
+    opacity:1;
+  }
+
   100%{
-    transform:translateY(-20vh) rotate(360deg);
+
+    transform:
+      translateY(-20vh)
+      rotate(360deg);
+
     opacity:0;
   }
+
 }
 
+
+/* =========================
+   MAIN GAME
+========================= */
+
 .game{
+
   width:100%;
+
   max-width:460px;
+
   margin:auto;
 
-  background:rgba(20,29,48,.92);
+  background:
+    rgba(20,29,48,.92);
+
   backdrop-filter:blur(15px);
 
-  border:1px solid rgba(255,255,255,.08);
+  border:
+    1px solid rgba(255,255,255,.08);
 
-  padding:24px 18px 28px;
+  padding:
+    24px 18px 28px;
+
   border-radius:28px;
 
-  box-shadow:0 25px 70px rgba(0,0,0,.45);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.45);
 
   transition:.2s;
 }
 
 .logo{
+
   font-size:48px;
+
   animation:pulse 2s infinite;
 }
 
 @keyframes pulse{
-  0%,100%{transform:scale(1);}
-  50%{transform:scale(1.08);}
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.08);
+  }
+
 }
 
 h1{
+
   font-size:32px;
+
   margin-top:4px;
 }
 
 .subtitle{
+
   color:#98a2b3;
+
   margin-top:6px;
 }
 
+
+/* =========================
+   STATS
+========================= */
+
 .stats{
+
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:7px;
+
   margin:22px 0;
 }
 
 .stat{
-  background:rgba(52,64,84,.65);
+
+  background:
+    rgba(52,64,84,.65);
+
   padding:11px 3px;
+
   border-radius:14px;
+
   font-size:11px;
-  border:1px solid rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.05);
 }
 
 .stat b{
+
   display:block;
+
   font-size:18px;
+
   margin-top:4px;
 }
 
+
+/* =========================
+   STREAK
+========================= */
+
 .streak{
+
   color:#fdb022;
+
   font-weight:bold;
+
   margin-bottom:12px;
 }
 
+
+/* =========================
+   MESSAGE
+========================= */
+
 #message{
+
   min-height:48px;
+
   margin:15px 0;
+
   font-size:17px;
+
   color:#d0d5dd;
+
   line-height:1.5;
 }
 
+
+/* =========================
+   SEQUENCE
+========================= */
+
 .sequence-box{
-  background:rgba(0,0,0,.20);
+
+  background:
+    rgba(0,0,0,.20);
+
   border-radius:20px;
+
   padding:20px 10px;
+
   margin-bottom:20px;
-  border:1px solid rgba(255,255,255,.06);
+
+  border:
+    1px solid rgba(255,255,255,.06);
 }
 
 #sequence{
+
   font-size:34px;
+
   font-weight:bold;
+
   letter-spacing:7px;
+
   min-height:42px;
 }
 
 .countdown{
+
   font-size:48px;
+
   font-weight:bold;
+
   color:#12b76a;
+
   animation:countPulse .7s infinite;
 }
 
 @keyframes countPulse{
-  50%{transform:scale(1.2);}
+
+  50%{
+    transform:scale(1.2);
+  }
+
 }
 
+
+/* =========================
+   PROGRESS
+========================= */
+
 .progress-container{
+
   height:7px;
+
   background:#344054;
+
   border-radius:20px;
+
   margin:15px 0 22px;
+
   overflow:hidden;
 }
 
 .progress{
+
   height:100%;
+
   width:0%;
+
   background:#12b76a;
+
   border-radius:20px;
+
   transition:.3s;
 }
 
+
+/* =========================
+   NUMBER BUTTONS
+========================= */
+
 .buttons{
+
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:10px;
+
   max-width:330px;
+
   margin:auto;
 }
 
 .number{
+
   height:68px;
+
   font-size:24px;
+
   font-weight:bold;
 
   border:none;
+
   border-radius:16px;
 
   background:#344054;
+
   color:white;
 
   cursor:pointer;
 
-  box-shadow:0 5px 0 #202939;
+  box-shadow:
+    0 5px 0 #202939;
 
   transition:.15s;
 }
 
 .number:hover{
+
   background:#475467;
+
   transform:translateY(-2px);
 }
 
 .number:active{
+
   transform:translateY(4px);
-  box-shadow:0 1px 0 #202939;
+
+  box-shadow:
+    0 1px 0 #202939;
 }
 
 .number:disabled{
+
   opacity:.35;
+
   cursor:not-allowed;
 }
 
+
+/* =========================
+   START BUTTON
+========================= */
+
 .start{
+
   width:100%;
+
   margin-top:24px;
 
   padding:15px;
 
   border:none;
+
   border-radius:15px;
 
   background:#12b76a;
+
   color:white;
 
   font-size:17px;
+
   font-weight:bold;
 
   cursor:pointer;
 
-  box-shadow:0 6px 20px rgba(18,183,106,.25);
+  box-shadow:
+    0 6px 20px
+    rgba(18,183,106,.25);
 
   transition:.2s;
 }
 
 .start:hover{
+
   transform:translateY(-2px);
+
   background:#16c77a;
 }
 
 .best{
+
   margin-top:12px;
+
   color:#fdb022;
+
   font-size:14px;
 }
 
+
+/* =========================
+   REVIEWS
+========================= */
+
 .reviews{
+
   margin-top:28px;
+
   text-align:left;
 }
 
 .reviews h2{
+
   text-align:center;
+
   font-size:21px;
+
   margin-bottom:14px;
 }
 
 .review{
-  background:rgba(52,64,84,.55);
+
+  background:
+    rgba(52,64,84,.55);
+
   padding:14px;
+
   border-radius:15px;
+
   margin-bottom:10px;
-  border:1px solid rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.05);
 }
 
 .review-stars{
+
   color:#fdb022;
+
   margin-bottom:5px;
 }
 
 .review p{
+
   color:#d0d5dd;
+
   font-size:14px;
+
   line-height:1.5;
 }
 
 .review-name{
+
   margin-top:7px;
+
   font-weight:bold;
+
   font-size:13px;
 }
 
+
+/* =========================
+   AD MODAL
+========================= */
+
 .ad-modal{
+
   position:fixed;
+
   inset:0;
 
-  background:rgba(0,0,0,.78);
+  background:
+    rgba(0,0,0,.78);
 
   display:none;
+
   align-items:center;
+
   justify-content:center;
 
   padding:20px;
@@ -295,7 +736,9 @@ h1{
 }
 
 .ad-box{
+
   max-width:350px;
+
   width:100%;
 
   background:#1d2939;
@@ -304,222 +747,562 @@ h1{
 
   border-radius:24px;
 
-  box-shadow:0 20px 70px rgba(0,0,0,.6);
+  box-shadow:
+    0 20px 70px rgba(0,0,0,.6);
 }
 
 .ad-box h2{
+
   margin-bottom:10px;
 }
 
 .ad-box p{
+
   color:#98a2b3;
+
   line-height:1.5;
+
   margin-bottom:20px;
 }
 
 .ad-buttons{
+
   display:flex;
+
   gap:10px;
 }
 
 .ad-buttons button{
+
   flex:1;
+
   padding:12px;
+
   border:none;
+
   border-radius:10px;
+
   font-weight:bold;
+
   cursor:pointer;
 }
 
 .watch{
+
   background:#12b76a;
+
   color:white;
 }
 
 .skip{
+
   background:#344054;
+
   color:white;
 }
 
+
+/* =========================
+   GAME ANIMATIONS
+========================= */
+
 .correct{
+
   animation:correct .5s;
 }
 
 .wrong{
+
   animation:wrong .4s;
 }
 
 @keyframes correct{
-  50%{transform:scale(1.04);}
+
+  50%{
+    transform:scale(1.04);
+  }
+
 }
 
 @keyframes wrong{
-  25%{transform:translateX(-8px);}
-  50%{transform:translateX(8px);}
-  75%{transform:translateX(-5px);}
+
+  25%{
+    transform:translateX(-8px);
+  }
+
+  50%{
+    transform:translateX(8px);
+  }
+
+  75%{
+    transform:translateX(-5px);
+  }
+
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:360px){
+
   .game{
-    padding:20px 12px 24px;
+
+    padding:
+      20px 12px 24px;
   }
 
   #sequence{
+
     font-size:27px;
   }
 
   .number{
+
     height:60px;
   }
+
+  .landing-title{
+
+    font-size:34px;
+  }
+
+  .landing-brain{
+
+    font-size:75px;
+  }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
-<div class="background">
 
-  <span class="float" style="left:5%;animation-duration:14s;font-size:40px;">7</span>
-  <span class="float" style="left:18%;animation-duration:18s;font-size:30px;">3</span>
-  <span class="float" style="left:30%;animation-duration:12s;font-size:50px;">9</span>
-  <span class="float" style="left:45%;animation-duration:20s;font-size:35px;">2</span>
-  <span class="float" style="left:60%;animation-duration:15s;font-size:45px;">8</span>
-  <span class="float" style="left:75%;animation-duration:19s;font-size:30px;">4</span>
-  <span class="float" style="left:90%;animation-duration:13s;font-size:50px;">6</span>
+<!-- =========================
+     LANDING PAGE
+========================= -->
+
+<div class="landing" id="landing">
+
+  <div class="landing-card">
+
+    <span class="landing-brain">
+      🧠
+    </span>
+
+    <div class="landing-title">
+      MIND MASTER
+    </div>
+
+    <p class="landing-subtitle">
+
+      Train your memory.<br>
+
+      Beat your score.
+
+    </p>
+
+
+    <div class="landing-numbers">
+
+      <span>1</span>
+      <span>7</span>
+      <span>3</span>
+      <span>9</span>
+      <span>4</span>
+      <span>8</span>
+      <span>2</span>
+      <span>6</span>
+      <span>5</span>
+
+    </div>
+
+
+    <button
+      class="play-now"
+      id="playNow">
+
+      🚀 PLAY NOW
+
+    </button>
+
+
+    <div class="landing-info">
+
+      🏆 Challenge yourself
+      •
+      🔥 Build your streak
+
+    </div>
+
+  </div>
 
 </div>
 
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
+<div class="background">
+
+  <span
+    class="float"
+    style="
+      left:5%;
+      animation-duration:14s;
+      font-size:40px;
+    "
+  >7</span>
+
+  <span
+    class="float"
+    style="
+      left:18%;
+      animation-duration:18s;
+      font-size:30px;
+    "
+  >3</span>
+
+  <span
+    class="float"
+    style="
+      left:30%;
+      animation-duration:12s;
+      font-size:50px;
+    "
+  >9</span>
+
+  <span
+    class="float"
+    style="
+      left:45%;
+      animation-duration:20s;
+      font-size:35px;
+    "
+  >2</span>
+
+  <span
+    class="float"
+    style="
+      left:60%;
+      animation-duration:15s;
+      font-size:45px;
+    "
+  >8</span>
+
+  <span
+    class="float"
+    style="
+      left:75%;
+      animation-duration:19s;
+      font-size:30px;
+    "
+  >4</span>
+
+  <span
+    class="float"
+    style="
+      left:90%;
+      animation-duration:13s;
+      font-size:50px;
+    "
+  >6</span>
+
+</div>
+
+
+<!-- =========================
+     MAIN GAME
+========================= -->
+
 <div class="game" id="game">
 
-  <div class="logo">🧠</div>
+  <div class="logo">
+    🧠
+  </div>
 
-  <h1>Mind Master</h1>
+  <h1>
+    Mind Master
+  </h1>
 
   <p class="subtitle">
     Train your memory. Beat your score.
   </p>
 
+
   <div class="stats">
 
     <div class="stat">
+
       Level
-      <b id="level">1</b>
+
+      <b id="level">
+        1
+      </b>
+
     </div>
 
+
     <div class="stat">
+
       Score
-      <b id="score">0</b>
+
+      <b id="score">
+        0
+      </b>
+
     </div>
 
+
     <div class="stat">
+
       Lives
-      <b id="lives">3</b>
+
+      <b id="lives">
+        3
+      </b>
+
     </div>
 
+
     <div class="stat">
+
       Best
-      <b id="best">0</b>
+
+      <b id="best">
+        0
+      </b>
+
     </div>
 
   </div>
+
 
   <div class="streak">
-    🔥 Streak: <span id="streak">0</span>
+
+    🔥 Streak:
+    <span id="streak">
+      0
+    </span>
+
   </div>
+
 
   <div id="message">
+
     Press Start to begin!
+
   </div>
+
 
   <div class="sequence-box">
-    <div id="sequence">—</div>
+
+    <div id="sequence">
+      —
+    </div>
+
   </div>
 
+
   <div class="progress-container">
-    <div class="progress" id="progress"></div>
+
+    <div
+      class="progress"
+      id="progress">
+    </div>
+
   </div>
+
 
   <div class="buttons">
 
-    <button class="number" data-number="1">1</button>
-    <button class="number" data-number="2">2</button>
-    <button class="number" data-number="3">3</button>
+    <button
+      class="number"
+      data-number="1">
+      1
+    </button>
 
-    <button class="number" data-number="4">4</button>
-    <button class="number" data-number="5">5</button>
-    <button class="number" data-number="6">6</button>
+    <button
+      class="number"
+      data-number="2">
+      2
+    </button>
 
-    <button class="number" data-number="7">7</button>
-    <button class="number" data-number="8">8</button>
-    <button class="number" data-number="9">9</button>
+    <button
+      class="number"
+      data-number="3">
+      3
+    </button>
+
+    <button
+      class="number"
+      data-number="4">
+      4
+    </button>
+
+    <button
+      class="number"
+      data-number="5">
+      5
+    </button>
+
+    <button
+      class="number"
+      data-number="6">
+      6
+    </button>
+
+    <button
+      class="number"
+      data-number="7">
+      7
+    </button>
+
+    <button
+      class="number"
+      data-number="8">
+      8
+    </button>
+
+    <button
+      class="number"
+      data-number="9">
+      9
+    </button>
 
   </div>
 
-  <button class="start" id="startButton">
+
+  <button
+    class="start"
+    id="startButton">
+
     🚀 Start Game
+
   </button>
 
+
   <div class="best">
-    🏆 Personal Best: <span id="bestBottom">0</span>
+
+    🏆 Personal Best:
+    <span id="bestBottom">
+      0
+    </span>
+
   </div>
+
+
+  <!-- REVIEWS -->
 
   <div class="reviews">
 
-    <h2>⭐ What Players Say</h2>
+    <h2>
+      ⭐ What Players Say
+    </h2>
+
 
     <div class="review">
-      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
 
       <p>
-        “This game looks simple at first, but the numbers really test your memory!”
+        “This game looks simple at first,
+        but the numbers really test your memory!”
       </p>
 
-      <div class="review-name">— Alex</div>
+      <div class="review-name">
+        — Alex
+      </div>
+
     </div>
 
+
     <div class="review">
-      <div class="review-stars">⭐⭐⭐⭐⭐</div>
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐⭐
+      </div>
 
       <p>
-        “I started playing for a few minutes and ended up trying to beat my score.”
+        “I started playing for a few minutes
+        and ended up trying to beat my score.”
       </p>
 
-      <div class="review-name">— David</div>
+      <div class="review-name">
+        — David
+      </div>
+
     </div>
 
+
     <div class="review">
-      <div class="review-stars">⭐⭐⭐⭐☆</div>
+
+      <div class="review-stars">
+        ⭐⭐⭐⭐☆
+      </div>
 
       <p>
         “Fast, challenging and surprisingly addictive.”
       </p>
 
-      <div class="review-name">— Sarah</div>
+      <div class="review-name">
+        — Sarah
+      </div>
+
     </div>
 
   </div>
 
 </div>
 
-<div class="ad-modal" id="adModal">
+
+<!-- =========================
+     AD MODAL
+========================= -->
+
+<div
+  class="ad-modal"
+  id="adModal">
 
   <div class="ad-box">
 
-    <h2>🎁 Keep Your Streak!</h2>
+    <h2>
+      🎁 Keep Your Streak!
+    </h2>
 
     <p>
-      Want an extra chance? Watch a short advertisement
+
+      Want an extra chance?
+      Watch a short advertisement
       and get <b>+1 Life</b>.
+
     </p>
+
 
     <div class="ad-buttons">
 
-      <button class="watch" id="watchAd">
+      <button
+        class="watch"
+        id="watchAd">
+
         📺 Watch Ad
+
       </button>
 
-      <button class="skip" id="skipAd">
+
+      <button
+        class="skip"
+        id="skipAd">
+
         Maybe Later
+
       </button>
 
     </div>
@@ -528,89 +1311,190 @@ h1{
 
 </div>
 
+
 <script>
 
+
+/* =========================
+   GAME VARIABLES
+========================= */
+
 let level = 1;
+
 let score = 0;
+
 let lives = 3;
+
 let streak = 0;
 
 let sequence = [];
+
 let playerSequence = [];
 
 let acceptingInput = false;
+
 let gameRunning = false;
 
 let bestScore =
-  Number(localStorage.getItem("mindMasterBest")) || 0;
+  Number(
+    localStorage.getItem(
+      "mindMasterBest"
+    )
+  ) || 0;
 
 let adUsedThisRound = false;
 
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const landing =
+  document.getElementById(
+    "landing"
+  );
+
+const playNow =
+  document.getElementById(
+    "playNow"
+  );
+
 const levelText =
-  document.getElementById("level");
+  document.getElementById(
+    "level"
+  );
 
 const scoreText =
-  document.getElementById("score");
+  document.getElementById(
+    "score"
+  );
 
 const livesText =
-  document.getElementById("lives");
+  document.getElementById(
+    "lives"
+  );
 
 const streakText =
-  document.getElementById("streak");
+  document.getElementById(
+    "streak"
+  );
 
 const bestText =
-  document.getElementById("best");
+  document.getElementById(
+    "best"
+  );
 
 const bestBottom =
-  document.getElementById("bestBottom");
+  document.getElementById(
+    "bestBottom"
+  );
 
 const message =
-  document.getElementById("message");
+  document.getElementById(
+    "message"
+  );
 
 const sequenceText =
-  document.getElementById("sequence");
+  document.getElementById(
+    "sequence"
+  );
 
 const startButton =
-  document.getElementById("startButton");
+  document.getElementById(
+    "startButton"
+  );
 
 const progress =
-  document.getElementById("progress");
+  document.getElementById(
+    "progress"
+  );
 
 const game =
-  document.getElementById("game");
+  document.getElementById(
+    "game"
+  );
 
 const adModal =
-  document.getElementById("adModal");
+  document.getElementById(
+    "adModal"
+  );
 
 const watchAd =
-  document.getElementById("watchAd");
+  document.getElementById(
+    "watchAd"
+  );
 
 const skipAd =
-  document.getElementById("skipAd");
+  document.getElementById(
+    "skipAd"
+  );
 
 const numberButtons =
-  document.querySelectorAll(".number");
+  document.querySelectorAll(
+    ".number"
+  );
 
+
+/* =========================
+   LANDING PAGE
+========================= */
+
+playNow.addEventListener(
+  "click",
+  ()=>{
+
+    landing.classList.add(
+      "hidden"
+    );
+
+  }
+);
+
+
+/* =========================
+   UPDATE STATS
+========================= */
 
 function updateStats(){
 
-  levelText.textContent = level;
-  scoreText.textContent = score;
-  livesText.textContent = lives;
-  streakText.textContent = streak;
+  levelText.textContent =
+    level;
 
-  bestText.textContent = bestScore;
-  bestBottom.textContent = bestScore;
+  scoreText.textContent =
+    score;
+
+  livesText.textContent =
+    lives;
+
+  streakText.textContent =
+    streak;
+
+  bestText.textContent =
+    bestScore;
+
+  bestBottom.textContent =
+    bestScore;
 
 }
 
+
+/* =========================
+   DIFFICULTY
+========================= */
 
 function getSequenceLength(){
 
-  return 3 + Math.floor((level - 1) / 2);
+  return 3 +
+    Math.floor(
+      (level - 1) / 2
+    );
 
 }
 
+
+/* =========================
+   CREATE SEQUENCE
+========================= */
 
 function createSequence(){
 
@@ -619,10 +1503,16 @@ function createSequence(){
   const length =
     getSequenceLength();
 
-  for(let i = 0; i < length; i++){
+  for(
+    let i = 0;
+    i < length;
+    i++
+  ){
 
     sequence.push(
-      Math.floor(Math.random() * 9) + 1
+      Math.floor(
+        Math.random() * 9
+      ) + 1
     );
 
   }
@@ -630,23 +1520,34 @@ function createSequence(){
 }
 
 
+/* =========================
+   BUTTON CONTROL
+========================= */
+
 function disableButtons(){
 
-  numberButtons.forEach(button=>{
-    button.disabled = true;
-  });
+  numberButtons.forEach(
+    button=>{
+      button.disabled = true;
+    }
+  );
 
 }
-
 
 function enableButtons(){
 
-  numberButtons.forEach(button=>{
-    button.disabled = false;
-  });
+  numberButtons.forEach(
+    button=>{
+      button.disabled = false;
+    }
+  );
 
 }
 
+
+/* =========================
+   COUNTDOWN
+========================= */
 
 function countdown(callback){
 
@@ -657,10 +1558,13 @@ function countdown(callback){
   let count = 3;
 
   sequenceText.innerHTML =
-    `<span class="countdown">${count}</span>`;
+    `<span class="countdown">
+      ${count}
+    </span>`;
 
   message.textContent =
     "Get ready!";
+
 
   const timer =
     setInterval(()=>{
@@ -670,7 +1574,9 @@ function countdown(callback){
       if(count > 0){
 
         sequenceText.innerHTML =
-          `<span class="countdown">${count}</span>`;
+          `<span class="countdown">
+            ${count}
+          </span>`;
 
       }
 
@@ -678,12 +1584,16 @@ function countdown(callback){
 
         clearInterval(timer);
 
-        sequenceText.textContent = "GO!";
+        sequenceText.textContent =
+          "GO!";
 
         message.textContent =
           "🔥 Remember carefully!";
 
-        setTimeout(callback,500);
+        setTimeout(
+          callback,
+          500
+        );
 
       }
 
@@ -691,6 +1601,10 @@ function countdown(callback){
 
 }
 
+
+/* =========================
+   SHOW SEQUENCE
+========================= */
 
 function showSequence(){
 
@@ -704,15 +1618,18 @@ function showSequence(){
   message.textContent =
     "👀 Memorize the numbers!";
 
-  progress.style.width = "0%";
+  progress.style.width =
+    "0%";
 
   disableButtons();
+
 
   const displayTime =
     Math.min(
       2200 + level * 100,
       4000
     );
+
 
   setTimeout(()=>{
 
@@ -731,6 +1648,10 @@ function showSequence(){
 }
 
 
+/* =========================
+   START ROUND
+========================= */
+
 function startRound(){
 
   if(!gameRunning){
@@ -748,6 +1669,10 @@ function startRound(){
 }
 
 
+/* =========================
+   GAME OVER
+========================= */
+
 function endGame(){
 
   gameRunning = false;
@@ -756,7 +1681,8 @@ function endGame(){
 
   disableButtons();
 
-  sequenceText.textContent = "💀";
+  sequenceText.textContent =
+    "💀";
 
   message.innerHTML =
     "GAME OVER!<br>" +
@@ -766,6 +1692,7 @@ function endGame(){
 
   startButton.textContent =
     "🔄 Play Again";
+
 
   if(score > bestScore){
 
@@ -786,19 +1713,34 @@ function endGame(){
 }
 
 
+/* =========================
+   CHECK ANSWER
+========================= */
+
 function checkAnswer(number){
 
-  if(!acceptingInput || !gameRunning){
+  if(
+    !acceptingInput ||
+    !gameRunning
+  ){
+
     return;
+
   }
 
-  playerSequence.push(number);
+
+  playerSequence.push(
+    number
+  );
+
 
   sequenceText.textContent =
     playerSequence.join(" ");
 
+
   const position =
     playerSequence.length - 1;
+
 
   progress.style.width =
     (
@@ -808,198 +1750,8 @@ function checkAnswer(number){
     ) + "%";
 
 
+  /* WRONG */
+
   if(
     playerSequence[position] !==
-    sequence[position]
-  ){
-
-    lives--;
-
-    streak = 0;
-
-    updateStats();
-
-    acceptingInput = false;
-
-    disableButtons();
-
-    game.classList.add("wrong");
-
-    setTimeout(()=>{
-      game.classList.remove("wrong");
-    },400);
-
-
-    if(lives <= 0){
-
-      endGame();
-
-    }
-
-    else{
-
-      message.textContent =
-        "❌ Wrong! One life lost.";
-
-      setTimeout(()=>{
-        startRound();
-      },1200);
-
-    }
-
-    return;
-
-  }
-
-
-  if(
-    playerSequence.length ===
-    sequence.length
-  ){
-
-    streak++;
-
-    const basePoints =
-      10 + (level * 5);
-
-    const streakBonus =
-      streak * 3;
-
-    score +=
-      basePoints + streakBonus;
-
-    level++;
-
-    updateStats();
-
-    acceptingInput = false;
-
-    disableButtons();
-
-    game.classList.add("correct");
-
-    setTimeout(()=>{
-      game.classList.remove("correct");
-    },500);
-
-    message.innerHTML =
-      "🔥 PERFECT!<br>" +
-      "+" +
-      (basePoints + streakBonus) +
-      " points";
-
-    if(
-      level > 2 &&
-      level % 3 === 0 &&
-      !adUsedThisRound
-    ){
-
-      setTimeout(()=>{
-        adModal.style.display = "flex";
-      },700);
-
-    }
-
-    setTimeout(()=>{
-      startRound();
-    },1400);
-
-  }
-
-}
-
-
-numberButtons.forEach(button=>{
-
-  button.addEventListener(
-    "click",
-    ()=>{
-
-      const number =
-        Number(button.dataset.number);
-
-      checkAnswer(number);
-
-    }
-  );
-
-});
-
-
-startButton.addEventListener(
-  "click",
-  ()=>{
-
-    adModal.style.display = "none";
-
-    level = 1;
-    score = 0;
-    lives = 3;
-    streak = 0;
-
-    gameRunning = true;
-
-    adUsedThisRound = false;
-
-    updateStats();
-
-    startButton.textContent =
-      "🔄 Restart";
-
-    message.textContent =
-      "Starting...";
-
-    sequenceText.textContent =
-      "—";
-
-    setTimeout(()=>{
-      startRound();
-    },400);
-
-  }
-);
-
-
-watchAd.addEventListener(
-  "click",
-  ()=>{
-
-    if(adUsedThisRound){
-      return;
-    }
-
-    adUsedThisRound = true;
-
-    adModal.style.display =
-      "none";
-
-    lives++;
-
-    updateStats();
-
-    message.textContent =
-      "🎁 +1 Life! Keep going!";
-
-  }
-);
-
-
-skipAd.addEventListener(
-  "click",
-  ()=>{
-
-    adModal.style.display =
-      "none";
-
-  }
-);
-
-
-disableButtons();
-
-updateStats();
-
-</script>
-
-</body>
-  </html>
+    sequenc
