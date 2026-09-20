@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mind Master 🧠</title>
+<title>Mind Master Pro 🧠</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -28,8 +27,6 @@ body{
     #080d19;
 }
 
-/* Animated background */
-
 .background{
   position:fixed;
   inset:0;
@@ -46,41 +43,33 @@ body{
 }
 
 @keyframes floatUp{
-
   0%{
     transform:translateY(110vh) rotate(0deg);
     opacity:0;
   }
-
-  20%{
-    opacity:1;
-  }
-
+  20%{opacity:1;}
   100%{
     transform:translateY(-20vh) rotate(360deg);
     opacity:0;
   }
-
 }
-
-/* Main game */
 
 .game{
   width:100%;
   max-width:460px;
   margin:auto;
 
-  background:rgba(20,29,48,.90);
+  background:rgba(20,29,48,.92);
   backdrop-filter:blur(15px);
 
   border:1px solid rgba(255,255,255,.08);
 
   padding:24px 18px 28px;
-
   border-radius:28px;
 
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.45);
+  box-shadow:0 25px 70px rgba(0,0,0,.45);
+
+  transition:.2s;
 }
 
 .logo{
@@ -89,15 +78,8 @@ body{
 }
 
 @keyframes pulse{
-
-  0%,100%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.08);
-  }
-
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.08);}
 }
 
 h1{
@@ -110,30 +92,26 @@ h1{
   margin-top:6px;
 }
 
-/* Stats */
-
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
   margin:22px 0;
 }
 
 .stat{
   background:rgba(52,64,84,.65);
-  padding:12px 5px;
+  padding:11px 3px;
   border-radius:14px;
-  font-size:13px;
+  font-size:11px;
   border:1px solid rgba(255,255,255,.05);
 }
 
 .stat b{
   display:block;
-  font-size:20px;
+  font-size:18px;
   margin-top:4px;
 }
-
-/* Streak */
 
 .streak{
   color:#fdb022;
@@ -141,16 +119,13 @@ h1{
   margin-bottom:12px;
 }
 
-/* Message */
-
 #message{
-  min-height:42px;
+  min-height:48px;
   margin:15px 0;
   font-size:17px;
   color:#d0d5dd;
+  line-height:1.5;
 }
-
-/* Sequence */
 
 .sequence-box{
   background:rgba(0,0,0,.20);
@@ -167,7 +142,16 @@ h1{
   min-height:42px;
 }
 
-/* Progress */
+.countdown{
+  font-size:48px;
+  font-weight:bold;
+  color:#12b76a;
+  animation:countPulse .7s infinite;
+}
+
+@keyframes countPulse{
+  50%{transform:scale(1.2);}
+}
 
 .progress-container{
   height:7px;
@@ -184,8 +168,6 @@ h1{
   border-radius:20px;
   transition:.3s;
 }
-
-/* Number buttons */
 
 .buttons{
   display:grid;
@@ -228,8 +210,6 @@ h1{
   cursor:not-allowed;
 }
 
-/* Start */
-
 .start{
   width:100%;
   margin-top:24px;
@@ -257,7 +237,11 @@ h1{
   background:#16c77a;
 }
 
-/* Reviews */
+.best{
+  margin-top:12px;
+  color:#fdb022;
+  font-size:14px;
+}
 
 .reviews{
   margin-top:28px;
@@ -295,13 +279,11 @@ h1{
   font-size:13px;
 }
 
-/* Ad modal */
-
 .ad-modal{
   position:fixed;
   inset:0;
 
-  background:rgba(0,0,0,.75);
+  background:rgba(0,0,0,.78);
 
   display:none;
   align-items:center;
@@ -359,8 +341,6 @@ h1{
   color:white;
 }
 
-/* Animations */
-
 .correct{
   animation:correct .5s;
 }
@@ -370,35 +350,32 @@ h1{
 }
 
 @keyframes correct{
-
-  50%{
-    transform:scale(1.04);
-  }
-
+  50%{transform:scale(1.04);}
 }
 
 @keyframes wrong{
-
-  25%{
-    transform:translateX(-8px);
-  }
-
-  50%{
-    transform:translateX(8px);
-  }
-
-  75%{
-    transform:translateX(-5px);
-  }
-
+  25%{transform:translateX(-8px);}
+  50%{transform:translateX(8px);}
+  75%{transform:translateX(-5px);}
 }
 
+@media(max-width:360px){
+  .game{
+    padding:20px 12px 24px;
+  }
+
+  #sequence{
+    font-size:27px;
+  }
+
+  .number{
+    height:60px;
+  }
+}
 </style>
 </head>
 
 <body>
-
-<!-- Animated background -->
 
 <div class="background">
 
@@ -412,7 +389,6 @@ h1{
 
 </div>
 
-
 <div class="game" id="game">
 
   <div class="logo">🧠</div>
@@ -422,7 +398,6 @@ h1{
   <p class="subtitle">
     Train your memory. Beat your score.
   </p>
-
 
   <div class="stats">
 
@@ -441,32 +416,28 @@ h1{
       <b id="lives">3</b>
     </div>
 
-  </div>
+    <div class="stat">
+      Best
+      <b id="best">0</b>
+    </div>
 
+  </div>
 
   <div class="streak">
     🔥 Streak: <span id="streak">0</span>
   </div>
 
-
   <div id="message">
     Press Start to begin!
   </div>
 
-
   <div class="sequence-box">
-
     <div id="sequence">—</div>
-
   </div>
-
 
   <div class="progress-container">
-
     <div class="progress" id="progress"></div>
-
   </div>
-
 
   <div class="buttons">
 
@@ -484,74 +455,51 @@ h1{
 
   </div>
 
-
   <button class="start" id="startButton">
     🚀 Start Game
   </button>
 
-
-  <!-- Reviews -->
+  <div class="best">
+    🏆 Personal Best: <span id="bestBottom">0</span>
+  </div>
 
   <div class="reviews">
 
     <h2>⭐ What Players Say</h2>
 
     <div class="review">
-
-      <div class="review-stars">
-        ⭐⭐⭐⭐⭐
-      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
 
       <p>
         “This game looks simple at first, but the numbers really test your memory!”
       </p>
 
-      <div class="review-name">
-        — Alex
-      </div>
-
+      <div class="review-name">— Alex</div>
     </div>
 
-
     <div class="review">
-
-      <div class="review-stars">
-        ⭐⭐⭐⭐⭐
-      </div>
+      <div class="review-stars">⭐⭐⭐⭐⭐</div>
 
       <p>
         “I started playing for a few minutes and ended up trying to beat my score.”
       </p>
 
-      <div class="review-name">
-        — David
-      </div>
-
+      <div class="review-name">— David</div>
     </div>
 
-
     <div class="review">
-
-      <div class="review-stars">
-        ⭐⭐⭐⭐☆
-      </div>
+      <div class="review-stars">⭐⭐⭐⭐☆</div>
 
       <p>
         “Fast, challenging and surprisingly addictive.”
       </p>
 
-      <div class="review-name">
-        — Sarah
-      </div>
-
+      <div class="review-name">— Sarah</div>
     </div>
 
   </div>
 
 </div>
-
-
-<!-- Advertisement prompt -->
 
 <div class="ad-modal" id="adModal">
 
@@ -580,7 +528,6 @@ h1{
 
 </div>
 
-
 <script>
 
 let level = 1;
@@ -594,56 +541,69 @@ let playerSequence = [];
 let acceptingInput = false;
 let gameRunning = false;
 
-const levelText = document.getElementById("level");
-const scoreText = document.getElementById("score");
-const livesText = document.getElementById("lives");
-const streakText = document.getElementById("streak");
+let bestScore =
+  Number(localStorage.getItem("mindMasterBest")) || 0;
 
-const message = document.getElementById("message");
-const sequenceText = document.getElementById("sequence");
+let adUsedThisRound = false;
 
-const startButton = document.getElementById("startButton");
+const levelText =
+  document.getElementById("level");
 
-const progress = document.getElementById("progress");
+const scoreText =
+  document.getElementById("score");
 
-const game = document.getElementById("game");
+const livesText =
+  document.getElementById("lives");
 
-const adModal = document.getElementById("adModal");
+const streakText =
+  document.getElementById("streak");
 
-const watchAd = document.getElementById("watchAd");
-const skipAd = document.getElementById("skipAd");
+const bestText =
+  document.getElementById("best");
+
+const bestBottom =
+  document.getElementById("bestBottom");
+
+const message =
+  document.getElementById("message");
+
+const sequenceText =
+  document.getElementById("sequence");
+
+const startButton =
+  document.getElementById("startButton");
+
+const progress =
+  document.getElementById("progress");
+
+const game =
+  document.getElementById("game");
+
+const adModal =
+  document.getElementById("adModal");
+
+const watchAd =
+  document.getElementById("watchAd");
+
+const skipAd =
+  document.getElementById("skipAd");
 
 const numberButtons =
-document.querySelectorAll(".number");
-
-
-/* Best score */
-
-let bestScore =
-Number(localStorage.getItem("mindMasterBest")) || 0;
+  document.querySelectorAll(".number");
 
 
 function updateStats(){
 
   levelText.textContent = level;
-
   scoreText.textContent = score;
-
   livesText.textContent = lives;
-
   streakText.textContent = streak;
+
+  bestText.textContent = bestScore;
+  bestBottom.textContent = bestScore;
 
 }
 
-
-/*
-  Difficulty curve
-
-  Level 1–2 = 3 numbers
-  Level 3–4 = 4 numbers
-  Level 5–6 = 5 numbers
-  etc.
-*/
 
 function getSequenceLength(){
 
@@ -652,18 +612,17 @@ function getSequenceLength(){
 }
 
 
-/* Create sequence */
-
 function createSequence(){
 
   sequence = [];
 
-  const length = getSequenceLength();
+  const length =
+    getSequenceLength();
 
-  for(let i=0;i<length;i++){
+  for(let i = 0; i < length; i++){
 
     sequence.push(
-      Math.floor(Math.random()*9)+1
+      Math.floor(Math.random() * 9) + 1
     );
 
   }
@@ -671,7 +630,67 @@ function createSequence(){
 }
 
 
-/* Show sequence */
+function disableButtons(){
+
+  numberButtons.forEach(button=>{
+    button.disabled = true;
+  });
+
+}
+
+
+function enableButtons(){
+
+  numberButtons.forEach(button=>{
+    button.disabled = false;
+  });
+
+}
+
+
+function countdown(callback){
+
+  acceptingInput = false;
+
+  disableButtons();
+
+  let count = 3;
+
+  sequenceText.innerHTML =
+    `<span class="countdown">${count}</span>`;
+
+  message.textContent =
+    "Get ready!";
+
+  const timer =
+    setInterval(()=>{
+
+      count--;
+
+      if(count > 0){
+
+        sequenceText.innerHTML =
+          `<span class="countdown">${count}</span>`;
+
+      }
+
+      else{
+
+        clearInterval(timer);
+
+        sequenceText.textContent = "GO!";
+
+        message.textContent =
+          "🔥 Remember carefully!";
+
+        setTimeout(callback,500);
+
+      }
+
+    },700);
+
+}
+
 
 function showSequence(){
 
@@ -687,20 +706,13 @@ function showSequence(){
 
   progress.style.width = "0%";
 
-
-  numberButtons.forEach(button=>{
-    button.disabled = true;
-  });
-
-
-  /*
-    Slightly longer memory time as
-    difficulty increases.
-  */
+  disableButtons();
 
   const displayTime =
-    Math.min(2200 + level * 100, 4000);
-
+    Math.min(
+      2200 + level * 100,
+      4000
+    );
 
   setTimeout(()=>{
 
@@ -712,52 +724,89 @@ function showSequence(){
 
     acceptingInput = true;
 
-    numberButtons.forEach(button=>{
-      button.disabled = false;
-    });
+    enableButtons();
 
   },displayTime);
 
 }
 
 
-/* Start round */
-
 function startRound(){
 
-  createSequence();
+  if(!gameRunning){
+    return;
+  }
 
-  showSequence();
+  countdown(()=>{
+
+    createSequence();
+
+    showSequence();
+
+  });
 
 }
 
 
-/* Check answer */
+function endGame(){
+
+  gameRunning = false;
+
+  acceptingInput = false;
+
+  disableButtons();
+
+  sequenceText.textContent = "💀";
+
+  message.innerHTML =
+    "GAME OVER!<br>" +
+    "Final Score: <b>" +
+    score +
+    "</b>";
+
+  startButton.textContent =
+    "🔄 Play Again";
+
+  if(score > bestScore){
+
+    bestScore = score;
+
+    localStorage.setItem(
+      "mindMasterBest",
+      bestScore
+    );
+
+    message.innerHTML +=
+      "<br>🏆 NEW PERSONAL BEST!";
+
+  }
+
+  updateStats();
+
+}
+
 
 function checkAnswer(number){
 
-  if(!acceptingInput){
+  if(!acceptingInput || !gameRunning){
     return;
   }
 
-
   playerSequence.push(number);
-
 
   sequenceText.textContent =
     playerSequence.join(" ");
 
-
-  let position =
+  const position =
     playerSequence.length - 1;
 
-
   progress.style.width =
-    (playerSequence.length /
-    sequence.length * 100) + "%";
+    (
+      playerSequence.length /
+      sequence.length *
+      100
+    ) + "%";
 
-
-  /* Wrong */
 
   if(
     playerSequence[position] !==
@@ -772,10 +821,7 @@ function checkAnswer(number){
 
     acceptingInput = false;
 
-    numberButtons.forEach(button=>{
-      button.disabled = true;
-    });
-
+    disableButtons();
 
     game.classList.add("wrong");
 
@@ -786,39 +832,18 @@ function checkAnswer(number){
 
     if(lives <= 0){
 
-      gameRunning = false;
+      endGame();
 
-      message.innerHTML =
-        "💀 Game Over!<br>Your score: <b>"
-        + score +
-        "</b>";
+    }
 
-      startButton.textContent =
-        "🔄 Play Again";
-
-
-      if(score > bestScore){
-
-        bestScore = score;
-
-        localStorage.setItem(
-          "mindMasterBest",
-          bestScore
-        );
-
-      }
-
-    }else{
+    else{
 
       message.textContent =
-        "❌ Wrong! You lost one life.";
+        "❌ Wrong! One life lost.";
 
-      /*
-        Give the player a moment before
-        starting the next round.
-      */
-
-      setTimeout(startRound,1400);
+      setTimeout(()=>{
+        startRound();
+      },1200);
 
     }
 
@@ -827,8 +852,6 @@ function checkAnswer(number){
   }
 
 
-  /* Correct */
-
   if(
     playerSequence.length ===
     sequence.length
@@ -836,15 +859,14 @@ function checkAnswer(number){
 
     streak++;
 
-    /*
-      Score increases gradually.
-    */
+    const basePoints =
+      10 + (level * 5);
+
+    const streakBonus =
+      streak * 3;
 
     score +=
-      10 +
-      (level * 5) +
-      (streak * 2);
-
+      basePoints + streakBonus;
 
     level++;
 
@@ -852,10 +874,7 @@ function checkAnswer(number){
 
     acceptingInput = false;
 
-    numberButtons.forEach(button=>{
-      button.disabled = true;
-    });
-
+    disableButtons();
 
     game.classList.add("correct");
 
@@ -863,21 +882,16 @@ function checkAnswer(number){
       game.classList.remove("correct");
     },500);
 
-
     message.innerHTML =
-      "🔥 Perfect!<br>" +
-      "Get ready for Level " +
-      level + "!";
-
-
-    /*
-      Every few rounds, show the
-      optional reward-ad prompt.
-    */
+      "🔥 PERFECT!<br>" +
+      "+" +
+      (basePoints + streakBonus) +
+      " points";
 
     if(
       level > 2 &&
-      level % 3 === 0
+      level % 3 === 0 &&
+      !adUsedThisRound
     ){
 
       setTimeout(()=>{
@@ -886,15 +900,14 @@ function checkAnswer(number){
 
     }
 
-
-    setTimeout(startRound,1300);
+    setTimeout(()=>{
+      startRound();
+    },1400);
 
   }
 
 }
 
-
-/* Number buttons */
 
 numberButtons.forEach(button=>{
 
@@ -913,21 +926,20 @@ numberButtons.forEach(button=>{
 });
 
 
-/* Start */
-
 startButton.addEventListener(
   "click",
   ()=>{
 
+    adModal.style.display = "none";
+
     level = 1;
-
     score = 0;
-
     lives = 3;
-
     streak = 0;
 
     gameRunning = true;
+
+    adUsedThisRound = false;
 
     updateStats();
 
@@ -935,30 +947,31 @@ startButton.addEventListener(
       "🔄 Restart";
 
     message.textContent =
-      "Get ready...";
+      "Starting...";
 
-    setTimeout(startRound,700);
+    sequenceText.textContent =
+      "—";
+
+    setTimeout(()=>{
+      startRound();
+    },400);
 
   }
 );
 
 
-/* Watch Ad */
-
 watchAd.addEventListener(
   "click",
   ()=>{
 
-    /*
-      PLACEHOLDER
+    if(adUsedThisRound){
+      return;
+    }
 
-      Later this button can be connected
-      to your actual advertising network.
+    adUsedThisRound = true;
 
-      For now it simulates a successful ad.
-    */
-
-    adModal.style.display = "none";
+    adModal.style.display =
+      "none";
 
     lives++;
 
@@ -971,28 +984,22 @@ watchAd.addEventListener(
 );
 
 
-/* Skip */
-
 skipAd.addEventListener(
   "click",
   ()=>{
 
-    adModal.style.display = "none";
+    adModal.style.display =
+      "none";
 
   }
 );
 
 
-/* Disable buttons initially */
-
-numberButtons.forEach(button=>{
-  button.disabled = true;
-});
-
+disableButtons();
 
 updateStats();
 
 </script>
 
 </body>
-    </html>
+  </html>
