@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Mind Master 🧠🎮</title>
 
@@ -14,7 +12,6 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <style>
-
 *{
     margin:0;
     padding:0;
@@ -485,14 +482,10 @@ body::after{
         padding:25px 15px;
     }
 }
-
 </style>
 </head>
 
 <body>
-
-
-<!-- LOADING -->
 
 <section id="loadingScreen" class="screen active">
 
@@ -511,9 +504,6 @@ body::after{
     </div>
 
 </section>
-
-
-<!-- HOME -->
 
 <section id="homeScreen" class="screen">
 
@@ -536,13 +526,9 @@ body::after{
                 <h3>🎮 HOW TO PLAY</h3>
 
                 <p>🔢 A number will appear on the screen.</p>
-
                 <p>👀 Memorize it before it disappears.</p>
-
                 <p>✍️ Enter the number exactly as you remember it.</p>
-
                 <p>🔥 Each round becomes harder.</p>
-
                 <p>🏆 Try to beat your highest score.</p>
 
             </div>
@@ -571,9 +557,6 @@ body::after{
     </div>
 
 </section>
-
-
-<!-- GAME -->
 
 <section id="gameScreen" class="screen">
 
@@ -694,9 +677,6 @@ body::after{
 
 </section>
 
-
-<!-- RESULT -->
-
 <section id="resultScreen" class="screen">
 
     <div class="result-container">
@@ -756,7 +736,6 @@ body::after{
 
 </section>
 
-
 <script>
 
 /* ==========================
@@ -766,19 +745,152 @@ body::after{
 let score = 0;
 let round = 1;
 let lives = 3;
-
 let currentNumber = "";
-
 let memorizeTime = 5;
-
 let countdownInterval = null;
-
 let gameActive = false;
 
 let highScore =
-    Number(localStorage.getItem(
-        "mindMasterHighScore"
-    )) || 0;
+    Number(localStorage.getItem("mindMasterHighScore")) || 0;
+
+
+/* ==========================
+   LOUD SOUND SYSTEM 🔊
+========================== */
+
+let audioContext = null;
+
+function getAudioContext(){
+
+    if(!audioContext){
+
+        const AudioCtx =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if(AudioCtx){
+            audioContext = new AudioCtx();
+        }
+    }
+
+    if(audioContext &&
+       audioContext.state === "suspended"){
+
+        audioContext.resume();
+    }
+
+    return audioContext;
+}
+
+function playTone(
+    frequency,
+    duration,
+    type="sine",
+    volume=0.35
+){
+
+    const ctx = getAudioContext();
+
+    if(!ctx) return;
+
+    const oscillator =
+        ctx.createOscillator();
+
+    const gain =
+        ctx.createGain();
+
+    oscillator.type = type;
+
+    oscillator.frequency.value =
+        frequency;
+
+    gain.gain.setValueAtTime(
+        volume,
+        ctx.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        ctx.currentTime + duration
+    );
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        ctx.currentTime + duration
+    );
+}
+
+
+/* CORRECT SOUND */
+
+function playCorrectSound(){
+
+    getAudioContext();
+
+    playTone(523,0.18,"sine",0.55);
+
+    setTimeout(() => {
+        playTone(659,0.18,"sine",0.55);
+    },100);
+
+    setTimeout(() => {
+        playTone(784,0.28,"sine",0.60);
+    },200);
+}
+
+
+/* WRONG SOUND */
+
+function playWrongSound(){
+
+    getAudioContext();
+
+    playTone(220,0.25,"sawtooth",0.60);
+
+    setTimeout(() => {
+        playTone(150,0.35,"sawtooth",0.55);
+    },180);
+}
+
+
+/* START GAME SOUND */
+
+function playStartSound(){
+
+    getAudioContext();
+
+    playTone(392,0.12,"sine",0.50);
+
+    setTimeout(() => {
+        playTone(523,0.12,"sine",0.50);
+    },100);
+
+    setTimeout(() => {
+        playTone(659,0.20,"sine",0.55);
+    },200);
+}
+
+
+/* GAME OVER SOUND */
+
+function playGameOverSound(){
+
+    getAudioContext();
+
+    playTone(330,0.20,"sawtooth",0.55);
+
+    setTimeout(() => {
+        playTone(247,0.20,"sawtooth",0.55);
+    },180);
+
+    setTimeout(() => {
+        playTone(196,0.45,"sawtooth",0.60);
+    },360);
+}
 
 
 /* ==========================
@@ -813,10 +925,13 @@ setTimeout(() => {
 
 
 /* ==========================
-   START
+   START GAME
 ========================== */
 
 function startGame(){
+
+    getAudioContext();
+    playStartSound();
 
     clearInterval(countdownInterval);
 
@@ -858,7 +973,8 @@ function startRound(){
 
     document
     .getElementById("roundText")
-    .textContent = "ROUND " + round;
+    .textContent =
+        "ROUND " + round;
 
     document
     .getElementById("round")
@@ -866,15 +982,18 @@ function startRound(){
 
     document
     .getElementById("statusText")
-    .textContent = "Memorize the number";
+    .textContent =
+        "Memorize the number";
 
     document
     .getElementById("question")
-    .textContent = "Memorize this number!";
+    .textContent =
+        "Memorize this number!";
 
     document
     .getElementById("memoryMessage")
-    .textContent = "Look carefully... 👀";
+    .textContent =
+        "Look carefully... 👀";
 
 
     let length;
@@ -911,7 +1030,8 @@ function startRound(){
 
     document
     .getElementById("numberDisplay")
-    .textContent = currentNumber;
+    .textContent =
+        currentNumber;
 
 
     memorizeTime =
@@ -964,7 +1084,10 @@ function startCountdown(seconds){
 
     let timeLeft = seconds;
 
-    updateTimer(timeLeft,seconds);
+    updateTimer(
+        timeLeft,
+        seconds
+    );
 
     countdownInterval =
     setInterval(() => {
@@ -1002,7 +1125,7 @@ function updateTimer(
     document
     .getElementById("timerText")
     .textContent =
-    timeLeft + "s";
+        timeLeft + "s";
 
     let percentage =
         (timeLeft / total) * 100;
@@ -1010,7 +1133,7 @@ function updateTimer(
     document
     .getElementById("progressBar")
     .style.width =
-    percentage + "%";
+        percentage + "%";
 }
 
 
@@ -1022,21 +1145,23 @@ function hideNumber(){
 
     document
     .getElementById("numberDisplay")
-    .textContent = "????";
+    .textContent =
+        "????";
 
     document
     .getElementById("statusText")
-    .textContent = "Your turn!";
+    .textContent =
+        "Your turn!";
 
     document
     .getElementById("question")
     .textContent =
-    "What was the number?";
+        "What was the number?";
 
     document
     .getElementById("memoryMessage")
     .textContent =
-    "Type what you remember below.";
+        "Type what you remember below.";
 
     document
     .getElementById("answerArea")
@@ -1048,7 +1173,8 @@ function hideNumber(){
 
     document
     .getElementById("progressBar")
-    .style.width = "0%";
+    .style.width =
+        "0%";
 }
 
 
@@ -1063,171 +1189,4 @@ function checkAnswer(){
     const input =
         document.getElementById(
             "answerInput"
-        );
-
-    const answer =
-        input.value.trim();
-
-    const feedback =
-        document.getElementById(
-            "feedback"
-        );
-
-
-    if(answer === ""){
-
-        feedback.textContent =
-        "⚠️ Enter an answer first.";
-
-        feedback.className =
-        "feedback wrong";
-
-        return;
-    }
-
-
-    if(answer === currentNumber){
-
-        correctAnswer();
-
-    }else{
-
-        wrongAnswer();
-
-    }
-}
-
-
-/* ==========================
-   CORRECT
-========================== */
-
-function correctAnswer(){
-
-    score += round * 10;
-
-    const feedback =
-        document.getElementById(
-            "feedback"
-        );
-
-    feedback.textContent =
-    "✅ Correct! Your memory is sharp! 🔥";
-
-    feedback.className =
-    "feedback correct";
-
-    document
-    .getElementById("statusText")
-    .textContent = "Correct!";
-
-    playCorrectSound();
-
-    updateStats();
-
-    setTimeout(() => {
-
-        round++;
-
-        startRound();
-
-    },1200);
-}
-
-
-/* ==========================
-   WRONG
-========================== */
-
-function wrongAnswer(){
-
-    lives--;
-
-    const feedback =
-        document.getElementById(
-            "feedback"
-        );
-
-    feedback.innerHTML =
-    "❌ Wrong! The number was <b>" +
-    currentNumber +
-    "</b>";
-
-    feedback.className =
-    "feedback wrong";
-
-    playWrongSound();
-
-    updateStats();
-
-
-    if(lives <= 0){
-
-        setTimeout(() => {
-
-            endGame();
-
-        },1600);
-
-    }else{
-
-        setTimeout(() => {
-
-            round++;
-
-            startRound();
-
-        },1600);
-
-    }
-}
-
-
-/* ==========================
-   STATS
-========================== */
-
-function updateStats(){
-
-    document
-    .getElementById("score")
-    .textContent = score;
-
-    document
-    .getElementById("round")
-    .textContent = round;
-
-    let hearts = "";
-
-    for(let i = 0; i < lives; i++){
-
-        hearts += "❤️";
-
-    }
-
-    if(lives <= 0){
-
-        hearts = "💀";
-
-    }
-
-    document
-    .getElementById("lives")
-    .textContent = hearts;
-}
-
-
-/* ==========================
-   GAME OVER
-========================== */
-
-function endGame(){
-
-    gameActive = false;
-
-    clearInterval(
-        countdownInterval
-    );
-
-    document
-    .getElemen
+    
