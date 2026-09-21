@@ -2,1225 +2,589 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mind Master 🧠</title>
+<title>Mind Master 🧠🎮</title>
 
 <style>
-
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  min-height:100vh;
-  background:#080d19;
-  color:white;
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#071b12,#063b28,#0b5c3c);
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
 }
 
+button,input{
+    font:inherit;
+}
 
-/* =========================
-   LANDING + MODE SCREENS
-========================= */
+button{
+    cursor:pointer;
+    border:none;
+}
 
 .screen{
-  position:fixed;
-  inset:0;
-  z-index:100;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:20px;
-
-  background:
-    radial-gradient(circle at 50% 20%,#173f67 0%,transparent 35%),
-    radial-gradient(circle at 20% 80%,#35195d 0%,transparent 35%),
-    #080d19;
-
-  transition:.5s ease;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
 }
 
-.screen.hidden{
-  opacity:0;
-  visibility:hidden;
-  transform:scale(1.05);
-  pointer-events:none;
+.hidden{
+    display:none !important;
 }
 
-.card{
-  width:100%;
-  max-width:450px;
+/* ================= LANDING ================= */
 
-  text-align:center;
-
-  padding:35px 25px;
-
-  background:rgba(20,29,48,.88);
-
-  backdrop-filter:blur(20px);
-
-  border:1px solid rgba(255,255,255,.1);
-
-  border-radius:30px;
-
-  box-shadow:0 25px 80px rgba(0,0,0,.55);
+#landing{
+    background:
+    radial-gradient(circle at top,#15915d55,transparent 35%),
+    linear-gradient(135deg,#03130c,#063b28,#087346);
 }
-
-
-/* =========================
-   LANDING
-========================= */
 
 .brain{
-  font-size:85px;
-
-  display:block;
-
-  margin-bottom:15px;
-
-  animation:brainGlow 2s infinite;
+    font-size:90px;
+    animation:float 2s infinite ease-in-out;
 }
 
-@keyframes brainGlow{
-
-  0%,100%{
-    transform:scale(1);
-    filter:drop-shadow(0 0 5px #12b76a);
-  }
-
-  50%{
-    transform:scale(1.12);
-    filter:drop-shadow(0 0 25px #12b76a);
-  }
-
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
 }
 
-.title{
-  font-size:42px;
-  font-weight:900;
-  letter-spacing:2px;
-
-  background:linear-gradient(
-    90deg,
-    #12b76a,
-    #4cc9f0,
-    #fdb022
-  );
-
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+.logo{
+    font-size:48px;
+    font-weight:bold;
+    margin:10px 0;
 }
 
-.subtitle{
-  margin-top:12px;
-
-  color:#98a2b3;
-
-  font-size:16px;
-
-  line-height:1.5;
+.tagline{
+    color:#c8f7df;
+    margin-bottom:30px;
 }
 
-.numbers{
-  margin:25px auto;
-
-  display:flex;
-
-  justify-content:center;
-
-  gap:8px;
-
-  flex-wrap:wrap;
+.play-btn{
+    background:#d4af37;
+    color:#111;
+    padding:16px 38px;
+    border-radius:40px;
+    font-weight:bold;
+    font-size:20px;
+    box-shadow:0 0 25px #d4af3770;
+    transition:.2s;
 }
 
-.numbers span{
-  width:42px;
-  height:42px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  background:#344054;
-
-  border-radius:12px;
-
-  font-weight:bold;
-
-  animation:numberFloat 2s infinite alternate;
+.play-btn:hover{
+    transform:scale(1.06);
 }
 
-@keyframes numberFloat{
+/* ================= MODE SCREEN ================= */
 
-  from{
-    transform:translateY(0);
-  }
-
-  to{
-    transform:translateY(-8px);
-  }
-
+#modeScreen{
+    background:
+    radial-gradient(circle at center,#0c7d4f55,transparent 40%),
+    linear-gradient(135deg,#03130c,#063b28);
 }
-
-.numbers span:nth-child(2){animation-delay:.2s}
-.numbers span:nth-child(3){animation-delay:.4s}
-.numbers span:nth-child(4){animation-delay:.6s}
-.numbers span:nth-child(5){animation-delay:.8s}
-.numbers span:nth-child(6){animation-delay:1s}
-.numbers span:nth-child(7){animation-delay:1.2s}
-.numbers span:nth-child(8){animation-delay:1.4s}
-.numbers span:nth-child(9){animation-delay:1.6s}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-  width:100%;
-
-  padding:16px;
-
-  margin-top:10px;
-
-  border:none;
-
-  border-radius:15px;
-
-  color:white;
-
-  font-size:17px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
-}
-
-.play{
-  background:#12b76a;
-
-  box-shadow:
-    0 8px 30px rgba(18,183,106,.35);
-}
-
-.play:hover{
-  background:#16c77a;
-}
-
-.back{
-  background:#344054;
-}
-
-.back:hover{
-  background:#475467;
-}
-
-
-/* =========================
-   MODE SCREEN
-========================= */
 
 .mode-title{
-  font-size:32px;
-  margin-bottom:8px;
+    font-size:38px;
+    margin-bottom:10px;
 }
 
 .mode-subtitle{
-  color:#98a2b3;
-  margin-bottom:20px;
+    color:#bdebd4;
+    margin-bottom:30px;
 }
 
-.mode{
-  width:100%;
-
-  padding:18px;
-
-  margin:12px 0;
-
-  text-align:left;
-
-  border:1px solid #344054;
-
-  border-radius:18px;
-
-  background:#1d2939;
-
-  color:white;
-
-  cursor:pointer;
-
-  transition:.2s;
+.modes{
+    width:min(500px,100%);
+    display:grid;
+    gap:15px;
 }
 
-.mode:hover{
-  transform:translateY(-3px);
-
-  border-color:#12b76a;
-
-  background:#24344a;
+.mode-btn{
+    padding:20px;
+    border-radius:18px;
+    color:white;
+    background:#ffffff12;
+    border:1px solid #ffffff20;
+    transition:.2s;
 }
 
-.mode h3{
-  font-size:20px;
-
-  margin-bottom:6px;
+.mode-btn:hover{
+    transform:translateY(-3px);
+    background:#ffffff20;
 }
 
-.mode p{
-  color:#98a2b3;
-
-  font-size:13px;
-
-  line-height:1.4;
+.mode-btn strong{
+    display:block;
+    font-size:22px;
+    margin-bottom:6px;
 }
 
-.classic h3{
-  color:#12b76a;
+.mode-btn small{
+    color:#c7dacf;
 }
 
-.speed h3{
-  color:#4cc9f0;
+.back-btn{
+    margin-top:25px;
+    background:transparent;
+    color:#ddd;
+    padding:10px 20px;
 }
 
-.impossible h3{
-  color:#fdb022;
-}
-
-
-/* =========================
-   GAME
-========================= */
+/* ================= GAME ================= */
 
 .game{
-  min-height:100vh;
-
-  padding:20px 15px;
-
-  display:flex;
-
-  justify-content:center;
-
-  align-items:center;
-
-  background:
-    radial-gradient(circle at 50% 0%,#172554 0%,transparent 35%),
-    #080d19;
-}
-
-.game-card{
-  width:100%;
-  max-width:520px;
-
-  background:#101828;
-
-  border:1px solid #25324a;
-
-  border-radius:25px;
-
-  padding:25px;
-
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
+    width:min(700px,100%);
+    margin:auto;
+    padding:20px;
+    text-align:center;
 }
 
 .game-header{
-  text-align:center;
-
-  margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-.game-header h1{
-  font-size:32px;
+.game-title{
+    font-size:28px;
+    font-weight:bold;
 }
 
-.game-header p{
-  color:#98a2b3;
-
-  margin-top:6px;
+.sound-btn{
+    background:#ffffff18;
+    color:white;
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    font-size:20px;
 }
-
-.mode-label{
-  display:inline-block;
-
-  margin-top:8px;
-
-  padding:6px 12px;
-
-  border-radius:20px;
-
-  background:#1d2939;
-
-  color:#4cc9f0;
-
-  font-size:12px;
-
-  font-weight:bold;
-}
-
-
-/* =========================
-   STATS
-========================= */
 
 .stats{
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  gap:8px;
-
-  margin-bottom:18px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:20px;
 }
 
 .stat{
-  background:#1d2939;
-
-  padding:11px 5px;
-
-  border-radius:14px;
-
-  text-align:center;
+    background:#ffffff10;
+    border:1px solid #ffffff15;
+    padding:12px 5px;
+    border-radius:14px;
 }
 
-.stat small{
-  display:block;
-
-  color:#98a2b3;
-
-  font-size:10px;
+.stat span{
+    display:block;
+    font-size:12px;
+    color:#a8c9b8;
 }
 
 .stat strong{
-  display:block;
-
-  margin-top:5px;
-
-  font-size:18px;
-
-  color:#12b76a;
+    font-size:20px;
 }
 
+.challenge-type{
+    color:#d4af37;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:8px;
+}
 
-/* =========================
-   TIMER
-========================= */
+.instruction{
+    color:#c7ded2;
+    margin-bottom:18px;
+}
+
+.number-box{
+    min-height:150px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#ffffff0d;
+    border:2px solid #ffffff15;
+    border-radius:25px;
+    margin-bottom:20px;
+    padding:20px;
+    box-shadow:0 15px 40px #00000025;
+}
+
+.sequence{
+    font-size:clamp(35px,9vw,65px);
+    font-weight:bold;
+    letter-spacing:8px;
+    word-break:break-word;
+}
+
+.word-display{
+    font-size:clamp(32px,8vw,58px);
+    letter-spacing:7px;
+}
 
 .timer-container{
-  width:100%;
-
-  height:8px;
-
-  background:#344054;
-
-  border-radius:20px;
-
-  overflow:hidden;
-
-  margin-bottom:18px;
+    height:9px;
+    background:#ffffff18;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:20px;
 }
 
 .timer-bar{
-  height:100%;
-
-  width:100%;
-
-  background:#12b76a;
-
-  transition:width .1s linear;
+    height:100%;
+    width:100%;
+    background:#d4af37;
+    transition:width .1s linear;
 }
 
-
-/* =========================
-   NUMBER
-========================= */
-
-.number-box{
-  min-height:180px;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  background:#0b1220;
-
-  border:2px solid #25324a;
-
-  border-radius:20px;
-
-  margin-bottom:18px;
-
-  padding:20px;
+.answer-area{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
 }
 
-#numberDisplay{
-  font-size:42px;
-
-  font-weight:900;
-
-  letter-spacing:8px;
-
-  text-align:center;
-
-  word-break:break-all;
-
-  color:#4cc9f0;
+.answer-area input{
+    flex:1;
+    padding:15px;
+    border-radius:12px;
+    border:none;
+    outline:none;
+    font-size:18px;
+    text-align:center;
 }
 
-
-/* =========================
-   MESSAGE
-========================= */
-
-.message{
-  text-align:center;
-
-  min-height:25px;
-
-  color:#98a2b3;
-
-  margin-bottom:14px;
+.submit-btn{
+    padding:15px 20px;
+    border-radius:12px;
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
 }
 
-
-/* =========================
-   INPUT
-========================= */
-
-#answerInput{
-  width:100%;
-
-  padding:16px;
-
-  border:none;
-
-  outline:none;
-
-  border-radius:14px;
-
-  background:#1d2939;
-
-  color:white;
-
-  font-size:20px;
-
-  text-align:center;
-
-  margin-bottom:5px;
+.start-btn,
+.restart-btn{
+    padding:14px 25px;
+    border-radius:30px;
+    background:#087346;
+    color:white;
+    border:1px solid #ffffff25;
+    margin:5px;
 }
-
-#answerInput:focus{
-  border:2px solid #12b76a;
-}
-
-
-/* =========================
-   GAME BUTTON
-========================= */
-
-.game-btn{
-  width:100%;
-
-  padding:15px;
-
-  border:none;
-
-  border-radius:14px;
-
-  background:#12b76a;
-
-  color:white;
-
-  font-size:17px;
-
-  font-weight:bold;
-
-  cursor:pointer;
-
-  margin-top:8px;
-
-  transition:.2s;
-}
-
-.game-btn:hover{
-  background:#16c77a;
-
-  transform:translateY(-2px);
-}
-
-.game-btn:disabled{
-  background:#344054;
-
-  cursor:not-allowed;
-
-  transform:none;
-}
-
-.secondary{
-  background:#344054;
-}
-
-.secondary:hover{
-  background:#475467;
-}
-
-.share{
-  background:#4cc9f0;
-
-  color:#07111f;
-}
-
-.share:hover{
-  background:#6bd5f5;
-}
-
-
-/* =========================
-   RESULT
-========================= */
 
 .result{
-  display:none;
-
-  text-align:center;
-
-  margin-top:20px;
-
-  padding:20px;
-
-  background:#1d2939;
-
-  border-radius:18px;
+    min-height:30px;
+    font-weight:bold;
+    margin:10px 0;
 }
 
-.result p{
-  color:#98a2b3;
-
-  margin:8px 0;
+.correct{
+    color:#70f0ad;
 }
 
-.score-big{
-  font-size:52px;
-
-  color:#fdb022;
-
-  font-weight:900;
+.wrong{
+    color:#ff8585;
 }
 
-
-/* =========================
-   ANIMATION
-========================= */
-
-.level-up{
-  animation:levelUp .5s ease;
+.info{
+    color:#b8d5c5;
+    margin-top:15px;
 }
 
-@keyframes levelUp{
-
-  0%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.15);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
+#startButton{
+    background:#d4af37;
+    color:#111;
+    font-weight:bold;
 }
 
+@media(max-width:600px){
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-/* =========================
-   MOBILE
-========================= */
+    .answer-area{
+        flex-direction:column;
+    }
 
-@media(max-width:420px){
+    .submit-btn{
+        width:100%;
+    }
 
-  .title{
-    font-size:35px;
-  }
-
-  .brain{
-    font-size:75px;
-  }
-
-  .game-card{
-    padding:18px;
-  }
-
-  #numberDisplay{
-    font-size:30px;
-
-    letter-spacing:4px;
-  }
-
+    .logo{
+        font-size:38px;
+    }
 }
-
 </style>
-
 </head>
 
 <body>
 
+<!-- ================= LANDING ================= -->
 
-<!-- ==================================================
-     LANDING PAGE
-================================================== -->
+<section id="landing" class="screen">
 
-<section
-  class="screen"
-  id="landing"
->
+    <div class="brain">🧠</div>
 
-  <div class="card">
+    <div class="logo">MIND MASTER</div>
 
-    <span class="brain">
-      🧠
-    </span>
-
-    <h1 class="title">
-      MIND MASTER
-    </h1>
-
-    <p class="subtitle">
-      Think your memory is sharp? 😏
-      <br>
-      Remember the numbers and prove it!
+    <p class="tagline">
+        Train your memory. Test your brain. Become the master. 🔥
     </p>
 
+    <button class="play-btn" onclick="showModes()">
+        PLAY NOW 🎮
+    </button>
 
-    <div class="numbers">
+</section>
 
-      <span>7</span>
-      <span>3</span>
-      <span>9</span>
-      <span>2</span>
-      <span>8</span>
-      <span>4</span>
-      <span>6</span>
-      <span>1</span>
-      <span>5</span>
+
+<!-- ================= MODE SCREEN ================= -->
+
+<section id="modeScreen" class="screen hidden">
+
+    <h1 class="mode-title">Choose Your Challenge</h1>
+
+    <p class="mode-subtitle">
+        How brave is your brain? 😈
+    </p>
+
+    <div class="modes">
+
+        <button class="mode-btn" onclick="selectMode('classic')">
+            <strong>🧠 Classic Mode</strong>
+            <small>Balanced memory challenge</small>
+        </button>
+
+        <button class="mode-btn" onclick="selectMode('speed')">
+            <strong>⚡ Speed Mode</strong>
+            <small>Less time. More points.</small>
+        </button>
+
+        <button class="mode-btn" onclick="selectMode('impossible')">
+            <strong>💀 Impossible Mode</strong>
+            <small>One life. Maximum difficulty.</small>
+        </button>
 
     </div>
 
-
-    <button
-      class="btn play"
-      onclick="showModes()"
-    >
-      🎮 PLAY NOW
+    <button class="back-btn" onclick="backToLanding()">
+        ← Back
     </button>
-
-
-    <p
-      style="
-        margin-top:15px;
-        color:#667085;
-        font-size:12px;
-      "
-    >
-      Challenge your memory • Beat your score
-    </p>
-
-  </div>
 
 </section>
 
 
-<!-- ==================================================
-     MODE SELECTION
-================================================== -->
+<!-- ================= GAME ================= -->
 
-<section
-  class="screen hidden"
-  id="modeScreen"
->
-
-  <div class="card">
-
-    <h2 class="mode-title">
-      🎮 CHOOSE YOUR MODE
-    </h2>
-
-    <p class="mode-subtitle">
-      How brave is your brain? 🧠
-    </p>
-
-
-    <!-- CLASSIC -->
-
-    <button
-      class="mode classic"
-      onclick="selectMode('classic')"
-    >
-
-      <h3>
-        🧠 CLASSIC MODE
-      </h3>
-
-      <p>
-        The normal Mind Master experience.
-        Increasing difficulty with 3 lives.
-      </p>
-
-    </button>
-
-
-    <!-- SPEED -->
-
-    <button
-      class="mode speed"
-      onclick="selectMode('speed')"
-    >
-
-      <h3>
-        ⚡ SPEED MODE
-      </h3>
-
-      <p>
-        Faster memory time and a tougher
-        countdown. Think FAST!
-      </p>
-
-    </button>
-
-
-    <!-- IMPOSSIBLE -->
-
-    <button
-      class="mode impossible"
-      onclick="selectMode('impossible')"
-    >
-
-      <h3>
-        💀 IMPOSSIBLE MODE
-      </h3>
-
-      <p>
-        Long numbers, very little time
-        and only ONE life. Good luck! 😂
-      </p>
-
-    </button>
-
-
-    <button
-      class="btn back"
-      onclick="backToLanding()"
-    >
-      ← BACK
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ==================================================
-     GAME
-================================================== -->
-
-<main class="game">
-
-  <div class="game-card">
+<main id="gameScreen" class="game hidden">
 
     <div class="game-header">
 
-      <h1>
-        🧠 Mind Master
-      </h1>
+        <div class="game-title">
+            🧠 Mind Master
+        </div>
 
-      <p>
-        Memorize the number!
-      </p>
-
-      <span
-        class="mode-label"
-        id="modeLabel"
-      >
-        CLASSIC MODE
-      </span>
+        <button class="sound-btn" onclick="toggleSound()" id="soundButton">
+            🔊
+        </button>
 
     </div>
 
-
-    <!-- STATS -->
 
     <div class="stats">
 
-      <div class="stat">
+        <div class="stat">
+            <span>LEVEL</span>
+            <strong id="level">1</strong>
+        </div>
 
-        <small>
-          LEVEL
-        </small>
+        <div class="stat">
+            <span>SCORE</span>
+            <strong id="score">0</strong>
+        </div>
 
-        <strong id="level">
-          1
-        </strong>
+        <div class="stat">
+            <span>BEST</span>
+            <strong id="best">0</strong>
+        </div>
 
-      </div>
-
-
-      <div class="stat">
-
-        <small>
-          SCORE
-        </small>
-
-        <strong id="score">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="stat">
-
-        <small>
-          BEST
-        </small>
-
-        <strong id="best">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="stat">
-
-        <small>
-          LIVES
-        </small>
-
-        <strong id="lives">
-          ❤️❤️❤️
-        </strong>
-
-      </div>
+        <div class="stat">
+            <span>LIVES</span>
+            <strong id="lives">❤️❤️❤️</strong>
+        </div>
 
     </div>
 
 
-    <!-- TIMER -->
-
-    <div class="timer-container">
-
-      <div
-        class="timer-bar"
-        id="timerBar"
-      ></div>
-
+    <div class="challenge-type" id="challengeType">
+        🔢 NUMBER MEMORY
     </div>
 
+    <p class="instruction" id="instruction">
+        Remember the sequence!
+    </p>
 
-    <!-- NUMBER -->
 
     <div class="number-box">
 
-      <div id="numberDisplay">
-        Press START
-      </div>
+        <div id="sequence" class="sequence">
+            READY?
+        </div>
 
     </div>
 
 
-    <div
-      class="message"
-      id="message"
-    >
-      Press START GAME to begin.
+    <div class="timer-container">
+        <div id="timerBar" class="timer-bar"></div>
     </div>
 
 
-    <!-- INPUT -->
+    <div class="answer-area">
 
-    <input
-      type="number"
-      id="answerInput"
-      placeholder="Enter the number"
-      autocomplete="off"
-      disabled
-    >
+        <input
+            id="answerInput"
+            type="text"
+            autocomplete="off"
+            placeholder="Enter your answer..."
+        >
 
-
-    <!-- START -->
-
-    <button
-      class="game-btn"
-      id="startBtn"
-      onclick="startRound()"
-    >
-      ▶ START GAME
-    </button>
-
-
-    <!-- SUBMIT -->
-
-    <button
-      class="game-btn"
-      id="submitBtn"
-      onclick="checkAnswer()"
-      disabled
-    >
-      ✅ SUBMIT ANSWER
-    </button>
-
-
-    <!-- RESTART -->
-
-    <button
-      class="game-btn secondary"
-      onclick="restartGame()"
-    >
-      🔄 RESTART
-    </button>
-
-
-    <!-- RESULT -->
-
-    <div
-      class="result"
-      id="result"
-    >
-
-      <h2>
-        🎉 GAME OVER!
-      </h2>
-
-      <p>
-        Your final score
-      </p>
-
-      <div
-        class="score-big"
-        id="finalScore"
-      >
-        0
-      </div>
-
-      <p id="finalMessage">
-        Keep practicing!
-      </p>
-
-
-      <button
-        class="game-btn share"
-        onclick="shareScore()"
-      >
-        📤 SHARE MY SCORE
-      </button>
+        <button class="submit-btn" onclick="checkAnswer()">
+            SUBMIT
+        </button>
 
     </div>
 
-  </div>
+
+    <div id="result" class="result"></div>
+
+
+    <button
+        id="startButton"
+        class="start-btn"
+        onclick="startRound()"
+    >
+        START CHALLENGE
+    </button>
+
+    <button
+        class="restart-btn"
+        onclick="restartGame()"
+    >
+        🔄 Restart
+    </button>
+
+    <p class="info" id="modeInfo">
+        Classic Mode
+    </p>
 
 </main>
 
 
 <script>
 
-/* ==================================================
-   VARIABLES
-================================================== */
+/* =========================================
+   GAME VARIABLES
+========================================= */
 
 let mode = "classic";
 
 let level = 1;
-
 let score = 0;
-
 let lives = 3;
 
-let best =
-  Number(localStorage.getItem("mindMasterBest")) || 0;
-
-let currentNumber = "";
+let currentAnswer = "";
+let challengeType = "";
 
 let waitingForAnswer = false;
 
-let roundTimer;
-
 let countdownTimer;
+let timerInterval;
+
+let soundEnabled = true;
+
+let best = Number(localStorage.getItem("mindMasterBest")) || 0;
+
+document.getElementById("best").textContent = best;
 
 
-/* ==================================================
-   ELEMENTS
-================================================== */
-
-const landing =
-  document.getElementById("landing");
-
-const modeScreen =
-  document.getElementById("modeScreen");
-
-const modeLabel =
-  document.getElementById("modeLabel");
-
-const numberDisplay =
-  document.getElementById("numberDisplay");
-
-const answerInput =
-  document.getElementById("answerInput");
-
-const startBtn =
-  document.getElementById("startBtn");
-
-const submitBtn =
-  document.getElementById("submitBtn");
-
-const message =
-  document.getElementById("message");
-
-const levelDisplay =
-  document.getElementById("level");
-
-const scoreDisplay =
-  document.getElementById("score");
-
-const bestDisplay =
-  document.getElementById("best");
-
-const livesDisplay =
-  document.getElementById("lives");
-
-const timerBar =
-  document.getElementById("timerBar");
-
-const result =
-  document.getElementById("result");
-
-const finalScore =
-  document.getElementById("finalScore");
-
-const finalMessage =
-  document.getElementById("finalMessage");
-
-
-bestDisplay.textContent = best;
-
-
-/* ==================================================
-   SHOW MODE SCREEN
-================================================== */
+/* =========================================
+   SCREEN CONTROL
+========================================= */
 
 function showModes(){
 
-  landing.classList.add("hidden");
+    document.getElementById("landing").classList.add("hidden");
 
-  setTimeout(() => {
-
-    modeScreen.classList.remove("hidden");
-
-  },300);
+    document.getElementById("modeScreen").classList.remove("hidden");
 
 }
 
-
-/* ==================================================
-   BACK
-================================================== */
 
 function backToLanding(){
 
-  modeScreen.classList.add("hidden");
+    document.getElementById("modeScreen").classList.add("hidden");
 
-  setTimeout(() => {
-
-    landing.classList.remove("hidden");
-
-  },300);
+    document.getElementById("landing").classList.remove("hidden");
 
 }
 
-
-/* ==================================================
-   SELECT MODE
-================================================== */
 
 function selectMode(selectedMode){
 
-  mode = selectedMode;
+    mode = selectedMode;
 
-  modeScreen.classList.add("hidden");
+    document.getElementById("modeScreen").classList.add("hidden");
 
-  setTimeout(() => {
+    document.getElementById("gameScreen").classList.remove("hidden");
 
     resetGame();
 
-    updateModeLabel();
-
-  },300);
-
 }
 
 
-/* ==================================================
-   MODE LABEL
-================================================== */
+/* =========================================
+   SOUND SYSTEM
+========================================= */
 
-function updateModeLabel(){
+let audioContext;
 
-  if(mode === "classic"){
 
-    modeLabel.textContent =
-      "🧠 CLASSIC MODE";
+function getAudio(){
 
-  }
+    if(!audioContext){
 
-  if(mode === "speed"){
+        audioContext =
+            new (window.AudioContext || window.webkitAudioContext)();
 
-    modeLabel.textContent =
-      "⚡ SPEED MODE";
+    }
 
-  }
-
-  if(mode === "impossible"){
-
-    modeLabel.textContent =
-      "💀 IMPOSSIBLE MODE";
-
-  }
-
+    return audioContext;
 }
 
-
-/* ==================================================
-   SOUND
-================================================== */
 
 function playSound(type){
 
-  try{
+    if(!soundEnabled) return;
 
-    const audio =
-      new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
+    const audio = getAudio();
 
-    const oscillator =
-      audio.createOscillator();
+    const oscillator = audio.createOscillator();
 
-    const gain =
-      audio.createGain();
+    const gain = audio.createGain();
 
     oscillator.connect(gain);
 
@@ -1229,614 +593,882 @@ function playSound(type){
 
     if(type === "correct"){
 
-      oscillator.frequency.value = 700;
+        oscillator.frequency.value = 700;
 
-    }else{
+    }
 
-      oscillator.frequency.value = 180;
+    else if(type === "wrong"){
+
+        oscillator.frequency.value = 180;
+
+    }
+
+    else if(type === "level"){
+
+        oscillator.frequency.value = 900;
+
+    }
+
+    else{
+
+        oscillator.frequency.value = 400;
 
     }
 
 
-    gain.gain.setValueAtTime(
-      .08,
-      audio.currentTime
-    );
+    gain.gain.setValueAtTime(.15,audio.currentTime);
 
     gain.gain.exponentialRampToValueAtTime(
-      .001,
-      audio.currentTime + .25
+        .001,
+        audio.currentTime + .3
     );
 
     oscillator.start();
 
-    oscillator.stop(
-      audio.currentTime + .25
-    );
-
-  }catch(error){
-
-    console.log("Sound unavailable");
-
-  }
+    oscillator.stop(audio.currentTime + .3);
 
 }
 
 
-/* ==================================================
-   GENERATE NUMBER
-================================================== */
+/* =========================================
+   BACKGROUND MUSIC
+========================================= */
 
-function generateNumber(){
+let musicTimer;
 
-  let digits;
+function startMusic(){
 
+    if(!soundEnabled) return;
 
-  if(mode === "classic"){
+    if(musicTimer) return;
 
-    digits = level + 2;
+    const audio = getAudio();
 
-  }
+    const notes = [
+        261.63,
+        329.63,
+        392.00,
+        329.63,
+        293.66,
+        349.23,
+        440.00,
+        349.23
+    ];
 
+    let index = 0;
 
-  if(mode === "speed"){
+    musicTimer = setInterval(() => {
 
-    digits = level + 3;
+        if(!soundEnabled) return;
 
-  }
+        const oscillator = audio.createOscillator();
 
+        const gain = audio.createGain();
 
-  if(mode === "impossible"){
+        oscillator.connect(gain);
 
-    digits = level + 5;
+        gain.connect(audio.destination);
 
-  }
+        oscillator.frequency.value = notes[index];
 
+        oscillator.type = "sine";
 
-  let number = "";
+        gain.gain.setValueAtTime(.025,audio.currentTime);
 
+        gain.gain.exponentialRampToValueAtTime(
+            .001,
+            audio.currentTime + .45
+        );
 
-  for(let i=0;i<digits;i++){
+        oscillator.start();
 
-    number +=
-      Math.floor(Math.random()*10);
+        oscillator.stop(audio.currentTime + .45);
 
-  }
+        index++;
 
+        if(index >= notes.length){
+            index = 0;
+        }
 
-  return number;
+    },600);
 
 }
 
 
-/* ==================================================
+function stopMusic(){
+
+    clearInterval(musicTimer);
+
+    musicTimer = null;
+
+}
+
+
+function toggleSound(){
+
+    soundEnabled = !soundEnabled;
+
+    const button =
+        document.getElementById("soundButton");
+
+    if(soundEnabled){
+
+        button.textContent = "🔊";
+
+        startMusic();
+
+    }else{
+
+        button.textContent = "🔇";
+
+        stopMusic();
+
+    }
+
+}
+
+
+/* =========================================
+   CHALLENGE TYPES
+========================================= */
+
+function chooseChallenge(){
+
+    const types = [
+        "number",
+        "letters",
+        "spelling",
+        "scramble",
+        "mixed"
+    ];
+
+    /*
+      Make early levels easier.
+      More challenge types unlock as
+      the player progresses.
+    */
+
+    if(level <= 2){
+
+        return Math.random() < .5
+            ? "number"
+            : "letters";
+
+    }
+
+    if(level <= 4){
+
+        return types[
+            Math.floor(Math.random() * 3)
+        ];
+
+    }
+
+    return types[
+        Math.floor(Math.random() * types.length)
+    ];
+
+}
+
+
+/* =========================================
+   WORD BANK
+========================================= */
+
+const words = [
+
+    "APPLE",
+    "HOUSE",
+    "CHAIR",
+    "PLANT",
+    "PHONE",
+    "WATER",
+    "BRAIN",
+    "LIGHT",
+    "MUSIC",
+    "TIGER",
+    "RIVER",
+    "SCHOOL",
+    "TABLE",
+    "CLOUD",
+    "DREAM",
+    "MONEY",
+    "POWER",
+    "SMILE",
+    "TRAIN",
+    "WORLD",
+    "CROWN",
+    "BOOK",
+    "GAME",
+    "FRIEND",
+    "MASTER",
+    "COMPUTER",
+    "MEMORY",
+    "FUTURE",
+    "SUCCESS",
+    "CHAMPION"
+
+];
+
+
+/* =========================================
+   RANDOM HELPERS
+========================================= */
+
+function randomNumber(length){
+
+    let result = "";
+
+    for(let i = 0; i < length; i++){
+
+        result += Math.floor(Math.random() * 10);
+
+    }
+
+    return result;
+
+}
+
+
+function randomLetters(length){
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    let result = "";
+
+    for(let i = 0; i < length; i++){
+
+        result += alphabet[
+            Math.floor(Math.random() * alphabet.length)
+        ];
+
+    }
+
+    return result;
+
+}
+
+
+function shuffleWord(word){
+
+    let letters = word.split("");
+
+    for(let i = letters.length - 1; i > 0; i--){
+
+        const j =
+            Math.floor(Math.random() * (i + 1));
+
+        [letters[i],letters[j]] =
+            [letters[j],letters[i]];
+
+    }
+
+    return letters.join("");
+
+}
+
+
+/* =========================================
+   GENERATE CHALLENGE
+========================================= */
+
+function generateChallenge(){
+
+    challengeType = chooseChallenge();
+
+    const display =
+        document.getElementById("sequence");
+
+    const type =
+        document.getElementById("challengeType");
+
+    const instruction =
+        document.getElementById("instruction");
+
+
+    /* NUMBER */
+
+    if(challengeType === "number"){
+
+        const length =
+            Math.min(4 + Math.floor(level / 2),12);
+
+        currentAnswer =
+            randomNumber(length);
+
+        type.textContent = "🔢 NUMBER MEMORY";
+
+        instruction.textContent =
+            "Remember the numbers!";
+
+        display.className = "sequence";
+
+        display.textContent = currentAnswer;
+
+    }
+
+
+    /* LETTERS */
+
+    else if(challengeType === "letters"){
+
+        const length =
+            Math.min(3 + Math.floor(level / 2),10);
+
+        currentAnswer =
+            randomLetters(length);
+
+        type.textContent = "🔤 LETTER MEMORY";
+
+        instruction.textContent =
+            "Remember the letters in order!";
+
+        display.className = "sequence";
+
+        display.textContent = currentAnswer;
+
+    }
+
+
+    /* SPELLING */
+
+    else if(challengeType === "spelling"){
+
+        let available =
+            words.filter(word =>
+                word.length <= 4 + Math.floor(level / 2)
+            );
+
+        if(available.length === 0){
+            available = words;
+        }
+
+        currentAnswer =
+            available[
+                Math.floor(Math.random() * available.length)
+            ];
+
+        type.textContent = "📝 SPELL IT!";
+
+        instruction.textContent =
+            "Remember the word and spell it!";
+
+        display.className = "word-display";
+
+        display.textContent = currentAnswer;
+
+    }
+
+
+    /* SCRAMBLE */
+
+    else if(challengeType === "scramble"){
+
+        let available =
+            words.filter(word =>
+                word.length >= 4 &&
+                word.length <= 5 + Math.floor(level / 2)
+            );
+
+        if(available.length === 0){
+            available = words;
+        }
+
+        currentAnswer =
+            available[
+                Math.floor(Math.random() * available.length)
+            ];
+
+        const scrambled =
+            shuffleWord(currentAnswer);
+
+        type.textContent = "🧩 WORD MASTER";
+
+        instruction.textContent =
+            "Rearrange the letters and form the correct word!";
+
+        display.className = "word-display";
+
+        display.textContent = scrambled;
+
+    }
+
+
+    /* MIXED */
+
+    else if(challengeType === "mixed"){
+
+        const number =
+            randomNumber(2 + Math.floor(level / 2));
+
+        const letters =
+            randomLetters(2 + Math.floor(level / 2));
+
+        let mixed = "";
+
+        for(let i = 0; i < number.length; i++){
+
+            mixed += number[i];
+
+            if(letters[i]){
+                mixed += letters[i];
+            }
+
+        }
+
+        currentAnswer = mixed;
+
+        type.textContent = "🔀 MIXED MEMORY";
+
+        instruction.textContent =
+            "Remember the numbers and letters exactly!";
+
+        display.className = "sequence";
+
+        display.textContent = currentAnswer;
+
+    }
+
+}
+
+
+/* =========================================
    START ROUND
-================================================== */
+========================================= */
 
 function startRound(){
 
-  clearTimeout(roundTimer);
+    clearInterval(timerInterval);
 
-  clearInterval(countdownTimer);
+    clearInterval(countdownTimer);
 
-  result.style.display = "none";
+    document.getElementById("result").textContent = "";
 
+    document.getElementById("answerInput").value = "";
 
-  currentNumber =
-    generateNumber();
+    document.getElementById("answerInput").disabled = true;
 
+    document.getElementById("startButton").disabled = true;
 
-  waitingForAnswer = true;
+    generateChallenge();
 
+    startMusic();
 
-  numberDisplay.textContent =
-    currentNumber;
+    let displayTime;
 
+    if(mode === "classic"){
 
-  message.textContent =
-    "👀 Memorize it!";
+        displayTime =
+            Math.max(1300,3200 - (level - 1) * 170);
 
+    }
 
-  answerInput.value = "";
+    else if(mode === "speed"){
 
-  answerInput.disabled = true;
+        displayTime =
+            Math.max(700,2200 - (level - 1) * 130);
 
-  submitBtn.disabled = true;
+    }
 
-  startBtn.disabled = true;
+    else{
 
+        displayTime =
+            Math.max(450,1500 - (level - 1) * 100);
 
-  let displayTime;
-
-
-  if(mode === "classic"){
-
-    displayTime =
-      Math.max(
-        1200,
-        3200 - ((level-1)*180)
-      );
-
-  }
+    }
 
 
-  if(mode === "speed"){
+    document.getElementById("timerBar").style.width = "100%";
 
-    displayTime =
-      Math.max(
-        700,
-        2200 - ((level-1)*150)
-      );
-
-  }
-
-
-  if(mode === "impossible"){
-
-    displayTime =
-      Math.max(
-        500,
-        1400 - ((level-1)*100)
-      );
-
-  }
-
-
-  timerBar.style.width =
-    "100%";
-
-
-  roundTimer =
     setTimeout(() => {
 
-      numberDisplay.textContent =
-        "❓❓❓";
+        document.getElementById("sequence").textContent =
+            "••••";
 
-      message.textContent =
-        "🧠 Enter what you remember!";
+        document.getElementById("instruction").textContent =
+            "Now enter what you remember!";
 
-      answerInput.disabled = false;
+        document.getElementById("answerInput").disabled = false;
 
-      submitBtn.disabled = false;
+        document.getElementById("answerInput").focus();
 
-      answerInput.focus();
+        waitingForAnswer = true;
 
-      startCountdown();
+        startCountdown();
 
     },displayTime);
 
 }
 
 
-/* ==================================================
+/* =========================================
    COUNTDOWN
-================================================== */
+========================================= */
 
 function startCountdown(){
 
-  let time;
+    let totalTime;
+
+    if(mode === "classic"){
+
+        totalTime =
+            Math.max(5000,7000 - level * 150);
+
+    }
+
+    else if(mode === "speed"){
+
+        totalTime =
+            Math.max(2500,4500 - level * 120);
+
+    }
+
+    else{
+
+        totalTime =
+            Math.max(1200,2800 - level * 100);
+
+    }
 
 
-  if(mode === "classic"){
+    const start = Date.now();
 
-    time = 5;
+    timerInterval = setInterval(() => {
 
-  }
+        const elapsed =
+            Date.now() - start;
 
-  if(mode === "speed"){
+        const remaining =
+            Math.max(0,totalTime - elapsed);
 
-    time = 3;
+        const percentage =
+            (remaining / totalTime) * 100;
 
-  }
-
-  if(mode === "impossible"){
-
-    time = 2;
-
-  }
+        document.getElementById("timerBar").style.width =
+            percentage + "%";
 
 
-  let maxTime = time;
+        if(remaining <= 0){
+
+            clearInterval(timerInterval);
+
+            if(waitingForAnswer){
+
+                waitingForAnswer = false;
+
+                loseLife();
+
+            }
+
+        }
+
+    },50);
+
+}
 
 
-  timerBar.style.width =
-    "100%";
+/* =========================================
+   CHECK ANSWER
+========================================= */
+
+function checkAnswer(){
+
+    if(!waitingForAnswer) return;
+
+    waitingForAnswer = false;
+
+    clearInterval(timerInterval);
+
+    const input =
+        document.getElementById("answerInput");
+
+    const userAnswer =
+        input.value.trim().toUpperCase();
+
+    input.disabled = true;
 
 
-  countdownTimer =
-    setInterval(() => {
+    if(userAnswer === currentAnswer){
 
-      time--;
+        playSound("correct");
+
+        let multiplier = 1;
+
+        if(mode === "speed"){
+            multiplier = 2;
+        }
+
+        if(mode === "impossible"){
+            multiplier = 3;
+        }
+
+        const points =
+            (10 + level * 2) * multiplier;
+
+        score += points;
+
+        document.getElementById("score").textContent =
+            score;
 
 
-      timerBar.style.width =
-        (time/maxTime*100)+"%";
+        document.getElementById("result").innerHTML =
+            `<span class="correct">
+                ✅ CORRECT! +${points} points
+            </span>`;
 
 
-      if(time <= 0){
+        if(score > best){
 
-        clearInterval(countdownTimer);
+            best = score;
 
-        message.textContent =
-          "⏰ TIME'S UP!";
+            localStorage.setItem(
+                "mindMasterBest",
+                best
+            );
+
+            document.getElementById("best").textContent =
+                best;
+
+        }
+
+
+        level++;
+
+        document.getElementById("level").textContent =
+            level;
+
+        playSound("level");
+
+        setTimeout(() => {
+
+            startRound();
+
+        },1000);
+
+    }
+
+    else{
+
+        document.getElementById("result").innerHTML =
+            `<span class="wrong">
+                ❌ WRONG! Correct answer: ${currentAnswer}
+            </span>`;
+
+        playSound("wrong");
 
         loseLife();
 
-      }
+    }
+
+}
+
+
+/* =========================================
+   LOSE LIFE
+========================================= */
+
+function loseLife(){
+
+    lives--;
+
+    updateLives();
+
+    waitingForAnswer = false;
+
+    document.getElementById("answerInput").disabled = true;
+
+    if(lives <= 0){
+
+        endGame();
+
+        return;
+
+    }
+
+
+    document.getElementById("result").innerHTML =
+        `<span class="wrong">
+            ❤️ Life lost!
+        </span>`;
+
+
+    setTimeout(() => {
+
+        startRound();
 
     },1000);
 
 }
 
 
-/* ==================================================
-   CHECK ANSWER
-================================================== */
-
-function checkAnswer(){
-
-  if(!waitingForAnswer){
-    return;
-  }
-
-
-  let userAnswer =
-    answerInput.value.trim();
-
-
-  if(userAnswer === ""){
-
-    message.textContent =
-      "Enter your answer first 😅";
-
-    return;
-
-  }
-
-
-  clearInterval(countdownTimer);
-
-  waitingForAnswer = false;
-
-
-  if(userAnswer === currentNumber){
-
-    playSound("correct");
-
-
-    let multiplier =
-      mode === "classic"
-      ? 1
-      : mode === "speed"
-      ? 2
-      : 3;
-
-
-    let points =
-      level * 10 * multiplier;
-
-
-    score += points;
-
-
-    scoreDisplay.textContent =
-      score;
-
-
-    message.textContent =
-      "🔥 CORRECT! +" + points;
-
-
-    level++;
-
-
-    levelDisplay.textContent =
-      level;
-
-
-    numberDisplay.classList.add(
-      "level-up"
-    );
-
-
-    setTimeout(() => {
-
-      numberDisplay.classList.remove(
-        "level-up"
-      );
-
-    },500);
-
-
-    answerInput.disabled = true;
-
-    submitBtn.disabled = true;
-
-    startBtn.disabled = false;
-
-    startBtn.textContent =
-      "▶ NEXT ROUND";
-
-
-  }else{
-
-    playSound("wrong");
-
-    loseLife();
-
-  }
-
-}
-
-
-/* ==================================================
-   LOSE LIFE
-================================================== */
-
-function loseLife(){
-
-  waitingForAnswer = false;
-
-  lives--;
-
-  updateLives();
-
-
-  answerInput.disabled = true;
-
-  submitBtn.disabled = true;
-
-  startBtn.disabled = false;
-
-
-  numberDisplay.textContent =
-    "❌";
-
-
-  if(lives <= 0){
-
-    endGame();
-
-  }else{
-
-    message.textContent =
-      "❌ Wrong! Life lost.";
-
-    startBtn.textContent =
-      "▶ TRY AGAIN";
-
-  }
-
-}
-
-
-/* ==================================================
-   LIVES
-================================================== */
+/* =========================================
+   UPDATE LIVES
+========================================= */
 
 function updateLives(){
 
-  let hearts = "";
+    let hearts = "";
 
+    for(let i = 0; i < lives; i++){
 
-  for(let i=0;i<lives;i++){
-
-    hearts += "❤️";
-
-  }
-
-
-  for(let i=lives;i<3;i++){
-
-    hearts += "🖤";
-
-  }
-
-
-  livesDisplay.textContent =
-    hearts;
-
-}
-
-
-/* ==================================================
-   END GAME
-================================================== */
-
-function endGame(){
-
-  clearTimeout(roundTimer);
-
-  clearInterval(countdownTimer);
-
-
-  answerInput.disabled = true;
-
-  submitBtn.disabled = true;
-
-  startBtn.disabled = false;
-
-
-  startBtn.textContent =
-    "▶ PLAY AGAIN";
-
-
-  numberDisplay.textContent =
-    "💀";
-
-
-  message.textContent =
-    "GAME OVER";
-
-
-  result.style.display =
-    "block";
-
-
-  finalScore.textContent =
-    score;
-
-
-  if(score > best){
-
-    best = score;
-
-
-    localStorage.setItem(
-      "mindMasterBest",
-      best
-    );
-
-
-    bestDisplay.textContent =
-      best;
-
-
-    finalMessage.textContent =
-      "🏆 NEW HIGH SCORE!";
-
-  }else{
-
-    finalMessage.textContent =
-      "🧠 Keep practicing and beat your best!";
-
-  }
-
-}
-
-
-/* ==================================================
-   RESET
-================================================== */
-
-function resetGame(){
-
-  clearTimeout(roundTimer);
-
-  clearInterval(countdownTimer);
-
-
-  level = 1;
-
-  score = 0;
-
-
-  if(mode === "impossible"){
-
-    lives = 1;
-
-  }else{
-
-    lives = 3;
-
-  }
-
-
-  currentNumber = "";
-
-  waitingForAnswer = false;
-
-
-  levelDisplay.textContent =
-    level;
-
-  scoreDisplay.textContent =
-    score;
-
-
-  updateLives();
-
-
-  numberDisplay.textContent =
-    "Press START";
-
-
-  message.textContent =
-    "Press START GAME to begin.";
-
-
-  answerInput.value = "";
-
-  answerInput.disabled = true;
-
-  submitBtn.disabled = true;
-
-  startBtn.disabled = false;
-
-  startBtn.textContent =
-    "▶ START GAME";
-
-
-  timerBar.style.width =
-    "100%";
-
-
-  result.style.display =
-    "none";
-
-}
-
-
-/* ==================================================
-   RESTART
-================================================== */
-
-function restartGame(){
-
-  resetGame();
-
-}
-
-
-/* ==================================================
-   SHARE
-================================================== */
-
-function shareScore(){
-
-  const text =
-    `🧠 I scored ${score} points on MIND MASTER! 🎮🔥 Can you beat me?`;
-
-
-  if(navigator.share){
-
-    navigator.share({
-
-      title:"Mind Master 🧠",
-
-      text:text
-
-    });
-
-  }else{
-
-    navigator.clipboard.writeText(text);
-
-    alert(
-      "Score copied! 📋\n\n"+text
-    );
-
-  }
-
-}
-
-
-/* ==================================================
-   ENTER KEY
-================================================== */
-
-answerInput.addEventListener(
-  "keydown",
-  function(event){
-
-    if(event.key === "Enter"){
-
-      checkAnswer();
+        hearts += "❤️";
 
     }
 
-  }
-);
+    if(lives === 0){
+
+        hearts = "💔";
+
+    }
+
+    document.getElementById("lives").textContent =
+        hearts;
+
+}
+
+
+/* =========================================
+   END GAME
+========================================= */
+
+function endGame(){
+
+    clearInterval(timerInterval);
+
+    clearInterval(countdownTimer);
+
+    waitingForAnswer = false;
+
+    document.getElementById("answerInput").disabled = true;
+
+    document.getElementById("startButton").disabled = false;
+
+    document.getElementById("startButton").textContent =
+        "PLAY AGAIN 🎮";
+
+
+    document.getElementById("result").innerHTML =
+
+        `<span class="wrong">
+            💀 GAME OVER!
+            <br>
+            Final Score: ${score}
+            <br>
+            Level Reached: ${level}
+        </span>`;
+
+    playSound("wrong");
+
+}
+
+
+/* =========================================
+   RESET GAME
+========================================= */
+
+function resetGame(){
+
+    clearInterval(timerInterval);
+
+    clearInterval(countdownTimer);
+
+    level = 1;
+
+    score = 0;
+
+    if(mode === "impossible"){
+
+        lives = 1;
+
+    }else{
+
+        lives = 3;
+
+    }
+
+    currentAnswer = "";
+
+    waitingForAnswer = false;
+
+
+    document.getElementById("level").textContent =
+        level;
+
+    document.getElementById("score").textContent =
+        score;
+
+    document.getElementById("best").textContent =
+        best;
+
+    updateLives();
+
+
+    document.getElementById("sequence").textContent =
+        "READY?";
+
+    document.getElementById("challengeType").textContent =
+        "🧠 GET READY";
+
+    document.getElementById("instruction").textContent =
+        "Press START to begin.";
+
+    document.getElementById("result").textContent = "";
+
+    document.getElementById("answerInput").value = "";
+
+    document.getElementById("answerInput").disabled = true;
+
+    document.getElementById("startButton").disabled = false;
+
+    document.getElementById("startButton").textContent =
+        "START CHALLENGE";
+
+    document.getElementById("timerBar").style.width =
+        "100%";
+
+
+    let modeName =
+        mode.charAt(0).toUpperCase() +
+        mode.slice(1);
+
+    document.getElementById("modeInfo").textContent =
+        modeName + " Mode";
+
+}
+
+
+/* =========================================
+   RESTART
+========================================= */
+
+function restartGame(){
+
+    resetGame();
+
+}
+
+
+/* =========================================
+   ENTER KEY
+========================================= */
+
+document.getElementById("answerInput")
+    .addEventListener("keydown",function(event){
+
+        if(event.key === "Enter"){
+
+            checkAnswer();
+
+        }
+
+    });
+
+
+/* =========================================
+   INITIAL SETUP
+========================================= */
+
+updateLives();
 
 </script>
 
