@@ -6,6 +6,9 @@
 
 <title>Mind Master 🧠🎮</title>
 
+<!-- PWA CONNECTION -->
+<link rel="manifest" href="manifest.json">
+
 <meta name="theme-color" content="#00ffd0">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -70,6 +73,8 @@ body::after{
     display:flex;
 }
 
+/* LOADING */
+
 #loadingScreen{
     flex-direction:column;
     text-align:center;
@@ -118,6 +123,8 @@ body::after{
     0%,100%{transform:translateY(0)}
     50%{transform:translateY(-12px)}
 }
+
+/* HOME */
 
 .home-container{
     width:100%;
@@ -198,6 +205,7 @@ body::after{
     background:#20283d;
     color:white;
     box-shadow:none;
+    margin-top:12px;
 }
 
 .install-btn{
@@ -206,6 +214,8 @@ body::after{
     background:linear-gradient(135deg,#7c5cff,#5540d9);
     color:white;
 }
+
+/* GAME */
 
 .game-container{
     width:100%;
@@ -378,6 +388,8 @@ body::after{
     cursor:pointer;
 }
 
+/* RESULT */
+
 .result-container{
     width:100%;
     max-width:500px;
@@ -487,6 +499,8 @@ body::after{
 
 <body>
 
+<!-- LOADING SCREEN -->
+
 <section id="loadingScreen" class="screen active">
 
     <div class="logo">🧠</div>
@@ -504,6 +518,9 @@ body::after{
     </div>
 
 </section>
+
+
+<!-- HOME SCREEN -->
 
 <section id="homeScreen" class="screen">
 
@@ -526,14 +543,20 @@ body::after{
                 <h3>🎮 HOW TO PLAY</h3>
 
                 <p>🔢 A number will appear on the screen.</p>
+
                 <p>👀 Memorize it before it disappears.</p>
+
                 <p>✍️ Enter the number exactly as you remember it.</p>
+
                 <p>🔥 Each round becomes harder.</p>
+
                 <p>🏆 Try to beat your highest score.</p>
 
             </div>
 
-            <button class="btn" onclick="startGame()">
+            <button
+                class="btn"
+                onclick="startGame()">
                 🚀 START GAME
             </button>
 
@@ -543,8 +566,6 @@ body::after{
                 onclick="installApp()">
                 📲 INSTALL MIND MASTER
             </button>
-
-            <br>
 
             <button
                 class="btn secondary-btn"
@@ -558,6 +579,9 @@ body::after{
 
 </section>
 
+
+<!-- GAME SCREEN -->
+
 <section id="gameScreen" class="screen">
 
     <div class="game-container">
@@ -565,23 +589,49 @@ body::after{
         <div class="game-header">
 
             <div class="stat">
-                <div class="stat-label">Score</div>
-                <div id="score" class="stat-value">0</div>
+
+                <div class="stat-label">
+                    Score
+                </div>
+
+                <div
+                    id="score"
+                    class="stat-value">
+                    0
+                </div>
+
             </div>
 
             <div class="stat">
-                <div class="stat-label">Round</div>
-                <div id="round" class="stat-value">1</div>
+
+                <div class="stat-label">
+                    Round
+                </div>
+
+                <div
+                    id="round"
+                    class="stat-value">
+                    1
+                </div>
+
             </div>
 
             <div class="stat">
-                <div class="stat-label">Lives</div>
-                <div id="lives" class="stat-value">
+
+                <div class="stat-label">
+                    Lives
+                </div>
+
+                <div
+                    id="lives"
+                    class="stat-value">
                     ❤️❤️❤️
                 </div>
+
             </div>
 
         </div>
+
 
         <div class="progress-area">
 
@@ -598,21 +648,28 @@ body::after{
             </div>
 
             <div class="progress">
+
                 <div
                     id="progressBar"
                     class="progress-bar">
                 </div>
+
             </div>
 
         </div>
 
+
         <div class="game-card">
 
-            <div id="roundText" class="round">
+            <div
+                id="roundText"
+                class="round">
                 ROUND 1
             </div>
 
-            <div id="question" class="question">
+            <div
+                id="question"
+                class="question">
                 Memorize this number!
             </div>
 
@@ -632,7 +689,10 @@ body::after{
                 Get ready...
             </div>
 
-            <div id="answerArea" class="answer-area">
+
+            <div
+                id="answerArea"
+                class="answer-area">
 
                 <input
                     id="answerInput"
@@ -657,6 +717,7 @@ body::after{
 
         </div>
 
+
         <div class="game-bottom">
 
             <button
@@ -676,6 +737,9 @@ body::after{
     </div>
 
 </section>
+
+
+<!-- RESULT SCREEN -->
 
 <section id="resultScreen" class="screen">
 
@@ -702,18 +766,33 @@ body::after{
         <div class="result-card">
 
             <div class="result-row">
+
                 <span>Final Score</span>
-                <span id="finalScore">0</span>
+
+                <span id="finalScore">
+                    0
+                </span>
+
             </div>
 
             <div class="result-row">
+
                 <span>Highest Round</span>
-                <span id="finalRound">1</span>
+
+                <span id="finalRound">
+                    1
+                </span>
+
             </div>
 
             <div class="result-row">
+
                 <span>High Score</span>
-                <span id="highScore">0</span>
+
+                <span id="highScore">
+                    0
+                </span>
+
             </div>
 
         </div>
@@ -723,8 +802,6 @@ body::after{
             onclick="startGame()">
             🚀 PLAY AGAIN
         </button>
-
-        <br><br>
 
         <button
             class="btn secondary-btn"
@@ -736,27 +813,32 @@ body::after{
 
 </section>
 
+
 <script>
 
-/* ==========================
-   GAME VARIABLES
-========================== */
+/* GAME VARIABLES */
 
 let score = 0;
 let round = 1;
 let lives = 3;
+
 let currentNumber = "";
+
 let memorizeTime = 5;
+
 let countdownInterval = null;
+
 let gameActive = false;
 
 let highScore =
-    Number(localStorage.getItem("mindMasterHighScore")) || 0;
+    Number(
+        localStorage.getItem(
+            "mindMasterHighScore"
+        )
+    ) || 0;
 
 
-/* ==========================
-   LOUD SOUND SYSTEM 🔊
-========================== */
+/* SOUND SYSTEM */
 
 let audioContext = null;
 
@@ -769,18 +851,26 @@ function getAudioContext(){
             window.webkitAudioContext;
 
         if(AudioCtx){
-            audioContext = new AudioCtx();
+
+            audioContext =
+                new AudioCtx();
+
         }
+
     }
 
-    if(audioContext &&
-       audioContext.state === "suspended"){
+    if(
+        audioContext &&
+        audioContext.state === "suspended"
+    ){
 
         audioContext.resume();
+
     }
 
     return audioContext;
 }
+
 
 function playTone(
     frequency,
@@ -789,7 +879,8 @@ function playTone(
     volume=0.35
 ){
 
-    const ctx = getAudioContext();
+    const ctx =
+        getAudioContext();
 
     if(!ctx) return;
 
@@ -815,6 +906,7 @@ function playTone(
     );
 
     oscillator.connect(gain);
+
     gain.connect(ctx.destination);
 
     oscillator.start();
@@ -825,97 +917,156 @@ function playTone(
 }
 
 
-/* CORRECT SOUND */
-
 function playCorrectSound(){
 
     getAudioContext();
 
-    playTone(523,0.18,"sine",0.55);
+    playTone(
+        523,
+        0.18,
+        "sine",
+        0.55
+    );
 
     setTimeout(() => {
-        playTone(659,0.18,"sine",0.55);
+
+        playTone(
+            659,
+            0.18,
+            "sine",
+            0.55
+        );
+
     },100);
 
     setTimeout(() => {
-        playTone(784,0.28,"sine",0.60);
+
+        playTone(
+            784,
+            0.28,
+            "sine",
+            0.60
+        );
+
     },200);
 }
 
-
-/* WRONG SOUND */
 
 function playWrongSound(){
 
     getAudioContext();
 
-    playTone(220,0.25,"sawtooth",0.60);
+    playTone(
+        220,
+        0.25,
+        "sawtooth",
+        0.60
+    );
 
     setTimeout(() => {
-        playTone(150,0.35,"sawtooth",0.55);
+
+        playTone(
+            150,
+            0.35,
+            "sawtooth",
+            0.55
+        );
+
     },180);
 }
 
-
-/* START GAME SOUND */
 
 function playStartSound(){
 
     getAudioContext();
 
-    playTone(392,0.12,"sine",0.50);
+    playTone(
+        392,
+        0.12,
+        "sine",
+        0.50
+    );
 
     setTimeout(() => {
-        playTone(523,0.12,"sine",0.50);
+
+        playTone(
+            523,
+            0.12,
+            "sine",
+            0.50
+        );
+
     },100);
 
     setTimeout(() => {
-        playTone(659,0.20,"sine",0.55);
+
+        playTone(
+            659,
+            0.20,
+            "sine",
+            0.55
+        );
+
     },200);
 }
 
-
-/* GAME OVER SOUND */
 
 function playGameOverSound(){
 
     getAudioContext();
 
-    playTone(330,0.20,"sawtooth",0.55);
+    playTone(
+        330,
+        0.20,
+        "sawtooth",
+        0.55
+    );
 
     setTimeout(() => {
-        playTone(247,0.20,"sawtooth",0.55);
+
+        playTone(
+            247,
+            0.20,
+            "sawtooth",
+            0.55
+        );
+
     },180);
 
     setTimeout(() => {
-        playTone(196,0.45,"sawtooth",0.60);
+
+        playTone(
+            196,
+            0.45,
+            "sawtooth",
+            0.60
+        );
+
     },360);
 }
 
 
-/* ==========================
-   SCREEN
-========================== */
+/* SCREEN CONTROL */
 
 function showScreen(id){
 
     document
-    .querySelectorAll(".screen")
-    .forEach(screen => {
+        .querySelectorAll(".screen")
+        .forEach(screen => {
 
-        screen.classList.remove("active");
+            screen.classList.remove(
+                "active"
+            );
 
-    });
+        });
 
     document
-    .getElementById(id)
-    .classList.add("active");
+        .getElementById(id)
+        .classList.add("active");
 }
 
 
-/* ==========================
-   LOADING
-========================== */
+/* LOADING */
 
 setTimeout(() => {
 
@@ -924,19 +1075,22 @@ setTimeout(() => {
 },2200);
 
 
-/* ==========================
-   START GAME
-========================== */
+/* START GAME */
 
 function startGame(){
 
     getAudioContext();
+
     playStartSound();
 
-    clearInterval(countdownInterval);
+    clearInterval(
+        countdownInterval
+    );
 
     score = 0;
+
     round = 1;
+
     lives = 3;
 
     gameActive = true;
@@ -949,78 +1103,106 @@ function startGame(){
 }
 
 
-/* ==========================
-   ROUND
-========================== */
+/* START ROUND */
 
 function startRound(){
 
     if(!gameActive) return;
 
-    clearInterval(countdownInterval);
+    clearInterval(
+        countdownInterval
+    );
 
     document
-    .getElementById("answerArea")
-    .classList.remove("show");
+        .getElementById(
+            "answerArea"
+        )
+        .classList.remove("show");
 
     document
-    .getElementById("feedback")
-    .textContent = "";
+        .getElementById(
+            "feedback"
+        )
+        .textContent = "";
 
     document
-    .getElementById("answerInput")
-    .value = "";
+        .getElementById(
+            "answerInput"
+        )
+        .value = "";
 
     document
-    .getElementById("roundText")
-    .textContent =
+        .getElementById(
+            "roundText"
+        )
+        .textContent =
         "ROUND " + round;
 
     document
-    .getElementById("round")
-    .textContent = round;
+        .getElementById(
+            "round"
+        )
+        .textContent = round;
 
     document
-    .getElementById("statusText")
-    .textContent =
+        .getElementById(
+            "statusText"
+        )
+        .textContent =
         "Memorize the number";
 
     document
-    .getElementById("question")
-    .textContent =
+        .getElementById(
+            "question"
+        )
+        .textContent =
         "Memorize this number!";
 
     document
-    .getElementById("memoryMessage")
-    .textContent =
+        .getElementById(
+            "memoryMessage"
+        )
+        .textContent =
         "Look carefully... 👀";
 
 
     let length;
 
+
     if(round <= 2){
 
         length = 4;
 
-    }else if(round <= 4){
+    }
+
+    else if(round <= 4){
 
         length = 5;
 
-    }else if(round <= 6){
+    }
+
+    else if(round <= 6){
 
         length = 6;
 
-    }else if(round <= 8){
+    }
+
+    else if(round <= 8){
 
         length = 7;
 
-    }else{
+    }
+
+    else{
 
         length =
-        Math.min(
-            10,
-            7 + Math.floor((round - 8) / 2)
-        );
+            Math.min(
+                10,
+                7 +
+                Math.floor(
+                    (round - 8) / 2
+                )
+            );
 
     }
 
@@ -1028,45 +1210,58 @@ function startRound(){
     currentNumber =
         generateNumber(length);
 
+
     document
-    .getElementById("numberDisplay")
-    .textContent =
+        .getElementById(
+            "numberDisplay"
+        )
+        .textContent =
         currentNumber;
 
 
     memorizeTime =
         Math.max(
             2,
-            5 - Math.floor(round / 5)
+            5 -
+            Math.floor(
+                round / 5
+            )
         );
 
-    startCountdown(memorizeTime);
+
+    startCountdown(
+        memorizeTime
+    );
 }
 
 
-/* ==========================
-   NUMBER
-========================== */
+/* NUMBER GENERATOR */
 
 function generateNumber(length){
 
     let number = "";
 
-    for(let i = 0; i < length; i++){
+    for(
+        let i = 0;
+        i < length;
+        i++
+    ){
 
         if(i === 0){
 
             number +=
-            Math.floor(
-                Math.random() * 9
-            ) + 1;
+                Math.floor(
+                    Math.random() * 9
+                ) + 1;
 
-        }else{
+        }
+
+        else{
 
             number +=
-            Math.floor(
-                Math.random() * 10
-            );
+                Math.floor(
+                    Math.random() * 10
+                );
 
         }
 
@@ -1076,9 +1271,7 @@ function generateNumber(length){
 }
 
 
-/* ==========================
-   COUNTDOWN
-========================== */
+/* COUNTDOWN */
 
 function startCountdown(seconds){
 
@@ -1090,103 +1283,6 @@ function startCountdown(seconds){
     );
 
     countdownInterval =
-    setInterval(() => {
+        setInterval(() => {
 
-        timeLeft--;
-
-        updateTimer(
-            timeLeft,
-            seconds
-        );
-
-        if(timeLeft <= 0){
-
-            clearInterval(
-                countdownInterval
-            );
-
-            hideNumber();
-
-        }
-
-    },1000);
-}
-
-
-/* ==========================
-   TIMER
-========================== */
-
-function updateTimer(
-    timeLeft,
-    total
-){
-
-    document
-    .getElementById("timerText")
-    .textContent =
-        timeLeft + "s";
-
-    let percentage =
-        (timeLeft / total) * 100;
-
-    document
-    .getElementById("progressBar")
-    .style.width =
-        percentage + "%";
-}
-
-
-/* ==========================
-   HIDE NUMBER
-========================== */
-
-function hideNumber(){
-
-    document
-    .getElementById("numberDisplay")
-    .textContent =
-        "????";
-
-    document
-    .getElementById("statusText")
-    .textContent =
-        "Your turn!";
-
-    document
-    .getElementById("question")
-    .textContent =
-        "What was the number?";
-
-    document
-    .getElementById("memoryMessage")
-    .textContent =
-        "Type what you remember below.";
-
-    document
-    .getElementById("answerArea")
-    .classList.add("show");
-
-    document
-    .getElementById("answerInput")
-    .focus();
-
-    document
-    .getElementById("progressBar")
-    .style.width =
-        "0%";
-}
-
-
-/* ==========================
-   ANSWER
-========================== */
-
-function checkAnswer(){
-
-    if(!gameActive) return;
-
-    const input =
-        document.getElementById(
-            "answerInput"
-    
+          
