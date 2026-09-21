@@ -1,66 +1,120 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Mind Master 🧠🎮</title>
+
+<meta name="theme-color" content="#00ffd0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <style>
 
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
 }
 
 body{
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:
-    radial-gradient(circle at top,#15915d44,transparent 35%),
-    linear-gradient(135deg,#03130c,#063b28,#087346);
+    radial-gradient(circle at top,#182848 0%,#0b1020 45%,#050711 100%);
     color:white;
     min-height:100vh;
+    overflow-x:hidden;
 }
 
-button,input{
-    font:inherit;
+body::before{
+    content:"";
+    position:fixed;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:rgba(0,255,200,.08);
+    filter:blur(80px);
+    top:-100px;
+    left:-100px;
+    pointer-events:none;
 }
 
-button{
-    cursor:pointer;
-    border:none;
-}
-
-.hidden{
-    display:none!important;
+body::after{
+    content:"";
+    position:fixed;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:rgba(100,80,255,.08);
+    filter:blur(80px);
+    bottom:-100px;
+    right:-100px;
+    pointer-events:none;
 }
 
 .screen{
+    display:none;
     min-height:100vh;
-    display:flex;
-    flex-direction:column;
+    width:100%;
     align-items:center;
     justify-content:center;
+    padding:20px;
+}
+
+.screen.active{
+    display:flex;
+}
+
+#loadingScreen{
+    flex-direction:column;
     text-align:center;
-    padding:25px;
 }
 
-/* =========================
-   LANDING
-========================= */
-
-#landing{
-    background:
-    radial-gradient(circle at top,#15915d55,transparent 35%),
-    linear-gradient(135deg,#03130c,#063b28,#087346);
+.logo{
+    font-size:75px;
+    animation:float 2s ease-in-out infinite;
 }
 
-.brain{
-    font-size:90px;
-    animation:float 2s infinite ease-in-out;
+.loading-title{
+    font-size:42px;
+    font-weight:900;
+    margin-top:10px;
+    letter-spacing:2px;
+}
+
+.loading-subtitle{
+    color:#9da8c4;
+    margin-top:8px;
+    font-size:15px;
+}
+
+.loader{
+    width:230px;
+    height:7px;
+    background:#20273b;
+    border-radius:20px;
+    margin-top:30px;
+    overflow:hidden;
+}
+
+.loader-bar{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#00ffd0,#7c5cff);
+    animation:loading 2s linear forwards;
+}
+
+@keyframes loading{
+    from{width:0}
+    to{width:100%}
 }
 
 @keyframes float{
@@ -68,457 +122,368 @@ button{
     50%{transform:translateY(-12px)}
 }
 
-.logo{
+.home-container{
+    width:100%;
+    max-width:500px;
+    text-align:center;
+}
+
+.game-logo{
+    font-size:85px;
+    margin-bottom:10px;
+    animation:float 3s ease-in-out infinite;
+}
+
+.game-title{
     font-size:48px;
-    font-weight:bold;
-    margin:10px 0;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.game-title span{
+    color:#00ffd0;
 }
 
 .tagline{
-    color:#c8f7df;
-    margin-bottom:30px;
+    color:#aeb7cd;
+    margin:10px 0 30px;
+    font-size:16px;
 }
 
-.play-btn{
-    background:#d4af37;
-    color:#111;
-    padding:16px 40px;
-    border-radius:40px;
-    font-size:20px;
-    font-weight:bold;
-    box-shadow:0 0 25px #d4af3770;
-    transition:.2s;
+.card{
+    background:rgba(17,24,42,.88);
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    border-radius:25px;
+    padding:28px;
+    backdrop-filter:blur(15px);
 }
 
-.play-btn:hover{
-    transform:scale(1.06);
-}
-
-/* =========================
-   HUB
-========================= */
-
-#hub{
-    background:
-    radial-gradient(circle at center,#0c7d4f55,transparent 45%),
-    linear-gradient(135deg,#03130c,#063b28);
-}
-
-.hub-title{
-    font-size:40px;
-    margin-bottom:8px;
-}
-
-.hub-subtitle{
-    color:#bdebd4;
+.instructions{
+    text-align:left;
     margin-bottom:25px;
 }
 
-.game-grid{
-    width:min(950px,100%);
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+.instructions h3{
+    color:#00ffd0;
+    margin-bottom:15px;
 }
 
-.game-card{
-    position:relative;
-    min-height:145px;
-    padding:20px;
-    border-radius:20px;
-    text-align:left;
+.instructions p{
+    color:#b9c1d5;
+    margin:10px 0;
+    line-height:1.5;
+}
+
+.btn{
+    width:100%;
+    border:none;
+    padding:17px;
+    border-radius:15px;
+    font-size:17px;
+    font-weight:800;
+    cursor:pointer;
+    color:#06110f;
+    background:linear-gradient(135deg,#00ffd0,#00bfa5);
+    box-shadow:0 8px 25px rgba(0,255,208,.18);
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+.secondary-btn{
+    background:#20283d;
     color:white;
-    background:#ffffff10;
-    border:1px solid #ffffff20;
-    transition:.25s;
+    box-shadow:none;
 }
 
-.game-card:hover{
-    transform:translateY(-5px);
-    background:#ffffff1d;
-    border-color:#d4af3770;
-    box-shadow:0 15px 35px #0005;
+.install-btn{
+    display:none;
+    margin-top:12px;
+    background:linear-gradient(135deg,#7c5cff,#5540d9);
+    color:white;
 }
 
-.game-icon{
-    font-size:40px;
-    margin-bottom:8px;
-}
-
-.game-card h3{
-    font-size:21px;
-    margin-bottom:6px;
-}
-
-.game-card p{
-    color:#bcd8ca;
-    font-size:14px;
-    line-height:1.4;
-}
-
-.play-small{
-    position:absolute;
-    right:15px;
-    bottom:15px;
-    padding:7px 12px;
-    border-radius:20px;
-    background:#d4af37;
-    color:#111;
-    font-size:12px;
-    font-weight:bold;
-}
-
-.back-btn{
-    margin-top:25px;
-    background:transparent;
-    color:#ddd;
-    padding:10px 20px;
-}
-
-/* =========================
-   GAME AREA
-========================= */
-
-.game{
-    width:min(850px,100%);
-    margin:auto;
-    padding:20px;
+.game-container{
+    width:100%;
+    max-width:650px;
 }
 
 .game-header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
-}
-
-.game-title{
-    font-size:28px;
-    font-weight:bold;
-}
-
-.header-buttons{
-    display:flex;
-    gap:8px;
-}
-
-.icon-btn{
-    width:44px;
-    height:44px;
-    border-radius:50%;
-    background:#ffffff15;
-    color:white;
-    font-size:19px;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
     gap:10px;
-    margin-bottom:20px;
+    margin-bottom:15px;
 }
 
 .stat{
-    background:#ffffff10;
-    border:1px solid #ffffff15;
-    padding:12px 5px;
-    border-radius:14px;
-}
-
-.stat span{
-    display:block;
-    font-size:11px;
-    color:#a8c9b8;
-}
-
-.stat strong{
-    font-size:20px;
-}
-
-.challenge{
+    background:rgba(20,28,48,.9);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:15px;
+    padding:12px 16px;
+    flex:1;
     text-align:center;
 }
 
-.instruction{
-    color:#c7ded2;
-    margin:10px 0 20px;
+.stat-label{
+    color:#8e99b2;
+    font-size:11px;
+    text-transform:uppercase;
 }
 
-.timer{
-    height:9px;
-    background:#ffffff18;
+.stat-value{
+    font-size:21px;
+    font-weight:900;
+    margin-top:3px;
+}
+
+.progress-area{
+    margin:15px 0;
+}
+
+.progress-top{
+    display:flex;
+    justify-content:space-between;
+    color:#9da8c4;
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.progress{
+    width:100%;
+    height:8px;
+    background:#1e2639;
     border-radius:20px;
     overflow:hidden;
-    margin:15px 0;
 }
 
-.timer-bar{
+.progress-bar{
+    width:100%;
     height:100%;
-    width:100%;
-    background:#d4af37;
+    background:linear-gradient(90deg,#00ffd0,#7c5cff);
+    transition:width 1s linear;
 }
 
-.result{
-    min-height:35px;
-    margin:12px 0;
-    font-weight:bold;
-}
-
-.correct{
-    color:#70f0ad;
-}
-
-.wrong{
-    color:#ff8585;
-}
-
-.primary{
-    background:#d4af37;
-    color:#111;
-    padding:14px 25px;
-    border-radius:30px;
-    font-weight:bold;
-}
-
-.secondary{
-    background:#087346;
-    color:white;
-    padding:13px 22px;
-    border-radius:30px;
-}
-
-.input{
-    width:100%;
-    padding:15px;
-    border-radius:12px;
-    border:none;
-    outline:none;
+.game-card{
+    background:rgba(17,24,42,.94);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    padding:30px 22px;
     text-align:center;
+    box-shadow:0 25px 70px rgba(0,0,0,.4);
+}
+
+.round{
+    color:#8f9ab3;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.question{
     font-size:20px;
+    font-weight:800;
+    margin-bottom:25px;
 }
 
-.answer-row{
-    display:flex;
-    gap:10px;
-    margin:15px 0;
-}
-
-.answer-row .input{
-    flex:1;
-}
-
-/* =========================
-   MEMORY
-========================= */
-
-.memory-display{
-    min-height:170px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:#ffffff0d;
-    border:2px solid #ffffff15;
-    border-radius:25px;
-    margin:20px 0;
-}
-
-.big-text{
-    font-size:clamp(35px,9vw,70px);
-    font-weight:bold;
-    letter-spacing:8px;
-    word-break:break-word;
-}
-
-/* =========================
-   WORD BUILDER
-========================= */
-
-.word-box{
+.number-box{
     min-height:130px;
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:8px;
-    flex-wrap:wrap;
-    margin:20px 0;
+    padding:20px;
+    border-radius:20px;
+    background:linear-gradient(145deg,#111a30,#0b1121);
+    border:1px solid rgba(0,255,208,.12);
+    margin-bottom:25px;
 }
 
-.letter{
-    width:55px;
-    height:55px;
-    border-radius:14px;
-    background:#ffffff15;
-    color:white;
-    border:2px solid #ffffff25;
-    font-size:24px;
-    font-weight:bold;
+.number{
+    font-size:48px;
+    font-weight:900;
+    letter-spacing:7px;
+    color:#00ffd0;
+    word-break:break-all;
 }
 
-.letter:hover{
-    transform:translateY(-3px);
-    background:#d4af37;
-    color:#111;
+.memory-message{
+    color:#aab4c9;
+    font-size:14px;
+    min-height:20px;
 }
 
-.selected-letters{
-    min-height:55px;
-    color:#d4af37;
-    font-size:32px;
-    font-weight:bold;
-    letter-spacing:8px;
+.answer-area{
+    display:none;
 }
 
-/* =========================
-   MEMORY CARDS
-========================= */
-
-.card-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    max-width:500px;
-    margin:20px auto;
+.answer-area.show{
+    display:block;
 }
 
-.memory-card{
-    aspect-ratio:1;
-    border-radius:14px;
-    background:#087346;
-    color:white;
-    font-size:30px;
-    transition:.2s;
-}
-
-.memory-card.flipped{
-    background:#d4af37;
-    color:#111;
-}
-
-.memory-card.matched{
-    background:#70f0ad;
-    color:#111;
-}
-
-/* =========================
-   NUMBER RUSH
-========================= */
-
-.math-question{
-    font-size:55px;
-    font-weight:bold;
-    margin:40px 0;
-}
-
-/* =========================
-   QUICK TAP
-========================= */
-
-.tap-target{
-    width:220px;
-    height:220px;
-    margin:30px auto;
-    border-radius:50%;
-    background:#d4af37;
-    color:#111;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:30px;
-    font-weight:bold;
-    box-shadow:0 0 35px #d4af3755;
-}
-
-/* =========================
-   ODD ONE OUT
-========================= */
-
-.choice-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:12px;
-    max-width:550px;
-    margin:25px auto;
-}
-
-.choice{
-    padding:25px 10px;
+.answer-input{
+    width:100%;
+    padding:17px;
     border-radius:15px;
-    background:#ffffff12;
+    border:2px solid #28334c;
+    background:#0b1120;
     color:white;
-    font-size:32px;
-}
-
-/* =========================
-   SEQUENCE
-========================= */
-
-.sequence-question{
-    font-size:45px;
+    outline:none;
+    text-align:center;
+    font-size:22px;
     font-weight:bold;
-    margin:40px 0;
-    letter-spacing:5px;
+    letter-spacing:4px;
+    margin-bottom:15px;
 }
 
-/* =========================
-   COLOR
-========================= */
+.answer-input:focus{
+    border-color:#00ffd0;
+}
 
-.color-word{
-    font-size:70px;
+.answer-input::placeholder{
+    color:#56617a;
+    letter-spacing:0;
+    font-size:14px;
+}
+
+.feedback{
+    min-height:28px;
+    margin-top:15px;
     font-weight:bold;
-    margin:40px 0;
 }
 
-/* =========================
-   GAME OVER
-========================= */
+.correct{
+    color:#00ffd0;
+}
 
-.game-over{
-    padding:30px;
-    background:#ffffff0d;
-    border:1px solid #ffffff20;
+.wrong{
+    color:#ff6b81;
+}
+
+.game-bottom{
+    margin-top:15px;
+    display:flex;
+    gap:10px;
+}
+
+.small-btn{
+    flex:1;
+    padding:13px;
+    border:none;
+    border-radius:13px;
+    background:#171f33;
+    color:#c8d0e0;
+    cursor:pointer;
+}
+
+.result-container{
+    width:100%;
+    max-width:500px;
+    text-align:center;
+}
+
+.result-icon{
+    font-size:75px;
+    margin-bottom:15px;
+}
+
+.result-title{
+    font-size:38px;
+    font-weight:900;
+}
+
+.result-subtitle{
+    color:#9fa9bf;
+    margin:10px 0 25px;
+}
+
+.result-card{
+    background:rgba(17,24,42,.92);
+    border:1px solid rgba(255,255,255,.08);
     border-radius:25px;
+    padding:28px;
+    margin-bottom:18px;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
+.result-row{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
 
-@media(max-width:600px){
+.result-row:last-child{
+    border-bottom:none;
+}
 
-    .game-grid{
-        grid-template-columns:1fr;
-    }
+.result-row span:first-child{
+    color:#8f9ab3;
+}
 
-    .stats{
-        grid-template-columns:repeat(2,1fr);
-    }
+.result-row span:last-child{
+    font-weight:900;
+    font-size:18px;
+}
+
+.new-record{
+    display:none;
+    color:#00ffd0;
+    font-weight:900;
+    margin-bottom:18px;
+    animation:pulse 1s infinite;
+}
+
+.new-record.show{
+    display:block;
+}
+
+@keyframes pulse{
+    50%{transform:scale(1.05)}
+}
+
+@media(max-width:500px){
 
     .game-title{
-        font-size:22px;
+        font-size:39px;
     }
 
-    .answer-row{
-        flex-direction:column;
-    }
-
-    .card-grid{
-        grid-template-columns:repeat(4,1fr);
-    }
-
-    .choice-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .letter{
-        width:48px;
-        height:48px;
+    .game-logo{
+        font-size:70px;
     }
 
     .logo{
-        font-size:38px;
+        font-size:65px;
     }
 
+    .loading-title{
+        font-size:34px;
+    }
+
+    .game-header{
+        gap:6px;
+    }
+
+    .stat{
+        padding:10px 5px;
+    }
+
+    .stat-value{
+        font-size:17px;
+    }
+
+    .number{
+        font-size:34px;
+        letter-spacing:4px;
+    }
+
+    .game-card{
+        padding:25px 15px;
+    }
 }
 
 </style>
@@ -527,1955 +492,742 @@ button{
 <body>
 
 
-<!-- =====================================================
-     LANDING
-===================================================== -->
+<!-- LOADING -->
 
-<section id="landing" class="screen">
+<section id="loadingScreen" class="screen active">
 
-    <div class="brain">🧠</div>
+    <div class="logo">🧠</div>
 
-    <h1 class="logo">
+    <div class="loading-title">
         MIND MASTER
-    </h1>
+    </div>
 
-    <p class="tagline">
-        Train your brain. Challenge yourself. Become the master. 🔥
-    </p>
+    <div class="loading-subtitle">
+        Train your memory. Beat your score.
+    </div>
 
-    <button class="play-btn" onclick="showHub()">
-        PLAY NOW 🎮
-    </button>
+    <div class="loader">
+        <div class="loader-bar"></div>
+    </div>
 
 </section>
 
 
-<!-- =====================================================
-     GAME HUB
-===================================================== -->
+<!-- HOME -->
 
-<section id="hub" class="screen hidden">
+<section id="homeScreen" class="screen">
 
-    <h1 class="hub-title">
-        🎮 MIND MASTER
-    </h1>
+    <div class="home-container">
 
-    <p class="hub-subtitle">
-        Choose your game!
-    </p>
+        <div class="game-logo">🧠</div>
 
+        <div class="game-title">
+            MIND <span>MASTER</span>
+        </div>
 
-    <div class="game-grid">
+        <div class="tagline">
+            Think fast. Remember everything. 🧠🔥
+        </div>
 
-        <button class="game-card" onclick="openGame('memory')">
-            <div class="game-icon">🧠</div>
-            <h3>Memory Numbers</h3>
-            <p>Remember numbers, letters and words.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+        <div class="card">
 
+            <div class="instructions">
 
-        <button class="game-card" onclick="openGame('word')">
-            <div class="game-icon">🔤</div>
-            <h3>Word Builder</h3>
-            <p>Arrange letters and build the correct word.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+                <h3>🎮 HOW TO PLAY</h3>
 
+                <p>🔢 A number will appear on the screen.</p>
 
-        <button class="game-card" onclick="openGame('cards')">
-            <div class="game-icon">🃏</div>
-            <h3>Memory Cards</h3>
-            <p>Find matching pairs of cards.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+                <p>👀 Memorize it before it disappears.</p>
 
+                <p>✍️ Enter the number exactly as you remember it.</p>
 
-        <button class="game-card" onclick="openGame('rush')">
-            <div class="game-icon">🔢</div>
-            <h3>Number Rush</h3>
-            <p>Solve maths problems before time runs out.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+                <p>🔥 Each round becomes harder.</p>
 
+                <p>🏆 Try to beat your highest score.</p>
 
-        <button class="game-card" onclick="openGame('tap')">
-            <div class="game-icon">⚡</div>
-            <h3>Quick Tap</h3>
-            <p>Tap as quickly as you can.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+            </div>
 
+            <button class="btn" onclick="startGame()">
+                🚀 START GAME
+            </button>
 
-        <button class="game-card" onclick="openGame('odd')">
-            <div class="game-icon">🕵️</div>
-            <h3>Odd One Out</h3>
-            <p>Find the different item.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+            <button
+                id="installButton"
+                class="btn install-btn"
+                onclick="installApp()">
+                📲 INSTALL MIND MASTER
+            </button>
 
+            <br>
 
-        <button class="game-card" onclick="openGame('sequence')">
-            <div class="game-icon">🔮</div>
-            <h3>Sequence Master</h3>
-            <p>Complete the missing number.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+            <button
+                class="btn secondary-btn"
+                onclick="showHowToPlay()">
+                ❓ HOW IT WORKS
+            </button>
 
-
-        <button class="game-card" onclick="openGame('color')">
-            <div class="game-icon">🎨</div>
-            <h3>Color Challenge</h3>
-            <p>Choose the correct color.</p>
-            <span class="play-small">PLAY ▶</span>
-        </button>
+        </div>
 
     </div>
-
-
-    <button class="back-btn" onclick="showLanding()">
-        ← Back Home
-    </button>
 
 </section>
 
 
-<!-- =====================================================
-     GENERIC GAME CONTAINER
-===================================================== -->
+<!-- GAME -->
 
-<main id="game" class="game hidden">
+<section id="gameScreen" class="screen">
 
-    <div class="game-header">
+    <div class="game-container">
 
-        <div class="game-title" id="gameTitle">
-            🧠 Mind Master
-        </div>
+        <div class="game-header">
 
-        <div class="header-buttons">
+            <div class="stat">
+                <div class="stat-label">Score</div>
+                <div id="score" class="stat-value">0</div>
+            </div>
 
-            <button class="icon-btn" onclick="showHub()">
-                🎮
-            </button>
+            <div class="stat">
+                <div class="stat-label">Round</div>
+                <div id="round" class="stat-value">1</div>
+            </div>
 
-            <button
-                class="icon-btn"
-                id="soundBtn"
-                onclick="toggleSound()"
-            >
-                🔊
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="stats">
-
-        <div class="stat">
-            <span>LEVEL</span>
-            <strong id="level">1</strong>
-        </div>
-
-        <div class="stat">
-            <span>SCORE</span>
-            <strong id="score">0</strong>
-        </div>
-
-        <div class="stat">
-            <span>BEST</span>
-            <strong id="best">0</strong>
-        </div>
-
-        <div class="stat">
-            <span>LIVES</span>
-            <strong id="lives">❤️❤️❤️</strong>
-        </div>
-
-    </div>
-
-
-    <div id="gameContent" class="challenge"></div>
-
-</main>
-
-
-<script>
-
-/* =====================================================
-   GLOBAL VARIABLES
-===================================================== */
-
-let currentGame="";
-
-let level=1;
-let score=0;
-let lives=3;
-
-let timer;
-let gameRunning=false;
-
-let soundEnabled=true;
-
-let audioContext;
-
-let bestScores=
-JSON.parse(localStorage.getItem("mindMasterScores")||"{}");
-
-
-/* =====================================================
-   SCREEN CONTROL
-===================================================== */
-
-function hideScreens(){
-
-    document.getElementById("landing")
-        .classList.add("hidden");
-
-    document.getElementById("hub")
-        .classList.add("hidden");
-
-    document.getElementById("game")
-        .classList.add("hidden");
-
-}
-
-
-function showLanding(){
-
-    stopGame();
-
-    hideScreens();
-
-    document.getElementById("landing")
-        .classList.remove("hidden");
-
-}
-
-
-function showHub(){
-
-    stopGame();
-
-    hideScreens();
-
-    document.getElementById("hub")
-        .classList.remove("hidden");
-
-}
-
-
-function openGame(game){
-
-    stopGame();
-
-    currentGame=game;
-
-    level=1;
-    score=0;
-    lives=3;
-
-    hideScreens();
-
-    document.getElementById("game")
-        .classList.remove("hidden");
-
-    updateStats();
-
-    startSelectedGame();
-
-}
-
-
-/* =====================================================
-   STATS
-===================================================== */
-
-function updateStats(){
-
-    document.getElementById("level").textContent=level;
-
-    document.getElementById("score").textContent=score;
-
-    let best=
-        bestScores[currentGame]||0;
-
-    document.getElementById("best").textContent=best;
-
-    let hearts="";
-
-    for(let i=0;i<lives;i++){
-        hearts+="❤️";
-    }
-
-    if(lives<=0){
-        hearts="💔";
-    }
-
-    document.getElementById("lives").textContent=hearts;
-
-}
-
-
-function addScore(points){
-
-    score+=points;
-
-    if(score>(bestScores[currentGame]||0)){
-
-        bestScores[currentGame]=score;
-
-        localStorage.setItem(
-            "mindMasterScores",
-            JSON.stringify(bestScores)
-        );
-
-    }
-
-    updateStats();
-
-}
-
-
-function loseLife(){
-
-    lives--;
-
-    updateStats();
-
-    if(lives<=0){
-
-        gameOver();
-
-        return true;
-
-    }
-
-    return false;
-
-}
-
-
-function nextLevel(){
-
-    level++;
-
-    updateStats();
-
-}
-
-
-/* =====================================================
-   SOUND
-===================================================== */
-
-function audio(){
-
-    if(!audioContext){
-
-        audioContext=
-        new(window.AudioContext||window.webkitAudioContext)();
-
-    }
-
-    return audioContext;
-
-}
-
-
-function sound(type){
-
-    if(!soundEnabled)return;
-
-    const a=audio();
-
-    const o=a.createOscillator();
-
-    const g=a.createGain();
-
-    o.connect(g);
-
-    g.connect(a.destination);
-
-    if(type==="correct"){
-        o.frequency.value=700;
-    }
-    else if(type==="wrong"){
-        o.frequency.value=180;
-    }
-    else if(type==="win"){
-        o.frequency.value=900;
-    }
-    else{
-        o.frequency.value=400;
-    }
-
-    g.gain.setValueAtTime(.12,a.currentTime);
-
-    g.gain.exponentialRampToValueAtTime(
-        .001,
-        a.currentTime+.3
-    );
-
-    o.start();
-
-    o.stop(a.currentTime+.3);
-
-}
-
-
-function toggleSound(){
-
-    soundEnabled=!soundEnabled;
-
-    document.getElementById("soundBtn")
-        .textContent=
-        soundEnabled?"🔊":"🔇";
-
-}
-
-
-/* =====================================================
-   GAME STARTER
-===================================================== */
-
-function startSelectedGame(){
-
-    if(currentGame==="memory"){
-        memoryGame();
-    }
-
-    if(currentGame==="word"){
-        wordGame();
-    }
-
-    if(currentGame==="cards"){
-        cardGame();
-    }
-
-    if(currentGame==="rush"){
-        numberRush();
-    }
-
-    if(currentGame==="tap"){
-        quickTap();
-    }
-
-    if(currentGame==="odd"){
-        oddOneOut();
-    }
-
-    if(currentGame==="sequence"){
-        sequenceMaster();
-    }
-
-    if(currentGame==="color"){
-        colorChallenge();
-    }
-
-}
-
-
-/* =====================================================
-   GAME OVER
-===================================================== */
-
-function gameOver(){
-
-    stopGame();
-
-    sound("wrong");
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <div class="game-over">
-
-            <h2>💀 GAME OVER!</h2>
-
-            <br>
-
-            <p>
-                Final Score: <strong>${score}</strong>
-            </p>
-
-            <p>
-                Level Reached: <strong>${level}</strong>
-            </p>
-
-            <br>
-
-            <button
-                class="primary"
-                onclick="restartCurrentGame()"
-            >
-                PLAY AGAIN 🎮
-            </button>
-
-            <button
-                class="secondary"
-                onclick="showHub()"
-            >
-                GAME HUB
-            </button>
-
-        </div>
-
-    `;
-
-}
-
-
-function restartCurrentGame(){
-
-    openGame(currentGame);
-
-}
-
-
-function stopGame(){
-
-    clearInterval(timer);
-
-    clearTimeout(timer);
-
-    gameRunning=false;
-
-}
-
-
-/* =====================================================
-   1. MEMORY NUMBERS
-===================================================== */
-
-let memoryAnswer="";
-let memoryWaiting=false;
-
-
-function memoryGame(){
-
-    document.getElementById("gameTitle").textContent=
-        "🧠 Memory Numbers";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2 id="memoryType">
-            🔢 NUMBER MEMORY
-        </h2>
-
-        <p class="instruction" id="memoryInstruction">
-            Remember the sequence!
-        </p>
-
-        <div class="memory-display">
-
-            <div
-                id="memoryDisplay"
-                class="big-text"
-            >
-                READY?
+            <div class="stat">
+                <div class="stat-label">Lives</div>
+                <div id="lives" class="stat-value">
+                    ❤️❤️❤️
+                </div>
             </div>
 
         </div>
 
-        <div class="timer">
-            <div
-                id="memoryTimer"
-                class="timer-bar"
-            ></div>
+        <div class="progress-area">
+
+            <div class="progress-top">
+
+                <span id="statusText">
+                    Memorize the number
+                </span>
+
+                <span id="timerText">
+                    5s
+                </span>
+
+            </div>
+
+            <div class="progress">
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+            </div>
+
         </div>
 
-        <div class="answer-row">
+        <div class="game-card">
 
-            <input
-                id="memoryInput"
-                class="input"
-                placeholder="Enter your answer"
-                disabled
-            >
+            <div id="roundText" class="round">
+                ROUND 1
+            </div>
+
+            <div id="question" class="question">
+                Memorize this number!
+            </div>
+
+            <div class="number-box">
+
+                <div
+                    id="numberDisplay"
+                    class="number">
+                    0000
+                </div>
+
+            </div>
+
+            <div
+                id="memoryMessage"
+                class="memory-message">
+                Get ready...
+            </div>
+
+            <div id="answerArea" class="answer-area">
+
+                <input
+                    id="answerInput"
+                    class="answer-input"
+                    type="tel"
+                    inputmode="numeric"
+                    autocomplete="off"
+                    placeholder="Enter the number you remember">
+
+                <button
+                    class="btn"
+                    onclick="checkAnswer()">
+                    ✅ SUBMIT ANSWER
+                </button>
+
+                <div
+                    id="feedback"
+                    class="feedback">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="game-bottom">
 
             <button
-                class="primary"
-                onclick="checkMemory()"
-            >
-                SUBMIT
+                class="small-btn"
+                onclick="restartGame()">
+                🔄 Restart
+            </button>
+
+            <button
+                class="small-btn"
+                onclick="goHome()">
+                🏠 Home
             </button>
 
         </div>
 
+    </div>
+
+</section>
+
+
+<!-- RESULT -->
+
+<section id="resultScreen" class="screen">
+
+    <div class="result-container">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <div class="result-title">
+            GAME OVER
+        </div>
+
+        <div class="result-subtitle">
+            Your memory session is complete!
+        </div>
+
         <div
-            id="memoryResult"
-            class="result"
-        ></div>
+            id="newRecord"
+            class="new-record">
+            🎉 NEW HIGH SCORE! 🎉
+        </div>
+
+        <div class="result-card">
+
+            <div class="result-row">
+                <span>Final Score</span>
+                <span id="finalScore">0</span>
+            </div>
+
+            <div class="result-row">
+                <span>Highest Round</span>
+                <span id="finalRound">1</span>
+            </div>
+
+            <div class="result-row">
+                <span>High Score</span>
+                <span id="highScore">0</span>
+            </div>
+
+        </div>
 
         <button
-            id="memoryStart"
-            class="primary"
-            onclick="startMemoryRound()"
-        >
-            START CHALLENGE
+            class="btn"
+            onclick="startGame()">
+            🚀 PLAY AGAIN
         </button>
 
-    `;
+        <br><br>
 
+        <button
+            class="btn secondary-btn"
+            onclick="goHome()">
+            🏠 MAIN MENU
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* ==========================
+   GAME VARIABLES
+========================== */
+
+let score = 0;
+let round = 1;
+let lives = 3;
+
+let currentNumber = "";
+
+let memorizeTime = 5;
+
+let countdownInterval = null;
+
+let gameActive = false;
+
+let highScore =
+    Number(localStorage.getItem(
+        "mindMasterHighScore"
+    )) || 0;
+
+
+/* ==========================
+   SCREEN
+========================== */
+
+function showScreen(id){
+
+    document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+        screen.classList.remove("active");
+
+    });
+
+    document
+    .getElementById(id)
+    .classList.add("active");
 }
 
 
-function randomDigits(n){
+/* ==========================
+   LOADING
+========================== */
 
-    let s="";
+setTimeout(() => {
 
-    for(let i=0;i<n;i++){
+    showScreen("homeScreen");
 
-        s+=Math.floor(Math.random()*10);
+},2200);
 
-    }
 
-    return s;
+/* ==========================
+   START
+========================== */
 
+function startGame(){
+
+    clearInterval(countdownInterval);
+
+    score = 0;
+    round = 1;
+    lives = 3;
+
+    gameActive = true;
+
+    updateStats();
+
+    showScreen("gameScreen");
+
+    startRound();
 }
 
 
-function randomWord(){
+/* ==========================
+   ROUND
+========================== */
 
-    const words=[
-        "APPLE","HOUSE","BRAIN","MUSIC",
-        "TIGER","WATER","LIGHT","PHONE",
-        "RIVER","SCHOOL","MASTER","MEMORY"
-    ];
+function startRound(){
 
-    return words[
-        Math.floor(Math.random()*words.length)
-    ];
+    if(!gameActive) return;
 
-}
+    clearInterval(countdownInterval);
+
+    document
+    .getElementById("answerArea")
+    .classList.remove("show");
+
+    document
+    .getElementById("feedback")
+    .textContent = "";
+
+    document
+    .getElementById("answerInput")
+    .value = "";
+
+    document
+    .getElementById("roundText")
+    .textContent = "ROUND " + round;
+
+    document
+    .getElementById("round")
+    .textContent = round;
+
+    document
+    .getElementById("statusText")
+    .textContent = "Memorize the number";
+
+    document
+    .getElementById("question")
+    .textContent = "Memorize this number!";
+
+    document
+    .getElementById("memoryMessage")
+    .textContent = "Look carefully... 👀";
 
 
-function startMemoryRound(){
+    let length;
 
-    clearInterval(timer);
+    if(round <= 2){
 
-    memoryWaiting=false;
+        length = 4;
 
-    const display=
-        document.getElementById("memoryDisplay");
+    }else if(round <= 4){
 
-    const input=
-        document.getElementById("memoryInput");
+        length = 5;
 
-    input.value="";
-    input.disabled=true;
+    }else if(round <= 6){
 
-    let type=Math.floor(Math.random()*3);
+        length = 6;
 
-    if(type===0){
+    }else if(round <= 8){
 
-        memoryAnswer=
-            randomDigits(
-                Math.min(4+Math.floor(level/2),12)
-            );
+        length = 7;
 
-        document.getElementById("memoryType")
-            .textContent="🔢 NUMBER MEMORY";
+    }else{
 
-    }
-
-    else if(type===1){
-
-        const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-        memoryAnswer="";
-
-        for(let i=0;i<Math.min(3+Math.floor(level/2),10);i++){
-
-            memoryAnswer+=
-                alphabet[
-                    Math.floor(
-                        Math.random()*alphabet.length
-                    )
-                ];
-
-        }
-
-        document.getElementById("memoryType")
-            .textContent="🔤 LETTER MEMORY";
-
-    }
-
-    else{
-
-        memoryAnswer=randomWord();
-
-        document.getElementById("memoryType")
-            .textContent="📝 WORD MEMORY";
-
-    }
-
-    display.textContent=memoryAnswer;
-
-    document.getElementById("memoryInstruction")
-        .textContent="Remember it!";
-
-    document.getElementById("memoryStart")
-        .disabled=true;
-
-    let displayTime=
-        Math.max(
-            1000,
-            3000-(level*120)
+        length =
+        Math.min(
+            10,
+            7 + Math.floor((round - 8) / 2)
         );
 
-    setTimeout(()=>{
+    }
 
-        display.textContent="••••";
 
-        document.getElementById("memoryInstruction")
-            .textContent="Now enter what you remember!";
+    currentNumber =
+        generateNumber(length);
 
-        input.disabled=false;
+    document
+    .getElementById("numberDisplay")
+    .textContent = currentNumber;
 
-        input.focus();
 
-        memoryWaiting=true;
+    memorizeTime =
+        Math.max(
+            2,
+            5 - Math.floor(round / 5)
+        );
 
-        startMemoryTimer();
-
-    },displayTime);
-
+    startCountdown(memorizeTime);
 }
 
 
-function startMemoryTimer(){
+/* ==========================
+   NUMBER
+========================== */
 
-    const total=
-        Math.max(3000,6500-level*150);
+function generateNumber(length){
 
-    const start=Date.now();
+    let number = "";
 
-    timer=setInterval(()=>{
+    for(let i = 0; i < length; i++){
 
-        const remaining=
-            Math.max(
-                0,
-                total-(Date.now()-start)
+        if(i === 0){
+
+            number +=
+            Math.floor(
+                Math.random() * 9
+            ) + 1;
+
+        }else{
+
+            number +=
+            Math.floor(
+                Math.random() * 10
             );
-
-        document.getElementById("memoryTimer")
-            .style.width=
-            (remaining/total*100)+"%";
-
-        if(remaining<=0){
-
-            clearInterval(timer);
-
-            if(memoryWaiting){
-
-                memoryWaiting=false;
-
-                memoryWrong();
-
-            }
 
         }
 
-    },50);
-
-}
-
-
-function checkMemory(){
-
-    if(!memoryWaiting)return;
-
-    memoryWaiting=false;
-
-    clearInterval(timer);
-
-    const input=
-        document.getElementById("memoryInput");
-
-    const answer=
-        input.value.trim().toUpperCase();
-
-    input.disabled=true;
-
-    if(answer===memoryAnswer){
-
-        sound("correct");
-
-        const points=10+level*2;
-
-        addScore(points);
-
-        document.getElementById("memoryResult")
-            .innerHTML=
-            `<span class="correct">
-            ✅ CORRECT! +${points}
-            </span>`;
-
-        nextLevel();
-
-        setTimeout(startMemoryRound,900);
-
-    }
-    else{
-
-        memoryWrong();
-
     }
 
+    return number;
 }
 
 
-function memoryWrong(){
+/* ==========================
+   COUNTDOWN
+========================== */
 
-    sound("wrong");
+function startCountdown(seconds){
 
-    if(loseLife())return;
+    let timeLeft = seconds;
 
-    document.getElementById("memoryResult")
-        .innerHTML=
-        `<span class="wrong">
-        ❌ Wrong! Answer: ${memoryAnswer}
-        </span>`;
+    updateTimer(timeLeft,seconds);
 
-    setTimeout(startMemoryRound,1000);
+    countdownInterval =
+    setInterval(() => {
 
+        timeLeft--;
+
+        updateTimer(
+            timeLeft,
+            seconds
+        );
+
+        if(timeLeft <= 0){
+
+            clearInterval(
+                countdownInterval
+            );
+
+            hideNumber();
+
+        }
+
+    },1000);
 }
 
 
-/* =====================================================
-   2. WORD BUILDER
-===================================================== */
+/* ==========================
+   TIMER
+========================== */
 
-let wordAnswer="";
-let selectedWord="";
+function updateTimer(
+    timeLeft,
+    total
+){
 
+    document
+    .getElementById("timerText")
+    .textContent =
+    timeLeft + "s";
 
-function wordGame(){
+    let percentage =
+        (timeLeft / total) * 100;
 
-    document.getElementById("gameTitle").textContent=
-        "🔤 Word Builder";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🔤 BUILD THE WORD</h2>
-
-        <p class="instruction">
-            Tap the letters in the correct order.
-        </p>
-
-        <div
-            id="selectedLetters"
-            class="selected-letters"
-        >
-            _
-        </div>
-
-        <div
-            id="letterBox"
-            class="word-box"
-        ></div>
-
-        <div class="timer">
-            <div
-                id="wordTimer"
-                class="timer-bar"
-            ></div>
-        </div>
-
-        <div
-            id="wordResult"
-            class="result"
-        ></div>
-
-        <button
-            class="primary"
-            onclick="startWordRound()"
-        >
-            START WORD
-        </button>
-
-    `;
-
+    document
+    .getElementById("progressBar")
+    .style.width =
+    percentage + "%";
 }
 
 
-function shuffleArray(arr){
+/* ==========================
+   HIDE NUMBER
+========================== */
 
-    return arr.sort(
-        ()=>Math.random()-.5
+function hideNumber(){
+
+    document
+    .getElementById("numberDisplay")
+    .textContent = "????";
+
+    document
+    .getElementById("statusText")
+    .textContent = "Your turn!";
+
+    document
+    .getElementById("question")
+    .textContent =
+    "What was the number?";
+
+    document
+    .getElementById("memoryMessage")
+    .textContent =
+    "Type what you remember below.";
+
+    document
+    .getElementById("answerArea")
+    .classList.add("show");
+
+    document
+    .getElementById("answerInput")
+    .focus();
+
+    document
+    .getElementById("progressBar")
+    .style.width = "0%";
+}
+
+
+/* ==========================
+   ANSWER
+========================== */
+
+function checkAnswer(){
+
+    if(!gameActive) return;
+
+    const input =
+        document.getElementById(
+            "answerInput"
+        );
+
+    const answer =
+        input.value.trim();
+
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+
+    if(answer === ""){
+
+        feedback.textContent =
+        "⚠️ Enter an answer first.";
+
+        feedback.className =
+        "feedback wrong";
+
+        return;
+    }
+
+
+    if(answer === currentNumber){
+
+        correctAnswer();
+
+    }else{
+
+        wrongAnswer();
+
+    }
+}
+
+
+/* ==========================
+   CORRECT
+========================== */
+
+function correctAnswer(){
+
+    score += round * 10;
+
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+    feedback.textContent =
+    "✅ Correct! Your memory is sharp! 🔥";
+
+    feedback.className =
+    "feedback correct";
+
+    document
+    .getElementById("statusText")
+    .textContent = "Correct!";
+
+    playCorrectSound();
+
+    updateStats();
+
+    setTimeout(() => {
+
+        round++;
+
+        startRound();
+
+    },1200);
+}
+
+
+/* ==========================
+   WRONG
+========================== */
+
+function wrongAnswer(){
+
+    lives--;
+
+    const feedback =
+        document.getElementById(
+            "feedback"
+        );
+
+    feedback.innerHTML =
+    "❌ Wrong! The number was <b>" +
+    currentNumber +
+    "</b>";
+
+    feedback.className =
+    "feedback wrong";
+
+    playWrongSound();
+
+    updateStats();
+
+
+    if(lives <= 0){
+
+        setTimeout(() => {
+
+            endGame();
+
+        },1600);
+
+    }else{
+
+        setTimeout(() => {
+
+            round++;
+
+            startRound();
+
+        },1600);
+
+    }
+}
+
+
+/* ==========================
+   STATS
+========================== */
+
+function updateStats(){
+
+    document
+    .getElementById("score")
+    .textContent = score;
+
+    document
+    .getElementById("round")
+    .textContent = round;
+
+    let hearts = "";
+
+    for(let i = 0; i < lives; i++){
+
+        hearts += "❤️";
+
+    }
+
+    if(lives <= 0){
+
+        hearts = "💀";
+
+    }
+
+    document
+    .getElementById("lives")
+    .textContent = hearts;
+}
+
+
+/* ==========================
+   GAME OVER
+========================== */
+
+function endGame(){
+
+    gameActive = false;
+
+    clearInterval(
+        countdownInterval
     );
 
-}
-
-
-function startWordRound(){
-
-    clearInterval(timer);
-
-    const words=[
-        "CAT","DOG","SUN","BOOK",
-        "TREE","APPLE","HOUSE",
-        "PHONE","MUSIC","TIGER",
-        "BRAIN","WATER","MASTER",
-        "COMPUTER","SUCCESS"
-    ];
-
-    wordAnswer=
-        words[
-            Math.floor(Math.random()*words.length)
-        ];
-
-    selectedWord="";
-
-    document.getElementById("selectedLetters")
-        .textContent="_";
-
-    let letters=
-        shuffleArray(wordAnswer.split(""));
-
-    const box=
-        document.getElementById("letterBox");
-
-    box.innerHTML="";
-
-    letters.forEach((letter,index)=>{
-
-        const b=document.createElement("button");
-
-        b.className="letter";
-
-        b.textContent=letter;
-
-        b.onclick=()=>{
-
-            if(b.disabled)return;
-
-            selectedWord+=letter;
-
-            b.disabled=true;
-
-            b.style.opacity=".35";
-
-            document.getElementById("selectedLetters")
-                .textContent=
-                selectedWord;
-
-            if(selectedWord.length===wordAnswer.length){
-
-                checkWord();
-
-            }
-
-        };
-
-        box.appendChild(b);
-
-    });
-
-    startWordTimer();
-
-}
-
-
-function startWordTimer(){
-
-    const total=
-        Math.max(3500,7000-level*150);
-
-    const start=Date.now();
-
-    timer=setInterval(()=>{
-
-        const remaining=
-            Math.max(
-                0,
-                total-(Date.now()-start)
-            );
-
-        document.getElementById("wordTimer")
-            .style.width=
-            (remaining/total*100)+"%";
-
-        if(remaining<=0){
-
-            clearInterval(timer);
-
-            sound("wrong");
-
-            if(loseLife())return;
-
-            document.getElementById("wordResult")
-                .innerHTML=
-                `<span class="wrong">
-                ⏰ Time's up! Word: ${wordAnswer}
-                </span>`;
-
-            setTimeout(startWordRound,1000);
-
-        }
-
-    },50);
-
-}
-
-
-function checkWord(){
-
-    clearInterval(timer);
-
-    if(selectedWord===wordAnswer){
-
-        sound("correct");
-
-        const points=
-            15+level*3;
-
-        addScore(points);
-
-        document.getElementById("wordResult")
-            .innerHTML=
-            `<span class="correct">
-            🎉 CORRECT! +${points}
-            </span>`;
-
-        nextLevel();
-
-        setTimeout(startWordRound,900);
-
-    }
-
-}
-
-
-/* =====================================================
-   3. MEMORY CARDS
-===================================================== */
-
-let cards=[];
-let firstCard=null;
-let secondCard=null;
-let lockCards=false;
-let matches=0;
-
-
-function cardGame(){
-
-    document.getElementById("gameTitle").textContent=
-        "🃏 Memory Cards";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🃏 FIND THE PAIRS</h2>
-
-        <p class="instruction">
-            Match all the cards.
-        </p>
-
-        <div
-            id="cardGrid"
-            class="card-grid"
-        ></div>
-
-        <div
-            id="cardResult"
-            class="result"
-        ></div>
-
-        <button
-            class="primary"
-            onclick="startCards()"
-        >
-            NEW GAME
-        </button>
-
-    `;
-
-    startCards();
-
-}
-
-
-function startCards(){
-
-    clearInterval(timer);
-
-    const symbols=
-        ["🍎","🍌","🍇","🍉","⭐","🔥","🎮","🧠"];
-
-    cards=
-        shuffleArray(
-            [...symbols,...symbols]
-        );
-
-    firstCard=null;
-    secondCard=null;
-    lockCards=false;
-    matches=0;
-
-    const grid=
-        document.getElementById("cardGrid");
-
-    grid.innerHTML="";
-
-    cards.forEach((symbol,index)=>{
-
-        const card=
-            document.createElement("button");
-
-        card.className="memory-card";
-
-        card.textContent="?";
-
-        card.dataset.symbol=symbol;
-
-        card.onclick=()=>flipCard(card);
-
-        grid.appendChild(card);
-
-    });
-
-}
-
-
-function flipCard(card){
-
-    if(
-        lockCards||
-        card.classList.contains("flipped")||
-        card.classList.contains("matched")
-    )return;
-
-    card.classList.add("flipped");
-
-    card.textContent=
-        card.dataset.symbol;
-
-    if(!firstCard){
-
-        firstCard=card;
-
-        return;
-
-    }
-
-    secondCard=card;
-
-    lockCards=true;
-
-    if(
-        firstCard.dataset.symbol===
-        secondCard.dataset.symbol
-    ){
-
-        firstCard.classList.add("matched");
-
-        secondCard.classList.add("matched");
-
-        matches++;
-
-        addScore(10);
-
-        sound("correct");
-
-        firstCard=null;
-        secondCard=null;
-        lockCards=false;
-
-        if(matches===8){
-
-            sound("win");
-
-            nextLevel();
-
-            document.getElementById("cardResult")
-                .innerHTML=
-                `<span class="correct">
-                🏆 ALL PAIRS FOUND!
-                </span>`;
-
-        }
-
-    }
-    else{
-
-        sound("wrong");
-
-        setTimeout(()=>{
-
-            firstCard.classList.remove("flipped");
-
-            secondCard.classList.remove("flipped");
-
-            firstCard.textContent="?";
-
-            secondCard.textContent="?";
-
-            firstCard=null;
-
-            secondCard=null;
-
-            lockCards=false;
-
-        },700);
-
-    }
-
-}
-
-
-/* =====================================================
-   4. NUMBER RUSH
-===================================================== */
-
-let mathAnswer=0;
-
-
-function numberRush(){
-
-    document.getElementById("gameTitle").textContent=
-        "🔢 Number Rush";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🔢 SOLVE IT!</h2>
-
-        <p class="instruction">
-            Answer as quickly as possible.
-        </p>
-
-        <div
-            id="mathQuestion"
-            class="math-question"
-        >
-            ?
-        </div>
-
-        <div class="timer">
-            <div
-                id="mathTimer"
-                class="timer-bar"
-            ></div>
-        </div>
-
-        <div class="answer-row">
-
-            <input
-                id="mathInput"
-                class="input"
-                type="number"
-                placeholder="Answer"
-            >
-
-            <button
-                class="primary"
-                onclick="checkMath()"
-            >
-                GO
-            </button>
-
-        </div>
-
-        <div
-            id="mathResult"
-            class="result"
-        ></div>
-
-    `;
-
-    newMath();
-
-}
-
-
-function newMath(){
-
-    clearInterval(timer);
-
-    let max=
-        Math.min(10+level*5,100);
-
-    let a=
-        Math.floor(Math.random()*max)+1;
-
-    let b=
-        Math.floor(Math.random()*max)+1;
-
-    const operators=["+","-","×"];
-
-    const op=
-        operators[
-            Math.floor(Math.random()*operators.length)
-        ];
-
-    if(op==="+"){
-
-        mathAnswer=a+b;
-
-    }
-
-    else if(op==="-"){
-
-        mathAnswer=a-b;
-
-    }
-
-    else{
-
-        mathAnswer=a*b;
-
-    }
-
-    document.getElementById("mathQuestion")
-        .textContent=
-        `${a} ${op} ${b} = ?`;
-
-    document.getElementById("mathInput")
-        .value="";
-
-    startMathTimer();
-
-}
-
-
-function startMathTimer(){
-
-    const total=
-        Math.max(2500,6000-level*100);
-
-    const start=Date.now();
-
-    timer=setInterval(()=>{
-
-        const remaining=
-            Math.max(
-                0,
-                total-(Date.now()-start)
-            );
-
-        document.getElementById("mathTimer")
-            .style.width=
-            (remaining/total*100)+"%";
-
-        if(remaining<=0){
-
-            clearInterval(timer);
-
-            if(loseLife())return;
-
-            document.getElementById("mathResult")
-                .innerHTML=
-                `<span class="wrong">
-                ⏰ Too slow!
-                </span>`;
-
-            setTimeout(newMath,700);
-
-        }
-
-    },50);
-
-}
-
-
-function checkMath(){
-
-    clearInterval(timer);
-
-    const answer=
-        Number(
-            document.getElementById("mathInput").value
-        );
-
-    if(answer===mathAnswer){
-
-        sound("correct");
-
-        addScore(10+level);
-
-        nextLevel();
-
-        document.getElementById("mathResult")
-            .innerHTML=
-            `<span class="correct">
-            ✅ Correct!
-            </span>`;
-
-        setTimeout(newMath,500);
-
-    }
-
-    else{
-
-        sound("wrong");
-
-        if(loseLife())return;
-
-        document.getElementById("mathResult")
-            .innerHTML=
-            `<span class="wrong">
-            ❌ Correct answer: ${mathAnswer}
-            </span>`;
-
-        setTimeout(newMath,800);
-
-    }
-
-}
-
-
-/* =====================================================
-   5. QUICK TAP
-===================================================== */
-
-let tapTimeout;
-
-
-function quickTap(){
-
-    document.getElementById("gameTitle").textContent=
-        "⚡ Quick Tap";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>⚡ QUICK TAP</h2>
-
-        <p class="instruction">
-            Wait for GO, then tap as fast as possible!
-        </p>
-
-        <div
-            id="tapTarget"
-            class="tap-target"
-            onclick="tapPressed()"
-        >
-            WAIT...
-        </div>
-
-        <div
-            id="tapResult"
-            class="result"
-        ></div>
-
-        <button
-            class="primary"
-            onclick="startTapRound()"
-        >
-            START
-        </button>
-
-    `;
-
-}
-
-
-function startTapRound(){
-
-    clearTimeout(tapTimeout);
-
-    const target=
-        document.getElementById("tapTarget");
-
-    target.textContent="WAIT...";
-
-    target.style.background="#087346";
-
-    let delay=
-        1000+
-        Math.random()*2500;
-
-    tapTimeout=setTimeout(()=>{
-
-        target.textContent="TAP!";
-
-        target.style.background="#d4af37";
-
-        target.dataset.ready="yes";
-
-        target.dataset.start=
-            Date.now();
-
-    },delay);
-
-}
-
-
-function tapPressed(){
-
-    const target=
-        document.getElementById("tapTarget");
-
-    if(target.dataset.ready!=="yes"){
-
-        clearTimeout(tapTimeout);
-
-        sound("wrong");
-
-        document.getElementById("tapResult")
-            .innerHTML=
-            `<span class="wrong">
-            ❌ Too early!
-            </span>`;
-
-        if(!loseLife()){
-
-            setTimeout(startTapRound,700);
-
-        }
-
-        return;
-
-    }
-
-    const reaction=
-        Date.now()-
-        Number(target.dataset.start);
-
-    target.dataset.ready="no";
-
-    sound("correct");
-
-    let points=
-        Math.max(
-            5,
-            30-Math.floor(reaction/20)
-        );
-
-    addScore(points);
-
-    nextLevel();
-
-    document.getElementById("tapResult")
-        .innerHTML=
-        `<span class="correct">
-        ⚡ ${reaction}ms! +${points}
-        </span>`;
-
-}
-
-
-/* =====================================================
-   6. ODD ONE OUT
-===================================================== */
-
-function oddOneOut(){
-
-    document.getElementById("gameTitle").textContent=
-        "🕵️ Odd One Out";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🕵️ FIND THE ODD ONE</h2>
-
-        <p class="instruction">
-            One item is different. Find it!
-        </p>
-
-        <div
-            id="oddGrid"
-            class="choice-grid"
-        ></div>
-
-        <div
-            id="oddResult"
-            class="result"
-        ></div>
-
-    `;
-
-    newOddRound();
-
-}
-
-
-function newOddRound(){
-
-    const symbols=
-        ["🍎","🍌","🍇","🍉","⭐","🔥","🎯"];
-
-    const normal=
-        symbols[
-            Math.floor(Math.random()*symbols.length)
-        ];
-
-    let odd;
-
-    do{
-
-        odd=
-            symbols[
-                Math.floor(Math.random()*symbols.length)
-            ];
-
-    }while(odd===normal);
-
-
-    const total=
-        Math.min(8+Math.floor(level/2),16);
-
-    const oddIndex=
-        Math.floor(Math.random()*total);
-
-    const grid=
-        document.getElementById("oddGrid");
-
-    grid.innerHTML="";
-
-
-    for(let i=0;i<total;i++){
-
-        const b=
-            document.createElement("button");
-
-        b.className="choice";
-
-        b.textContent=
-            i===oddIndex?odd:normal;
-
-        b.onclick=()=>{
-
-            if(i===oddIndex){
-
-                sound("correct");
-
-                addScore(12);
-
-                nextLevel();
-
-                document.getElementById("oddResult")
-                    .innerHTML=
-                    `<span class="correct">
-                    🎯 Correct!
-                    </span>`;
-
-                setTimeout(newOddRound,600);
-
-            }
-
-            else{
-
-                sound("wrong");
-
-                if(loseLife())return;
-
-                document.getElementById("oddResult")
-                    .innerHTML=
-                    `<span class="wrong">
-                    ❌ That's not it!
-                    </span>`;
-
-            }
-
-        };
-
-        grid.appendChild(b);
-
-    }
-
-}
-
-
-/* =====================================================
-   7. SEQUENCE MASTER
-===================================================== */
-
-let sequenceAnswer=0;
-
-
-function sequenceMaster(){
-
-    document.getElementById("gameTitle").textContent=
-        "🔮 Sequence Master";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🔮 COMPLETE THE SEQUENCE</h2>
-
-        <p class="instruction">
-            Find the missing number.
-        </p>
-
-        <div
-            id="sequenceQuestion"
-            class="sequence-question"
-        >
-            ?
-        </div>
-
-        <div class="answer-row">
-
-            <input
-                id="sequenceInput"
-                class="input"
-                type="number"
-                placeholder="Missing number"
-            >
-
-            <button
-                class="primary"
-                onclick="checkSequence()"
-            >
-                SUBMIT
-            </button>
-
-        </div>
-
-        <div
-            id="sequenceResult"
-            class="result"
-        ></div>
-
-    `;
-
-    newSequence();
-
-}
-
-
-function newSequence(){
-
-    const start=
-        Math.floor(Math.random()*10)+1;
-
-    const difference=
-        Math.floor(Math.random()*10)+2;
-
-    const numbers=[
-        start,
-        start+difference,
-        start+difference*2,
-        start+difference*3,
-        start+difference*4
-    ];
-
-    sequenceAnswer=numbers[4];
-
-    numbers[4]="?";
-
-    document.getElementById("sequenceQuestion")
-        .textContent=
-        numbers.join("   ");
-
-    document.getElementById("sequenceInput")
-        .value="";
-
-}
-
-
-function checkSequence(){
-
-    const answer=
-        Number(
-            document.getElementById("sequenceInput").value
-        );
-
-    if(answer===sequenceAnswer){
-
-        sound("correct");
-
-        addScore(15);
-
-        nextLevel();
-
-        document.getElementById("sequenceResult")
-            .innerHTML=
-            `<span class="correct">
-            🧠 Correct!
-            </span>`;
-
-        setTimeout(newSequence,600);
-
-    }
-
-    else{
-
-        sound("wrong");
-
-        if(loseLife())return;
-
-        document.getElementById("sequenceResult")
-            .innerHTML=
-            `<span class="wrong">
-            ❌ Try again!
-            </span>`;
-
-    }
-
-}
-
-
-/* =====================================================
-   8. COLOR CHALLENGE
-===================================================== */
-
-let correctColor="";
-
-
-function colorChallenge(){
-
-    document.getElementById("gameTitle").textContent=
-        "🎨 Color Challenge";
-
-    document.getElementById("gameContent").innerHTML=`
-
-        <h2>🎨 COLOR CHALLENGE</h2>
-
-        <p class="instruction">
-            Choose the color of the word, not what the word says.
-        </p>
-
-        <div
-            id="colorWord"
-            class="color-word"
-        >
-            RED
-        </div>
-
-        <div
-            id="colorChoices"
-            class="choice-grid"
-        ></div>
-
-        <div
-            id="colorResult"
-            class="result"
-        ></div>
-
-    `;
-
-    newColorRound();
-
-}
-
-
-function newColorRound(){
-
-    const colors=[
-        {
-            name:"RED",
-            code:"#ff4444"
-        },
-        {
-            name:"BLUE",
-            code:"#448aff"
-        },
-        {
-            name:"GREEN",
-            code:"#40c878"
-        },
-        {
-            name:"YELLOW",
-            code:"#ffd740"
-        }
-    ];
-
-
-    const word=
-        colors[
-            Math.floor(Math.random()*colors.length)
-        ];
-
-    const ink=
-        colors[
-            Math.floor(Math.random()*colors.length)
-        ];
-
-
-    correctColor=ink.name;
-
-
-    const wordDisplay=
-        document.getElementById("colorWord");
-
-    wordDisplay.textContent=word.name;
-
-    wordDisplay.style.color=ink.code;
-
-
-    const choices=
-        document.getElementById("colorChoices");
-
-    choices.innerHTML="";
-
-
-    colors.forEach(color=>{
-
-        const b=
-            document.createElement("button");
-
-        b.className="choice";
-
-        b.textContent=color.name;
-
-        b.onclick=()=>{
-
-            if(color.name===correctColor){
-
-                sound("correct");
-
-                addScore(10);
-
-                nextLevel();
-
-                document.getElementById("colorResult")
-                    .innerHTML=
-                    `<span class="correct">
-                    🎨 Correct!
-                    </span>`;
-
-                setTimeout(newColorRound,600);
-
-            }
-
-            else{
-
-                sound("wrong");
-
-                if(loseLife())return;
-
-                document.getElementById("colorResult")
-                    .innerHTML=
-                    `<span class="wrong">
-                    ❌ Wrong color!
-                    </span>`;
-
-            }
-
-        };
-
-        choices.appendChild(b);
-
-    });
-
-}
-
-
-/* =====================================================
-   ENTER KEY SUPPORT
-===================================================== */
-
-document.addEventListener("keydown",function(e){
-
-    if(e.key!=="Enter")return;
-
-    if(currentGame==="memory"){
-        checkMemory();
-    }
-
-    if(currentGame==="rush"){
-        checkMath();
-    }
-
-    if(currentGame==="sequence"){
-        checkSequence();
-    }
-
-});
-
-
-</script>
-
-</body>
-</html>
-```
+    document
+    .getElemen
