@@ -8,6 +8,7 @@
 <title>Mind Master 🧠🎮</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -15,7 +16,7 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     background:linear-gradient(135deg,#071b12,#063b28,#0b5c3c);
     color:white;
     min-height:100vh;
@@ -31,6 +32,10 @@ button{
     border:none;
 }
 
+.hidden{
+    display:none !important;
+}
+
 .screen{
     min-height:100vh;
     display:flex;
@@ -41,11 +46,9 @@ button{
     padding:25px;
 }
 
-.hidden{
-    display:none !important;
-}
-
-/* ================= LANDING ================= */
+/* =========================================
+   LANDING
+========================================= */
 
 #landing{
     background:
@@ -59,8 +62,13 @@ button{
 }
 
 @keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-12px);
+    }
 }
 
 .logo{
@@ -89,7 +97,108 @@ button{
     transform:scale(1.06);
 }
 
-/* ================= MODE SCREEN ================= */
+/* =========================================
+   GAME HUB
+========================================= */
+
+#gameHub{
+    background:
+    radial-gradient(circle at center,#0c7d4f55,transparent 45%),
+    linear-gradient(135deg,#03130c,#063b28);
+}
+
+.hub-title{
+    font-size:40px;
+    margin-bottom:8px;
+}
+
+.hub-subtitle{
+    color:#bdebd4;
+    margin-bottom:30px;
+}
+
+.game-grid{
+    width:min(850px,100%);
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+}
+
+.game-card{
+    position:relative;
+    text-align:left;
+    padding:22px;
+    border-radius:22px;
+    background:#ffffff10;
+    border:1px solid #ffffff20;
+    color:white;
+    transition:.25s;
+    min-height:145px;
+    overflow:hidden;
+}
+
+.game-card:hover{
+    transform:translateY(-5px) scale(1.01);
+    background:#ffffff1c;
+    border-color:#d4af3770;
+    box-shadow:0 15px 35px #00000035;
+}
+
+.game-icon{
+    font-size:42px;
+    margin-bottom:8px;
+}
+
+.game-card h3{
+    font-size:21px;
+    margin-bottom:6px;
+}
+
+.game-card p{
+    color:#bcd8ca;
+    font-size:14px;
+    line-height:1.4;
+}
+
+.play-small{
+    position:absolute;
+    right:15px;
+    bottom:15px;
+    background:#d4af37;
+    color:#111;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.coming{
+    position:absolute;
+    right:15px;
+    top:15px;
+    background:#ffffff15;
+    color:#d4af37;
+    padding:6px 10px;
+    border-radius:15px;
+    font-size:11px;
+}
+
+.hub-stats{
+    margin-top:25px;
+    color:#a9cdb9;
+    font-size:14px;
+}
+
+.back-btn{
+    margin-top:25px;
+    background:transparent;
+    color:#ddd;
+    padding:10px 20px;
+}
+
+/* =========================================
+   MODE SCREEN
+========================================= */
 
 #modeScreen{
     background:
@@ -137,14 +246,9 @@ button{
     color:#c7dacf;
 }
 
-.back-btn{
-    margin-top:25px;
-    background:transparent;
-    color:#ddd;
-    padding:10px 20px;
-}
-
-/* ================= GAME ================= */
+/* =========================================
+   GAME
+========================================= */
 
 .game{
     width:min(700px,100%);
@@ -167,7 +271,13 @@ button{
     font-weight:bold;
 }
 
-.sound-btn{
+.header-actions{
+    display:flex;
+    gap:8px;
+}
+
+.sound-btn,
+.home-btn{
     background:#ffffff18;
     color:white;
     width:45px;
@@ -312,6 +422,11 @@ button{
 }
 
 @media(max-width:600px){
+
+    .game-grid{
+        grid-template-columns:1fr;
+    }
+
     .stats{
         grid-template-columns:repeat(2,1fr);
     }
@@ -327,36 +442,250 @@ button{
     .logo{
         font-size:38px;
     }
+
+    .hub-title{
+        font-size:32px;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- ================= LANDING ================= -->
+
+<!-- =========================================
+     LANDING
+========================================= -->
 
 <section id="landing" class="screen">
 
     <div class="brain">🧠</div>
 
-    <div class="logo">MIND MASTER</div>
+    <div class="logo">
+        MIND MASTER
+    </div>
 
     <p class="tagline">
         Train your memory. Test your brain. Become the master. 🔥
     </p>
 
-    <button class="play-btn" onclick="showModes()">
+    <button class="play-btn" onclick="showHub()">
         PLAY NOW 🎮
     </button>
 
 </section>
 
 
-<!-- ================= MODE SCREEN ================= -->
+<!-- =========================================
+     GAME HUB
+========================================= -->
+
+<section id="gameHub" class="screen hidden">
+
+    <h1 class="hub-title">
+        🎮 GAME HUB
+    </h1>
+
+    <p class="hub-subtitle">
+        Choose your challenge and test your brain! 🧠🔥
+    </p>
+
+
+    <div class="game-grid">
+
+        <!-- MEMORY -->
+
+        <button class="game-card" onclick="openMemoryGame()">
+
+            <div class="game-icon">🧠</div>
+
+            <h3>
+                Memory Numbers
+            </h3>
+
+            <p>
+                Remember numbers, letters and words before they disappear.
+            </p>
+
+            <span class="play-small">
+                PLAY ▶
+            </span>
+
+        </button>
+
+
+        <!-- WORD BUILDER -->
+
+        <button class="game-card" onclick="comingSoon('Word Builder')">
+
+            <div class="game-icon">🔤</div>
+
+            <h3>
+                Word Builder
+            </h3>
+
+            <p>
+                Mix and arrange letters to create the correct word.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- MEMORY CARDS -->
+
+        <button class="game-card" onclick="comingSoon('Memory Cards')">
+
+            <div class="game-icon">🃏</div>
+
+            <h3>
+                Memory Cards
+            </h3>
+
+            <p>
+                Flip cards and find matching pairs.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- NUMBER RUSH -->
+
+        <button class="game-card" onclick="comingSoon('Number Rush')">
+
+            <div class="game-icon">🔢</div>
+
+            <h3>
+                Number Rush
+            </h3>
+
+            <p>
+                Solve calculations before the clock runs out.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- QUICK TAP -->
+
+        <button class="game-card" onclick="comingSoon('Quick Tap')">
+
+            <div class="game-icon">⚡</div>
+
+            <h3>
+                Quick Tap
+            </h3>
+
+            <p>
+                React quickly and tap the correct answer.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- ODD ONE OUT -->
+
+        <button class="game-card" onclick="comingSoon('Odd One Out')">
+
+            <div class="game-icon">🕵️</div>
+
+            <h3>
+                Odd One Out
+            </h3>
+
+            <p>
+                Find the different item hiding among the others.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- SEQUENCE -->
+
+        <button class="game-card" onclick="comingSoon('Sequence Master')">
+
+            <div class="game-icon">🔮</div>
+
+            <h3>
+                Sequence Master
+            </h3>
+
+            <p>
+                Discover the pattern and complete the sequence.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+
+        <!-- COLOR -->
+
+        <button class="game-card" onclick="comingSoon('Color Challenge')">
+
+            <div class="game-icon">🎨</div>
+
+            <h3>
+                Color Challenge
+            </h3>
+
+            <p>
+                Test your reaction and color recognition skills.
+            </p>
+
+            <span class="coming">
+                COMING SOON
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <div class="hub-stats">
+        🏆 More games will be unlocked as Mind Master grows!
+    </div>
+
+
+    <button class="back-btn" onclick="backToLanding()">
+        ← Back to Home
+    </button>
+
+</section>
+
+
+<!-- =========================================
+     MODE SCREEN
+========================================= -->
 
 <section id="modeScreen" class="screen hidden">
 
-    <h1 class="mode-title">Choose Your Challenge</h1>
+    <h1 class="mode-title">
+        Choose Your Challenge
+    </h1>
 
     <p class="mode-subtitle">
         How brave is your brain? 😈
@@ -365,42 +694,84 @@ button{
     <div class="modes">
 
         <button class="mode-btn" onclick="selectMode('classic')">
-            <strong>🧠 Classic Mode</strong>
-            <small>Balanced memory challenge</small>
+
+            <strong>
+                🧠 Classic Mode
+            </strong>
+
+            <small>
+                Balanced memory challenge
+            </small>
+
         </button>
+
 
         <button class="mode-btn" onclick="selectMode('speed')">
-            <strong>⚡ Speed Mode</strong>
-            <small>Less time. More points.</small>
+
+            <strong>
+                ⚡ Speed Mode
+            </strong>
+
+            <small>
+                Less time. More points.
+            </small>
+
         </button>
 
+
         <button class="mode-btn" onclick="selectMode('impossible')">
-            <strong>💀 Impossible Mode</strong>
-            <small>One life. Maximum difficulty.</small>
+
+            <strong>
+                💀 Impossible Mode
+            </strong>
+
+            <small>
+                One life. Maximum difficulty.
+            </small>
+
         </button>
 
     </div>
 
-    <button class="back-btn" onclick="backToLanding()">
-        ← Back
+
+    <button class="back-btn" onclick="backToHub()">
+        ← Back to Games
     </button>
 
 </section>
 
 
-<!-- ================= GAME ================= -->
+<!-- =========================================
+     MEMORY GAME
+========================================= -->
 
 <main id="gameScreen" class="game hidden">
 
     <div class="game-header">
 
         <div class="game-title">
-            🧠 Mind Master
+            🧠 Memory Numbers
         </div>
 
-        <button class="sound-btn" onclick="toggleSound()" id="soundButton">
-            🔊
-        </button>
+        <div class="header-actions">
+
+            <button
+                class="home-btn"
+                onclick="backToHub()"
+                title="Game Hub"
+            >
+                🎮
+            </button>
+
+            <button
+                class="sound-btn"
+                onclick="toggleSound()"
+                id="soundButton"
+            >
+                🔊
+            </button>
+
+        </div>
 
     </div>
 
@@ -408,40 +779,81 @@ button{
     <div class="stats">
 
         <div class="stat">
-            <span>LEVEL</span>
-            <strong id="level">1</strong>
+
+            <span>
+                LEVEL
+            </span>
+
+            <strong id="level">
+                1
+            </strong>
+
         </div>
 
-        <div class="stat">
-            <span>SCORE</span>
-            <strong id="score">0</strong>
-        </div>
 
         <div class="stat">
-            <span>BEST</span>
-            <strong id="best">0</strong>
+
+            <span>
+                SCORE
+            </span>
+
+            <strong id="score">
+                0
+            </strong>
+
         </div>
 
+
         <div class="stat">
-            <span>LIVES</span>
-            <strong id="lives">❤️❤️❤️</strong>
+
+            <span>
+                BEST
+            </span>
+
+            <strong id="best">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat">
+
+            <span>
+                LIVES
+            </span>
+
+            <strong id="lives">
+                ❤️❤️❤️
+            </strong>
+
         </div>
 
     </div>
 
 
-    <div class="challenge-type" id="challengeType">
+    <div
+        class="challenge-type"
+        id="challengeType"
+    >
         🔢 NUMBER MEMORY
     </div>
 
-    <p class="instruction" id="instruction">
+
+    <p
+        class="instruction"
+        id="instruction"
+    >
         Remember the sequence!
     </p>
 
 
     <div class="number-box">
 
-        <div id="sequence" class="sequence">
+        <div
+            id="sequence"
+            class="sequence"
+        >
             READY?
         </div>
 
@@ -449,7 +861,12 @@ button{
 
 
     <div class="timer-container">
-        <div id="timerBar" class="timer-bar"></div>
+
+        <div
+            id="timerBar"
+            class="timer-bar"
+        ></div>
+
     </div>
 
 
@@ -462,14 +879,21 @@ button{
             placeholder="Enter your answer..."
         >
 
-        <button class="submit-btn" onclick="checkAnswer()">
+
+        <button
+            class="submit-btn"
+            onclick="checkAnswer()"
+        >
             SUBMIT
         </button>
 
     </div>
 
 
-    <div id="result" class="result"></div>
+    <div
+        id="result"
+        class="result"
+    ></div>
 
 
     <button
@@ -480,6 +904,7 @@ button{
         START CHALLENGE
     </button>
 
+
     <button
         class="restart-btn"
         onclick="restartGame()"
@@ -487,7 +912,11 @@ button{
         🔄 Restart
     </button>
 
-    <p class="info" id="modeInfo">
+
+    <p
+        class="info"
+        id="modeInfo"
+    >
         Classic Mode
     </p>
 
@@ -503,20 +932,26 @@ button{
 let mode = "classic";
 
 let level = 1;
+
 let score = 0;
+
 let lives = 3;
 
 let currentAnswer = "";
+
 let challengeType = "";
 
 let waitingForAnswer = false;
 
 let countdownTimer;
+
 let timerInterval;
 
 let soundEnabled = true;
 
-let best = Number(localStorage.getItem("mindMasterBest")) || 0;
+let best =
+    Number(localStorage.getItem("mindMasterBest")) || 0;
+
 
 document.getElementById("best").textContent = best;
 
@@ -525,20 +960,71 @@ document.getElementById("best").textContent = best;
    SCREEN CONTROL
 ========================================= */
 
-function showModes(){
+function hideAllScreens(){
 
-    document.getElementById("landing").classList.add("hidden");
+    document
+        .getElementById("landing")
+        .classList.add("hidden");
 
-    document.getElementById("modeScreen").classList.remove("hidden");
+    document
+        .getElementById("gameHub")
+        .classList.add("hidden");
+
+    document
+        .getElementById("modeScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("gameScreen")
+        .classList.add("hidden");
+
+}
+
+
+function showHub(){
+
+    hideAllScreens();
+
+    document
+        .getElementById("gameHub")
+        .classList.remove("hidden");
 
 }
 
 
 function backToLanding(){
 
-    document.getElementById("modeScreen").classList.add("hidden");
+    hideAllScreens();
 
-    document.getElementById("landing").classList.remove("hidden");
+    document
+        .getElementById("landing")
+        .classList.remove("hidden");
+
+}
+
+
+function backToHub(){
+
+    clearInterval(timerInterval);
+
+    clearInterval(countdownTimer);
+
+    hideAllScreens();
+
+    document
+        .getElementById("gameHub")
+        .classList.remove("hidden");
+
+}
+
+
+function openMemoryGame(){
+
+    hideAllScreens();
+
+    document
+        .getElementById("modeScreen")
+        .classList.remove("hidden");
 
 }
 
@@ -547,11 +1033,25 @@ function selectMode(selectedMode){
 
     mode = selectedMode;
 
-    document.getElementById("modeScreen").classList.add("hidden");
+    hideAllScreens();
 
-    document.getElementById("gameScreen").classList.remove("hidden");
+    document
+        .getElementById("gameScreen")
+        .classList.remove("hidden");
 
     resetGame();
+
+}
+
+
+function comingSoon(gameName){
+
+    alert(
+        "🔥 " +
+        gameName +
+        " is coming soon!\n\n" +
+        "We're building it into Mind Master next."
+    );
 
 }
 
@@ -568,11 +1068,15 @@ function getAudio(){
     if(!audioContext){
 
         audioContext =
-            new (window.AudioContext || window.webkitAudioContext)();
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
 
     }
 
     return audioContext;
+
 }
 
 
@@ -582,9 +1086,12 @@ function playSound(type){
 
     const audio = getAudio();
 
-    const oscillator = audio.createOscillator();
+    const oscillator =
+        audio.createOscillator();
 
-    const gain = audio.createGain();
+    const gain =
+        audio.createGain();
+
 
     oscillator.connect(gain);
 
@@ -616,16 +1123,23 @@ function playSound(type){
     }
 
 
-    gain.gain.setValueAtTime(.15,audio.currentTime);
+    gain.gain.setValueAtTime(
+        .15,
+        audio.currentTime
+    );
+
 
     gain.gain.exponentialRampToValueAtTime(
         .001,
         audio.currentTime + .3
     );
 
+
     oscillator.start();
 
-    oscillator.stop(audio.currentTime + .3);
+    oscillator.stop(
+        audio.currentTime + .3
+    );
 
 }
 
@@ -636,15 +1150,19 @@ function playSound(type){
 
 let musicTimer;
 
+
 function startMusic(){
 
     if(!soundEnabled) return;
 
     if(musicTimer) return;
 
+
     const audio = getAudio();
 
+
     const notes = [
+
         261.63,
         329.63,
         392.00,
@@ -653,44 +1171,69 @@ function startMusic(){
         349.23,
         440.00,
         349.23
+
     ];
+
 
     let index = 0;
 
-    musicTimer = setInterval(() => {
 
-        if(!soundEnabled) return;
+    musicTimer =
+        setInterval(() => {
 
-        const oscillator = audio.createOscillator();
+            if(!soundEnabled) return;
 
-        const gain = audio.createGain();
 
-        oscillator.connect(gain);
+            const oscillator =
+                audio.createOscillator();
 
-        gain.connect(audio.destination);
 
-        oscillator.frequency.value = notes[index];
+            const gain =
+                audio.createGain();
 
-        oscillator.type = "sine";
 
-        gain.gain.setValueAtTime(.025,audio.currentTime);
+            oscillator.connect(gain);
 
-        gain.gain.exponentialRampToValueAtTime(
-            .001,
-            audio.currentTime + .45
-        );
+            gain.connect(audio.destination);
 
-        oscillator.start();
 
-        oscillator.stop(audio.currentTime + .45);
+            oscillator.frequency.value =
+                notes[index];
 
-        index++;
 
-        if(index >= notes.length){
-            index = 0;
-        }
+            oscillator.type = "sine";
 
-    },600);
+
+            gain.gain.setValueAtTime(
+                .025,
+                audio.currentTime
+            );
+
+
+            gain.gain.exponentialRampToValueAtTime(
+                .001,
+                audio.currentTime + .45
+            );
+
+
+            oscillator.start();
+
+
+            oscillator.stop(
+                audio.currentTime + .45
+            );
+
+
+            index++;
+
+
+            if(index >= notes.length){
+
+                index = 0;
+
+            }
+
+        },600);
 
 }
 
@@ -708,8 +1251,10 @@ function toggleSound(){
 
     soundEnabled = !soundEnabled;
 
+
     const button =
         document.getElementById("soundButton");
+
 
     if(soundEnabled){
 
@@ -717,7 +1262,9 @@ function toggleSound(){
 
         startMusic();
 
-    }else{
+    }
+
+    else{
 
         button.textContent = "🔇";
 
@@ -735,18 +1282,15 @@ function toggleSound(){
 function chooseChallenge(){
 
     const types = [
+
         "number",
         "letters",
         "spelling",
         "scramble",
         "mixed"
+
     ];
 
-    /*
-      Make early levels easier.
-      More challenge types unlock as
-      the player progresses.
-    */
 
     if(level <= 2){
 
@@ -756,16 +1300,22 @@ function chooseChallenge(){
 
     }
 
+
     if(level <= 4){
 
         return types[
-            Math.floor(Math.random() * 3)
+            Math.floor(
+                Math.random() * 3
+            )
         ];
 
     }
 
+
     return types[
-        Math.floor(Math.random() * types.length)
+        Math.floor(
+            Math.random() * types.length
+        )
     ];
 
 }
@@ -819,11 +1369,19 @@ function randomNumber(length){
 
     let result = "";
 
-    for(let i = 0; i < length; i++){
 
-        result += Math.floor(Math.random() * 10);
+    for(
+        let i = 0;
+        i < length;
+        i++
+    ){
+
+        result += Math.floor(
+            Math.random() * 10
+        );
 
     }
+
 
     return result;
 
@@ -832,17 +1390,28 @@ function randomNumber(length){
 
 function randomLetters(length){
 
-    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabet =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 
     let result = "";
 
-    for(let i = 0; i < length; i++){
+
+    for(
+        let i = 0;
+        i < length;
+        i++
+    ){
 
         result += alphabet[
-            Math.floor(Math.random() * alphabet.length)
+            Math.floor(
+                Math.random() *
+                alphabet.length
+            )
         ];
 
     }
+
 
     return result;
 
@@ -851,17 +1420,33 @@ function randomLetters(length){
 
 function shuffleWord(word){
 
-    let letters = word.split("");
+    let letters =
+        word.split("");
 
-    for(let i = letters.length - 1; i > 0; i--){
+
+    for(
+        let i = letters.length - 1;
+        i > 0;
+        i--
+    ){
 
         const j =
-            Math.floor(Math.random() * (i + 1));
+            Math.floor(
+                Math.random() * (i + 1)
+            );
 
-        [letters[i],letters[j]] =
-            [letters[j],letters[i]];
+
+        [
+            letters[i],
+            letters[j]
+        ] =
+        [
+            letters[j],
+            letters[i]
+        ];
 
     }
+
 
     return letters.join("");
 
@@ -874,13 +1459,17 @@ function shuffleWord(word){
 
 function generateChallenge(){
 
-    challengeType = chooseChallenge();
+    challengeType =
+        chooseChallenge();
+
 
     const display =
         document.getElementById("sequence");
 
+
     const type =
         document.getElementById("challengeType");
+
 
     const instruction =
         document.getElementById("instruction");
@@ -891,19 +1480,30 @@ function generateChallenge(){
     if(challengeType === "number"){
 
         const length =
-            Math.min(4 + Math.floor(level / 2),12);
+            Math.min(
+                4 + Math.floor(level / 2),
+                12
+            );
+
 
         currentAnswer =
             randomNumber(length);
 
-        type.textContent = "🔢 NUMBER MEMORY";
+
+        type.textContent =
+            "🔢 NUMBER MEMORY";
+
 
         instruction.textContent =
             "Remember the numbers!";
 
-        display.className = "sequence";
 
-        display.textContent = currentAnswer;
+        display.className =
+            "sequence";
+
+
+        display.textContent =
+            currentAnswer;
 
     }
 
@@ -913,19 +1513,30 @@ function generateChallenge(){
     else if(challengeType === "letters"){
 
         const length =
-            Math.min(3 + Math.floor(level / 2),10);
+            Math.min(
+                3 + Math.floor(level / 2),
+                10
+            );
+
 
         currentAnswer =
             randomLetters(length);
 
-        type.textContent = "🔤 LETTER MEMORY";
+
+        type.textContent =
+            "🔤 LETTER MEMORY";
+
 
         instruction.textContent =
             "Remember the letters in order!";
 
-        display.className = "sequence";
 
-        display.textContent = currentAnswer;
+        display.className =
+            "sequence";
+
+
+        display.textContent =
+            currentAnswer;
 
     }
 
@@ -935,27 +1546,43 @@ function generateChallenge(){
     else if(challengeType === "spelling"){
 
         let available =
-            words.filter(word =>
-                word.length <= 4 + Math.floor(level / 2)
+            words.filter(
+                word =>
+                word.length <=
+                4 + Math.floor(level / 2)
             );
 
+
         if(available.length === 0){
+
             available = words;
+
         }
+
 
         currentAnswer =
             available[
-                Math.floor(Math.random() * available.length)
+                Math.floor(
+                    Math.random() *
+                    available.length
+                )
             ];
 
-        type.textContent = "📝 SPELL IT!";
+
+        type.textContent =
+            "📝 SPELL IT!";
+
 
         instruction.textContent =
             "Remember the word and spell it!";
 
-        display.className = "word-display";
 
-        display.textContent = currentAnswer;
+        display.className =
+            "word-display";
+
+
+        display.textContent =
+            currentAnswer;
 
     }
 
@@ -965,31 +1592,48 @@ function generateChallenge(){
     else if(challengeType === "scramble"){
 
         let available =
-            words.filter(word =>
+            words.filter(
+                word =>
                 word.length >= 4 &&
-                word.length <= 5 + Math.floor(level / 2)
+                word.length <=
+                5 + Math.floor(level / 2)
             );
 
+
         if(available.length === 0){
+
             available = words;
+
         }
+
 
         currentAnswer =
             available[
-                Math.floor(Math.random() * available.length)
+                Math.floor(
+                    Math.random() *
+                    available.length
+                )
             ];
+
 
         const scrambled =
             shuffleWord(currentAnswer);
 
-        type.textContent = "🧩 WORD MASTER";
+
+        type.textContent =
+            "🧩 WORD MASTER";
+
 
         instruction.textContent =
             "Rearrange the letters and form the correct word!";
 
-        display.className = "word-display";
 
-        display.textContent = scrambled;
+        display.className =
+            "word-display";
+
+
+        display.textContent =
+            scrambled;
 
     }
 
@@ -999,33 +1643,56 @@ function generateChallenge(){
     else if(challengeType === "mixed"){
 
         const number =
-            randomNumber(2 + Math.floor(level / 2));
+            randomNumber(
+                2 + Math.floor(level / 2)
+            );
+
 
         const letters =
-            randomLetters(2 + Math.floor(level / 2));
+            randomLetters(
+                2 + Math.floor(level / 2)
+            );
+
 
         let mixed = "";
 
-        for(let i = 0; i < number.length; i++){
+
+        for(
+            let i = 0;
+            i < number.length;
+            i++
+        ){
 
             mixed += number[i];
 
+
             if(letters[i]){
+
                 mixed += letters[i];
+
             }
 
         }
 
-        currentAnswer = mixed;
 
-        type.textContent = "🔀 MIXED MEMORY";
+        currentAnswer =
+            mixed;
+
+
+        type.textContent =
+            "🔀 MIXED MEMORY";
+
 
         instruction.textContent =
             "Remember the numbers and letters exactly!";
 
-        display.className = "sequence";
 
-        display.textContent = currentAnswer;
+        display.className =
+            "sequence";
+
+
+        display.textContent =
+            currentAnswer;
 
     }
 
@@ -1042,59 +1709,99 @@ function startRound(){
 
     clearInterval(countdownTimer);
 
-    document.getElementById("result").textContent = "";
 
-    document.getElementById("answerInput").value = "";
+    document
+        .getElementById("result")
+        .textContent = "";
 
-    document.getElementById("answerInput").disabled = true;
 
-    document.getElementById("startButton").disabled = true;
+    document
+        .getElementById("answerInput")
+        .value = "";
+
+
+    document
+        .getElementById("answerInput")
+        .disabled = true;
+
+
+    document
+        .getElementById("startButton")
+        .disabled = true;
+
 
     generateChallenge();
 
     startMusic();
 
+
     let displayTime;
+
 
     if(mode === "classic"){
 
         displayTime =
-            Math.max(1300,3200 - (level - 1) * 170);
+            Math.max(
+                1300,
+                3200 - (level - 1) * 170
+            );
 
     }
 
     else if(mode === "speed"){
 
         displayTime =
-            Math.max(700,2200 - (level - 1) * 130);
+            Math.max(
+                700,
+                2200 - (level - 1) * 130
+            );
 
     }
 
     else{
 
         displayTime =
-            Math.max(450,1500 - (level - 1) * 100);
+            Math.max(
+                450,
+                1500 - (level - 1) * 100
+            );
 
     }
 
 
-    document.getElementById("timerBar").style.width = "100%";
+    document
+        .getElementById("timerBar")
+        .style.width = "100%";
+
 
     setTimeout(() => {
 
-        document.getElementById("sequence").textContent =
-            "••••";
+        document
+            .getElementById("sequence")
+            .textContent = "••••";
 
-        document.getElementById("instruction").textContent =
+
+        document
+            .getElementById("instruction")
+            .textContent =
             "Now enter what you remember!";
 
-        document.getElementById("answerInput").disabled = false;
 
-        document.getElementById("answerInput").focus();
+        document
+            .getElementById("answerInput")
+            .disabled = false;
+
+
+        document
+            .getElementById("answerInput")
+            .focus();
+
 
         waitingForAnswer = true;
 
+
         startCountdown();
+
 
     },displayTime);
 
@@ -1109,60 +1816,82 @@ function startCountdown(){
 
     let totalTime;
 
+
     if(mode === "classic"){
 
         totalTime =
-            Math.max(5000,7000 - level * 150);
+            Math.max(
+                5000,
+                7000 - level * 150
+            );
 
     }
 
     else if(mode === "speed"){
 
         totalTime =
-            Math.max(2500,4500 - level * 120);
+            Math.max(
+                2500,
+                4500 - level * 120
+            );
 
     }
 
     else{
 
         totalTime =
-            Math.max(1200,2800 - level * 100);
+            Math.max(
+                1200,
+                2800 - level * 100
+            );
 
     }
 
 
-    const start = Date.now();
-
-    timerInterval = setInterval(() => {
-
-        const elapsed =
-            Date.now() - start;
-
-        const remaining =
-            Math.max(0,totalTime - elapsed);
-
-        const percentage =
-            (remaining / totalTime) * 100;
-
-        document.getElementById("timerBar").style.width =
-            percentage + "%";
+    const start =
+        Date.now();
 
 
-        if(remaining <= 0){
+    timerInterval =
+        setInterval(() => {
 
-            clearInterval(timerInterval);
+            const elapsed =
+                Date.now() - start;
 
-            if(waitingForAnswer){
 
-                waitingForAnswer = false;
+            const remaining =
+                Math.max(
+                    0,
+                    totalTime - elapsed
+                );
 
-                loseLife();
+
+            const percentage =
+                (remaining / totalTime) * 100;
+
+
+            document
+                .getElementById("timerBar")
+                .style.width =
+                percentage + "%";
+
+
+            if(remaining <= 0){
+
+                clearInterval(timerInterval);
+
+
+                if(waitingForAnswer){
+
+                    waitingForAnswer = false;
+
+                    loseLife();
+
+                }
 
             }
 
-        }
-
-    },50);
+        },50);
 
 }
 
@@ -1175,15 +1904,22 @@ function checkAnswer(){
 
     if(!waitingForAnswer) return;
 
+
     waitingForAnswer = false;
 
+
     clearInterval(timerInterval);
+
 
     const input =
         document.getElementById("answerInput");
 
+
     const userAnswer =
-        input.value.trim().toUpperCase();
+        input.value
+        .trim()
+        .toUpperCase();
+
 
     input.disabled = true;
 
@@ -1192,26 +1928,40 @@ function checkAnswer(){
 
         playSound("correct");
 
+
         let multiplier = 1;
 
+
         if(mode === "speed"){
+
             multiplier = 2;
+
         }
+
 
         if(mode === "impossible"){
+
             multiplier = 3;
+
         }
 
+
         const points =
-            (10 + level * 2) * multiplier;
+            (10 + level * 2) *
+            multiplier;
+
 
         score += points;
 
-        document.getElementById("score").textContent =
-            score;
+
+        document
+            .getElementById("score")
+            .textContent = score;
 
 
-        document.getElementById("result").innerHTML =
+        document
+            .getElementById("result")
+            .innerHTML =
             `<span class="correct">
                 ✅ CORRECT! +${points} points
             </span>`;
@@ -1221,12 +1971,16 @@ function checkAnswer(){
 
             best = score;
 
+
             localStorage.setItem(
                 "mindMasterBest",
                 best
             );
 
-            document.getElementById("best").textContent =
+
+            document
+                .getElementById("best")
+                .textContent =
                 best;
 
         }
@@ -1234,10 +1988,15 @@ function checkAnswer(){
 
         level++;
 
-        document.getElementById("level").textContent =
+
+        document
+            .getElementById("level")
+            .textContent =
             level;
 
+
         playSound("level");
+
 
         setTimeout(() => {
 
@@ -1247,14 +2006,19 @@ function checkAnswer(){
 
     }
 
+
     else{
 
-        document.getElementById("result").innerHTML =
+        document
+            .getElementById("result")
+            .innerHTML =
             `<span class="wrong">
                 ❌ WRONG! Correct answer: ${currentAnswer}
             </span>`;
 
+
         playSound("wrong");
+
 
         loseLife();
 
@@ -1273,9 +2037,14 @@ function loseLife(){
 
     updateLives();
 
+
     waitingForAnswer = false;
 
-    document.getElementById("answerInput").disabled = true;
+
+    document
+        .getElementById("answerInput")
+        .disabled = true;
+
 
     if(lives <= 0){
 
@@ -1286,7 +2055,9 @@ function loseLife(){
     }
 
 
-    document.getElementById("result").innerHTML =
+    document
+        .getElementById("result")
+        .innerHTML =
         `<span class="wrong">
             ❤️ Life lost!
         </span>`;
@@ -1309,11 +2080,17 @@ function updateLives(){
 
     let hearts = "";
 
-    for(let i = 0; i < lives; i++){
+
+    for(
+        let i = 0;
+        i < lives;
+        i++
+    ){
 
         hearts += "❤️";
 
     }
+
 
     if(lives === 0){
 
@@ -1321,7 +2098,10 @@ function updateLives(){
 
     }
 
-    document.getElementById("lives").textContent =
+
+    document
+        .getElementById("lives")
+        .textContent =
         hearts;
 
 }
@@ -1337,25 +2117,43 @@ function endGame(){
 
     clearInterval(countdownTimer);
 
+
     waitingForAnswer = false;
 
-    document.getElementById("answerInput").disabled = true;
 
-    document.getElementById("startButton").disabled = false;
+    document
+        .getElementById("answerInput")
+        .disabled = true;
 
-    document.getElementById("startButton").textContent =
+
+    document
+        .getElementById("startButton")
+        .disabled = false;
+
+
+    document
+        .getElementById("startButton")
+        .textContent =
         "PLAY AGAIN 🎮";
 
 
-    document.getElementById("result").innerHTML =
-
+    document
+        .getElementById("result")
+        .innerHTML =
         `<span class="wrong">
+
             💀 GAME OVER!
+
             <br>
+
             Final Score: ${score}
+
             <br>
+
             Level Reached: ${level}
+
         </span>`;
+
 
     playSound("wrong");
 
@@ -1372,58 +2170,98 @@ function resetGame(){
 
     clearInterval(countdownTimer);
 
+
     level = 1;
 
     score = 0;
+
 
     if(mode === "impossible"){
 
         lives = 1;
 
-    }else{
+    }
+
+    else{
 
         lives = 3;
 
     }
+
 
     currentAnswer = "";
 
     waitingForAnswer = false;
 
 
-    document.getElementById("level").textContent =
+    document
+        .getElementById("level")
+        .textContent =
         level;
 
-    document.getElementById("score").textContent =
+
+    document
+        .getElementById("score")
+        .textContent =
         score;
 
-    document.getElementById("best").textContent =
+
+    document
+        .getElementById("best")
+        .textContent =
         best;
+
 
     updateLives();
 
 
-    document.getElementById("sequence").textContent =
+    document
+        .getElementById("sequence")
+        .textContent =
         "READY?";
 
-    document.getElementById("challengeType").textContent =
+
+    document
+        .getElementById("challengeType")
+        .textContent =
         "🧠 GET READY";
 
-    document.getElementById("instruction").textContent =
+
+    document
+        .getElementById("instruction")
+        .textContent =
         "Press START to begin.";
 
-    document.getElementById("result").textContent = "";
 
-    document.getElementById("answerInput").value = "";
+    document
+        .getElementById("result")
+        .textContent = "";
 
-    document.getElementById("answerInput").disabled = true;
 
-    document.getElementById("startButton").disabled = false;
+    document
+        .getElementById("answerInput")
+        .value = "";
 
-    document.getElementById("startButton").textContent =
+
+    document
+        .getElementById("answerInput")
+        .disabled = true;
+
+
+    document
+        .getElementById("startButton")
+        .disabled = false;
+
+
+    document
+        .getElementById("startButton")
+        .textContent =
         "START CHALLENGE";
 
-    document.getElementById("timerBar").style.width =
+
+    document
+        .getElementById("timerBar")
+        .style.width =
         "100%";
 
 
@@ -1431,7 +2269,10 @@ function resetGame(){
         mode.charAt(0).toUpperCase() +
         mode.slice(1);
 
-    document.getElementById("modeInfo").textContent =
+
+    document
+        .getElementById("modeInfo")
+        .textContent =
         modeName + " Mode";
 
 }
@@ -1452,16 +2293,20 @@ function restartGame(){
    ENTER KEY
 ========================================= */
 
-document.getElementById("answerInput")
-    .addEventListener("keydown",function(event){
+document
+    .getElementById("answerInput")
+    .addEventListener(
+        "keydown",
+        function(event){
 
-        if(event.key === "Enter"){
+            if(event.key === "Enter"){
 
-            checkAnswer();
+                checkAnswer();
+
+            }
 
         }
-
-    });
+    );
 
 
 /* =========================================
