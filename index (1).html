@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#140a30"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Mind Master"><meta name="description" content="Mind Master - challenge your memory, reaction speed and brain power.">
+<title>Mind Master 🧠🎮</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Arial,sans-serif;min-height:100vh;color:#fff;overflow-x:hidden;background:radial-gradient(circle at 15% 0,#7b2cff55,transparent 45%),radial-gradient(circle at 90% 30%,#ff2ca855,transparent 40%),radial-gradient(circle at 40% 100%,#00eaff44,transparent 45%),#140a30}
+button{border:0;cursor:pointer;font:inherit;font-weight:700;color:#fff}
+.screen{display:none;min-height:100vh;padding:26px 14px}.screen.active{display:block}
+.logo{font-size:68px;text-align:center;margin-top:20px}
+h1{text-align:center;font-size:clamp(2.2rem,9vw,3.2rem);margin:6px 0;letter-spacing:2px;background:linear-gradient(90deg,#00eaff,#7cff00,#ffd700,#ff2ca8) text;-webkit-background-clip:text;color:transparent}
+.sub{color:#d6cdf0;text-align:center;margin-bottom:22px}
+.card{width:min(520px,96%);margin:22px auto;padding:24px;border-radius:26px;background:#ffffff14;border:1px solid #ffffff26;box-shadow:0 20px 60px #0006;backdrop-filter:blur(14px)}
+.main{display:block;width:100%;padding:16px;margin:10px 0;border-radius:16px;font-size:1.05rem;background:linear-gradient(90deg,#ff2ca8,#7b2cff);box-shadow:0 8px 22px #ff2ca844}
+.main.alt{background:linear-gradient(90deg,#00b4ff,#00e6a8);color:#04241f}
+.main:active,.back:active,.gc:active,.choice:active{transform:scale(.96)}
+.back{display:block;margin:18px auto 0;padding:13px 22px;border-radius:14px;background:#ffffff22}
+.sound{position:fixed;right:12px;top:12px;z-index:9;padding:9px 14px;border-radius:30px;background:#ffffff22;border:1px solid #ffffff33;font-size:.85rem}
+.stats{width:min(520px,96%);margin:14px auto;display:flex;gap:8px;text-align:center}
+.stat{flex:1;padding:10px;border-radius:16px;background:#ffffff14;font-size:.75rem;letter-spacing:1px}
+.stat span{display:block;font-size:1.35rem;margin-bottom:2px;color:#ffd700}
+.grid{width:min(660px,96%);margin:18px auto;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gc{min-height:165px;padding:20px 14px;border-radius:24px;text-align:left;background:linear-gradient(145deg,var(--a),var(--b));box-shadow:0 10px 26px #0005}
+.gc:last-child{grid-column:1/-1;min-height:120px}
+.gc i{font-style:normal;font-size:42px;display:block;margin-bottom:6px}.gc h3{font-size:1.1rem}.gc p{font-size:.8rem;margin-top:6px;font-weight:400;opacity:.92}
+.big{text-align:center;font-size:clamp(2rem,11vw,3rem);font-weight:800;letter-spacing:4px;color:#00eaff;margin:18px 0;word-break:break-all}
+.timer{text-align:center;font-size:2.6rem;color:#ffd700;font-weight:800;margin:14px}
+.inp{width:100%;padding:15px;border:0;border-radius:14px;font-size:1.4rem;text-align:center;margin:10px 0;color:#140a30}
+.choices{width:min(450px,100%);margin:16px auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{padding:20px;border-radius:16px;font-size:1.4rem;background:linear-gradient(145deg,#7b2cff,#ff2ca8)}
+.choice:nth-child(2){background:linear-gradient(145deg,#00b4ff,#7b2cff)}.choice:nth-child(3){background:linear-gradient(145deg,#ff8a00,#ff2ca8)}.choice:nth-child(4){background:linear-gradient(145deg,#00c98a,#00b4ff)}
+.pg{width:min(330px,90%);margin:22px auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pc{aspect-ratio:1;border-radius:14px;background:#2a1a5e;border:2px solid #ffffff22}
+.pc.lit{background:#00eaff;box-shadow:0 0 26px #00eaff}.pc.sel{background:#7cff00;box-shadow:0 0 18px #7cff00}.pc.bad{background:#ff3d6a}
+.react{width:min(450px,95%);height:270px;margin:22px auto;border-radius:26px;background:#c4182a;display:flex;align-items:center;justify-content:center;font-size:1.7rem;font-weight:800;user-select:none;text-align:center;padding:10px}
+.react.go{background:#1fbf5f;box-shadow:0 0 36px #1fbf5fb0}
+.dg{width:min(360px,92%);margin:22px auto;display:grid;gap:8px}.dc{aspect-ratio:1;border-radius:11px;border:0}
+.msg{min-height:30px;margin:10px;text-align:center;font-weight:700}.ok{color:#7cff00}.no{color:#ff6b86}
+.final{text-align:center;font-size:4.2rem;color:#ffd700;font-weight:800;margin:10px}
+.hs div{display:flex;justify-content:space-between;padding:13px;margin:7px 0;border-radius:12px;background:#ffffff14}
+.hs div:nth-child(1){background:linear-gradient(90deg,#ffd70055,#ff8a0033)}
+.foot{text-align:center;color:#9d90c4;font-size:.75rem;margin-top:26px}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.gc:last-child{grid-column:auto}}
+</style></head><body>
+<button class="sound" id="soundBtn">🔊 Sound ON</button>
+
+<section id="start" class="screen active">
+ <div class="logo">🧠🎮</div><h1>MIND MASTER</h1><p class="sub">Train your brain. Beat your score.</p>
+ <button class="main" id="installBtn" style="display:none;width:min(520px,96%);margin:10px auto;background:linear-gradient(90deg,#ff8a00,#ff2ca8)">📲 INSTALL MIND MASTER</button>
+ <p class="sub" id="iosTip" style="display:none">On iPhone: tap Share, then "Add to Home Screen".</p>
+ <div class="card"><h2 style="margin-bottom:8px">🔥 Welcome!</h2><p class="sub" style="margin-bottom:14px">Test memory, speed, focus and reaction.</p>
+  <button class="main" onclick="show('hub')">🚀 START GAME</button>
+  <button class="main alt" onclick="showScores()">🏆 HIGH SCORES</button></div>
+ <div class="foot">Mind Master 🧠🎮</div>
+</section>
+
+<section id="hub" class="screen">
+ <h1>MIND MASTER</h1><p class="sub">Choose your challenge</p>
+ <div class="stats"><div class="stat"><span id="hScore">0</span>SCORE</div><div class="stat"><span id="hLives">❤️❤️❤️</span>LIVES</div></div>
+ <div class="grid">
+  <button class="gc" style="--a:#7b2cff;--b:#ff2ca8" onclick="play('mem')"><i>🔢</i><h3>Memory Numbers</h3><p>Remember the number before it disappears.</p></button>
+  <button class="gc" style="--a:#00b4ff;--b:#7b2cff" onclick="play('seq')"><i>🧮</i><h3>Number Sequence</h3><p>Find the missing number.</p></button>
+  <button class="gc" style="--a:#00c98a;--b:#00b4ff" onclick="play('pat')"><i>🧩</i><h3>Pattern Memory</h3><p>Remember the glowing pattern.</p></button>
+  <button class="gc" style="--a:#ff8a00;--b:#ff2ca8" onclick="play('rea')"><i>⚡</i><h3>Quick Reaction</h3><p>Tap as quickly as possible.</p></button>
+  <button class="gc" style="--a:#ffd700;--b:#ff8a00;color:#3a1d00" onclick="play('dif')"><i>🎯</i><h3>Find Different</h3><p>Find the different tile.</p></button>
+ </div>
+ <button class="back" onclick="show('start')">🏠 Home</button>
+</section>
+
+<section id="game" class="screen">
+ <div class="stats"><div class="stat"><span id="score">0</span>SCORE</div><div class="stat"><span id="round">1</span>ROUND</div><div class="stat"><span id="lives">❤️❤️❤️</span>LIVES</div></div>
+ <div id="content"></div>
+ <button class="back" onclick="leave()">⬅️ Game Menu</button>
+</section>
+
+<section id="scores" class="screen">
+ <div class="logo">🏆</div><h1>HIGH SCORES</h1>
+ <div class="card hs" id="hsList"></div>
+ <button class="main" style="width:min(520px,96%);margin:auto" onclick="show('start')">🏠 HOME</button>
+</section>
+
+<script>
+const $=id=>document.getElementById(id);
+let score=0,lives=3,round=1,cur=null,timers=[],snd=true,busy=false;
+try{snd=localStorage.getItem('mmSound')!=='off'}catch(e){}
+const T=(f,ms)=>{const t=setTimeout(f,ms);timers.push(t);return t};
+const clr=()=>{timers.forEach(clearTimeout);timers=[]};
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+let ac;function beep(f,d=.12,type='sine'){if(!snd)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.15,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+const good=()=>{beep(660,.1);setTimeout(()=>beep(880,.15),110)},bad=()=>beep(150,.35,'sawtooth');
+function sndLabel(){$('soundBtn').textContent=snd?'🔊 Sound ON':'🔇 Sound OFF'}sndLabel();
+$('soundBtn').onclick=()=>{snd=!snd;sndLabel();try{localStorage.setItem('mmSound',snd?'on':'off')}catch(e){}if(snd)beep(520)};
+function show(id){clr();document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');if(id==='hub')hud();window.scrollTo(0,0)}
+function hearts(){return lives>0?'❤️'.repeat(lives):'💔'}
+function hud(){$('hScore').textContent=score;$('hLives').textContent=hearts();$('score').textContent=score;$('round').textContent=round;$('lives').textContent=hearts()}
+function msg(t,c){const m=$('msg');if(m){m.textContent=t;m.className='msg '+c}}
+function getHS(){try{return JSON.parse(localStorage.getItem('mmScores')||'[]')}catch(e){return[]}}
+function saveHS(){if(score<=0)return;const l=getHS();l.push({s:score,d:new Date().toLocaleDateString()});l.sort((a,b)=>b.s-a.s);try{localStorage.setItem('mmScores',JSON.stringify(l.slice(0,8)))}catch(e){}}
+function showScores(){const l=getHS();$('hsList').innerHTML=l.length?l.map((x,i)=>`<div><b>${['🥇','🥈','🥉'][i]||'#'+(i+1)}</b><span>${x.s} pts</span><span style="opacity:.6">${x.d}</span></div>`).join(''):'<p class="sub" style="margin:0">No scores yet. Play a game!</p>';show('scores')}
+function play(g){cur=g;if(lives<=0){score=0;lives=3}round=1;show('game');hud();next()}
+function leave(){clr();if(score>0&&lives>0){}show('hub')}
+function next(){clr();busy=false;hud();({mem,seq,pat,rea,dif})[cur]()}
+function result(ok,again,extra=''){hud();if(ok){good();msg('✅ Correct! '+extra,'ok');round++;hud();T(next,1000)}else{bad();lives--;hud();if(lives<=0){T(over,900);msg('❌ Wrong! '+extra,'no')}else{msg('❌ Wrong! '+extra,'no');T(next,1200)}}}
+function over(){clr();saveHS();const best=getHS()[0];$('content').innerHTML=`<div class="card" style="text-align:center"><div class="logo" style="margin:0">💥</div><h2>Game Over</h2><div class="final">${score}</div><p class="sub">${best&&best.s===score?'🏆 New best score!':'Best: '+(best?best.s:0)}</p><button class="main" onclick="play(cur)">🔄 PLAY AGAIN</button><button class="main alt" onclick="leave()">🎮 Choose another game</button></div>`;score=0;lives=3;round=1}
+/* 1 memory numbers */
+function mem(){const n=Math.min(2+round,10);let num='';for(let i=0;i<n;i++)num+=rnd(i?0:1,9);
+ $('content').innerHTML=`<div class="card"><p class="sub">Memorize this number</p><div class="big">${num}</div></div><div class="msg" id="msg"></div>`;
+ T(()=>{$('content').innerHTML=`<div class="card"><p class="sub">What was the number?</p><input class="inp" id="a" inputmode="numeric" autocomplete="off"><button class="main" id="ok">✔ CHECK</button></div><div class="msg" id="msg"></div>`;const a=$('a');a.focus();const go=()=>{if(busy||!a.value)return;busy=true;const r=a.value.trim()===num;if(r)score+=n*10;result(r,0,r?'+'+n*10:'It was '+num)};$('ok').onclick=go;a.onkeydown=e=>{if(e.key==='Enter')go()}},900+n*450)}
+/* 2 sequence */
+function seq(){const len=5,step=rnd(2,3+round),st=rnd(1,10),mul=round>3&&Math.random()<.4,r=mul?rnd(2,3):0;let a=[];for(let i=0;i<len;i++)a.push(mul?st*Math.pow(r,i):st+step*i);
+ const h=rnd(1,len-2),ans=a[h];let ch=new Set([ans]);while(ch.size<4){const v=ans+rnd(-6,6)*(mul?Math.max(1,r):1);if(v>0&&v!==ans)ch.add(v)}ch=[...ch].sort(()=>Math.random()-.5);
+ $('content').innerHTML=`<div class="card"><p class="sub">Find the missing number</p><div class="big">${a.map((x,i)=>i===h?'?':x).join(', ')}</div></div><div class="choices">${ch.map(c=>`<button class="choice" data-v="${c}">${c}</button>`).join('')}</div><div class="msg" id="msg"></div>`;
+ document.querySelectorAll('.choice').forEach(b=>b.onclick=()=>{if(busy)return;busy=true;const r=+b.dataset.v===ans;if(r)score+=15;result(r,0,r?'+15':'Answer: '+ans)})}
+/* 3 pattern */
+function pat(){const n=Math.min(2+Math.ceil(round/2),7),set=new Set();while(set.size<n)set.add(rnd(0,8));let picked=[],input=false;
+ $('content').innerHTML=`<p class="sub">Watch the glowing pattern</p><div class="pg">${[...Array(9)].map((_,i)=>`<div class="pc" data-i="${i}"></div>`).join('')}</div><div class="msg" id="msg"></div>`;
+ const cells=[...document.querySelectorAll('.pc')];[...set].forEach(i=>cells[i].classList.add('lit'));
+ T(()=>{cells.forEach(c=>c.classList.remove('lit'));input=true;$('content').querySelector('.sub').textContent='Tap the cells that glowed';},1000+n*400);
+ cells.forEach((c,i)=>c.onclick=()=>{if(!input||busy||picked.includes(i))return;picked.push(i);beep(440+i*40,.08);if(!set.has(i)){busy=true;c.classList.add('bad');[...set].forEach(k=>cells[k].classList.add('lit'));return result(false,0,'')}c.classList.add('sel');if(picked.length===n){busy=true;score+=n*10;result(true,0,'+'+n*10)}})}
+/* 4 reaction */
+function rea(){$('content').innerHTML=`<div class="react" id="box">Wait for green...</div><div class="msg" id="msg"></div>`;const b=$('box');let go=false,t0=0,done=false;
+ const t=T(()=>{go=true;t0=performance.now();b.classList.add('go');b.textContent='TAP NOW!';beep(700,.08)},rnd(1200,3200));
+ b.onpointerdown=()=>{if(done)return;done=true;busy=true;if(!go){clearTimeout(t);b.textContent='Too early!';result(false,0,'Wait for green')}else{const ms=Math.round(performance.now()-t0);const pts=Math.max(5,Math.round((600-ms)/6));score+=pts;b.textContent=ms+' ms';result(true,0,`${ms} ms, +${pts}`)}}}
+/* 5 different */
+function dif(){const s=Math.min(3+Math.floor(round/2),7),tot=s*s,odd=rnd(0,tot-1),h=rnd(0,359),d=Math.max(5,26-round*3);
+ $('content').innerHTML=`<p class="sub">Tap the tile that looks different</p><div class="dg" style="grid-template-columns:repeat(${s},1fr)">${[...Array(tot)].map((_,i)=>`<button class="dc" data-i="${i}" style="background:hsl(${h} 75% ${i===odd?(55+d):55}%)"></button>`).join('')}</div><div class="msg" id="msg"></div>`;
+ document.querySelectorAll('.dc').forEach(c=>c.onclick=()=>{if(busy)return;busy=true;const r=+c.dataset.i===odd;if(r)score+=10+s;else document.querySelector(`.dc[data-i="${odd}"]`).style.outline='4px solid #fff';result(r,0,r?'+'+(10+s):'')})}
+
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+let dp;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;$('installBtn').style.display='block'});
+$('installBtn').onclick=async()=>{if(!dp)return;dp.prompt();await dp.userChoice;dp=null;$('installBtn').style.display='none'};
+addEventListener('appinstalled',()=>{$('installBtn').style.display='none'});
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!navigator.standalone)$('iosTip').style.display='block';
+</script></body></html>
